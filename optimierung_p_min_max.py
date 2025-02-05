@@ -274,7 +274,6 @@ def modellierung_p_max_min(szenario):
     df_lkw_lastgang.sort_values(by=['Ladestrategie','LKW_ID', 'Zeit'], inplace=True)
     df_lastgang.to_csv(os.path.join(path, 'data', 'lastgang', f'lastgang_{szenario}.csv'), sep=';', decimal=',', index=False) 
     df_lkw_lastgang.to_csv(os.path.join(path, 'data', 'lastgang_lkw', f'lastgang_lkw_{szenario}.csv'), sep=';', decimal=',', index=False)
-    print(df_lkw_lastgang)
     return None
 
 def main():

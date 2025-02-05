@@ -153,11 +153,8 @@ def berechne_MPFI_APFI(szenario):
     df_lastgang_p_max = df_lastgang[df_lastgang['Ladestrategie'] == 'p_max']
      
     df_time = df_lastgang_p_max.groupby('Zeit')['Leistung_Total'].sum().reset_index()
-    print(df_time)
-    print(df_time['Leistung_Total'].max())
     df_time['Tag'] = df_time['Zeit'] // 1440 + 1
     df_max = df_time.groupby('Tag')['Leistung_Total'].max().reset_index()
-    print(df_max)
     p_max = df_max['Leistung_Total'].mean()
     
     df_lastgang_not_zero = df_lastgang_p_max[df_lastgang_p_max['Leistung_Max_Total'] != 0]
