@@ -117,7 +117,6 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
 
     for cluster_id in range(1, 4):  # Loop through clusters
         for day in range(7):  # Loop through days
-            print(day % 7)
             # anzahl_lkws = {
             #     pausentyp: df_ladevorgaenge_daily.loc[day % 7, f'Cluster_{cluster_id}_{pausentyp}']
             #     for pausentyp in config['pausentypen']

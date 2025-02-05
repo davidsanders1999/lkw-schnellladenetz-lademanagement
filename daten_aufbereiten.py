@@ -1,7 +1,6 @@
 import pandas as pd
 import os
-from openpyxl import load_workbook
-from openpyxl.styles import PatternFill, Font
+
 
 def ef_excel_szenario_vergleich():
     path_excel = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output', 'results.xlsx')
