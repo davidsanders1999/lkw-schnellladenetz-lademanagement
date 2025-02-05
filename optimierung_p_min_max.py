@@ -270,6 +270,10 @@ def modellierung_p_max_min(szenario):
             print(f"Keine optimale Lösung für {strategie} gefunden.")
     
     
+    # Create directories if they do not exist
+    os.makedirs(os.path.join(path, 'data', 'lastgang'), exist_ok=True)
+    os.makedirs(os.path.join(path, 'data', 'lastgang_lkw'), exist_ok=True)
+    
     df_lkw_lastgang = pd.DataFrame(dict_lkw_lastgang)
     df_lkw_lastgang.sort_values(by=['Ladestrategie','LKW_ID', 'Zeit'], inplace=True)
     df_lastgang.to_csv(os.path.join(path, 'data', 'lastgang', f'lastgang_{szenario}.csv'), sep=';', decimal=',', index=False) 

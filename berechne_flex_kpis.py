@@ -52,6 +52,7 @@ def berechne_ef(szenario):
     df_kombiniert[['Leistung_Total', 'Leistung_NCS', 'Leistung_HPC', 'Leistung_MCS']] /= 7
 
     # Speichere die Ergebnisse im Ausgabeverzeichnis
+    os.makedirs(ausgabe_pfad, exist_ok=True)
     ausgabe_datei = os.path.join(ausgabe_pfad, f'ef_{szenario}.csv')
     df_kombiniert.to_csv(ausgabe_datei, sep=';', decimal=',', index=False)
 
@@ -100,6 +101,7 @@ def berechne_ef_lang(szenario):
         df_kombiniert[leistung] = df_kumulative_differenz[leistung]
 
     # Speichere die Ergebnisse im Ausgabeverzeichnis
+    os.makedirs(ausgabe_pfad, exist_ok=True)
     ausgabe_datei = os.path.join(ausgabe_pfad, f'ef_lang_{szenario}.csv')
     df_kombiniert.to_csv(ausgabe_datei, sep=';', decimal=',', index=False)
 
@@ -120,6 +122,7 @@ def berechne_EFI(szenario):
     df_efi = pd.DataFrame(columns=['Szenario','EFI'])
     df_efi['Szenario'] = [szenario]
     df_efi['EFI'] = [EFI]
+    os.makedirs(ausgabe_pfad, exist_ok=True)
     df_efi.to_csv(os.path.join(ausgabe_pfad, f'efi_{szenario}.csv'), sep=';', decimal=',', index=False)
     return None
 
@@ -171,6 +174,7 @@ def berechne_MPFI_APFI(szenario):
     df_apfi_mpfi['MPFI'] = [MPFI]
     df_apfi_mpfi['APFI'] = [APFI]
     
+    os.makedirs(ausgabe_pfad, exist_ok=True)
     df_apfi_mpfi.to_csv(os.path.join(ausgabe_pfad, f'apfi_mpfi_{szenario}.csv'), sep=';', decimal=',', index=False)
     
     return None

@@ -7,7 +7,12 @@ import time
 
 def datenimport():
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
-    df_eingehende_lkws = pd.read_csv(os.path.join(path,'lkw_eingehend', 'eingehende_lkws_ladesaeule.csv'), sep=';', decimal=',', index_col=0)
+    if not os.path.exists(path):
+        os.makedirs(path)
+    lkw_path = os.path.join(path, 'lkw_eingehend')
+    if not os.path.exists(lkw_path):
+        os.makedirs(lkw_path)
+    df_eingehende_lkws = pd.read_csv(os.path.join(lkw_path, 'eingehende_lkws_ladesaeule.csv'), sep=';', decimal=',', index_col=0)
     return df_eingehende_lkws
 
 def build_flow_network(df_filter, anzahl_ladesaeulen):
@@ -174,15 +179,25 @@ def konfiguration_ladehub(df_eingehende_lkws, szenario):
     # Pfad für Dateien
     path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
     
+    # Verzeichnisse erstellen, falls sie nicht existieren
+    konfiguration_ladehub_path = os.path.join(path, 'konfiguration_ladehub')
+    lkws_path = os.path.join(path, 'lkws')
+    
+    if not os.path.exists(konfiguration_ladehub_path):
+        os.makedirs(konfiguration_ladehub_path)
+    
+    if not os.path.exists(lkws_path):
+        os.makedirs(lkws_path)
+
     # CSV: Anzahl Ladesäulen
     df_anzahl_ladesaeulen.to_csv(
-        os.path.join(path, 'konfiguration_ladehub', f'anzahl_ladesaeulen_{szenario}.csv'),
+        os.path.join(konfiguration_ladehub_path, f'anzahl_ladesaeulen_{szenario}.csv'),
         sep=';', decimal=','
     )
 
     # CSV: LKW mit LoadStatus
     df_eingehende_lkws_loadstatus.to_csv(
-        os.path.join(path, 'lkws', f'eingehende_lkws_loadstatus_{szenario}.csv'),
+        os.path.join(lkws_path, f'eingehende_lkws_loadstatus_{szenario}.csv'),
         sep=';', decimal=','
     )
     

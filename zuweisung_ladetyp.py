@@ -208,8 +208,13 @@ def finalize_and_export_data(df_lkws, config):
         origin='2021-01-01'
     )
     df_lkws['Ankunftszeit_total'] = df_lkws['Ankunftszeit'] + ((df_lkws['Wochentag'] - 1) * 1440)
+    # Ensure the directories exist
+    output_dir = os.path.join(config['path'], 'data', 'lkw_eingehend')
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Export the DataFrame to a CSV file
     df_lkws.to_csv(
-        os.path.join(config['path'], 'data', 'lkw_eingehend', 'eingehende_lkws_ladesaeule.csv'),
+        os.path.join(output_dir, 'eingehende_lkws_ladesaeule.csv'),
         sep=';', decimal=','
     )
 
