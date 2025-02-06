@@ -19,20 +19,7 @@ def modellierung_p_max_min(szenario):
     df_lkw  = pd.read_csv(os.path.join(path, 'data', 'lkws', f'eingehende_lkws_loadstatus_{szenario}.csv'), sep=';', decimal=',')
     df_lkw_filtered = df_lkw[(df_lkw['Cluster'] == cluster) & (df_lkw['LoadStatus'] == 1)][:].copy()
     df_ladehub = pd.read_csv(os.path.join(path, 'data','konfiguration_ladehub',f'anzahl_ladesaeulen_{szenario}.csv'), sep=';', decimal=',')
-    
-    # Datenstruktur für den Lastgang
-    # df_lastgang = pd.DataFrame({
-    #     'Zeit': [i for i in range(0, 11520, 5)] * 2,   # z.B. 8 Tage à 5-Min-Slots = 11520 Min
-    #     'Zeit_Time': [pd.Timestamp('2024-01-01 00:00:00') + pd.Timedelta(minutes=i) for i in range(0, 11520, 5)] * 2,
-    #     'Leistung_Total': [0] * 2304 * 2,
-    #     'Leistung_Max_Total': [0] * 2304 * 2,
-    #     'Leistung_NCS': [0] * 2304 * 2,
-    #     'Leistung_HPC': [0] * 2304 * 2,
-    #     'Leistung_MCS': [0] * 2304 * 2,
-    #     'Ladestrategie': ['p_max'] * 2304 + ['p_min'] * 2304,
-    #     'Netzanschluss': [0] * 2304 * 2,
-    #     'Ladequote': [0] * 2304 * 2
-    # })
+
     
     
     lastgang_dict = {}
@@ -114,7 +101,6 @@ def modellierung_p_max_min(szenario):
         for index, row in df_lkw_filtered.iterrows():
             if row['Ladesäule'] == 'NCS':
                 SOC_req.append(1)
-                # SOC_req.append(4.5 * 1.26 * 80 / row['Kapazitaet'] + 0.15)
             else:
                 SOC_req.append(4.5 * 1.26 * 80 / row['Kapazitaet'] + 0.15)
         
@@ -221,32 +207,6 @@ def modellierung_p_max_min(szenario):
         # 2.7) Ergebnisse in df_lastgang übernehmen
         # --------------------------------------------------
         if model.Status == GRB.OPTIMAL:
-            # print(f"Optimale Lösung für {strategie} gefunden.")
-            # for t in range(T):
-            #     sum_p_total = 0
-            #     sum_p_total_max = 0
-            #     sum_p_ncs = 0
-            #     sum_p_hpc = 0
-            #     sum_p_mcs = 0
-            #     for i in range(I):
-            #         if t_in[i] <= t <= t_out[i]:
-            #             sum_p_total += P[(i, t)].X
-            #             sum_p_total_max += ladeleistung[l[i]]
-            #             if l[i] == 'NCS':
-            #                 sum_p_ncs += P[(i, t)].X
-            #             elif l[i] == 'HPC':
-            #                 sum_p_hpc += P[(i, t)].X
-            #             elif l[i] == 'MCS':
-            #                 sum_p_mcs += P[(i, t)].X
-                    
-                            
-            #     df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Netzanschluss'] = netzanschluss    
-            #     df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_Total'] += sum_p_total
-            #     df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_NCS'] += sum_p_ncs
-            #     df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_HPC'] += sum_p_hpc
-            #     df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_MCS'] += sum_p_mcs
-            #     df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_Max_Total'] += sum_p_total_max
-        
             print(f"Optimale Lösung für {strategie} gefunden.")
             
             for i in range(I):

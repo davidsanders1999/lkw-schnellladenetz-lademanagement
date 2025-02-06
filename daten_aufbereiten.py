@@ -113,14 +113,15 @@ def ergebnisse_updaten():
             
     
     for file_name in os.listdir(path_lastgang):
-        df_lastgang = pd.read_csv(os.path.join(path_lastgang, file_name), sep=';', decimal=',')
-        print(df_lastgang)
-        ladequote = df_lastgang["Ladequote"].iloc[0]
-        
-        file_base_name = file_name.split(".")[0]
-        szenario = file_base_name.split("lastgang_", 1)[1]
-        szenario_name = szenario.split("_")[-1]
-        dict_results[szenario_name][13] = ladequote
+        if file_name.endswith(".csv"):
+            df_lastgang = pd.read_csv(os.path.join(path_lastgang, file_name), sep=';', decimal=',')
+            print(df_lastgang)
+            ladequote = df_lastgang["Ladequote"].iloc[0]
+            
+            file_base_name = file_name.split(".")[0]
+            szenario = file_base_name.split("lastgang_", 1)[1]
+            szenario_name = szenario.split("_")[-1]
+            dict_results[szenario_name][13] = ladequote
 
         
     
