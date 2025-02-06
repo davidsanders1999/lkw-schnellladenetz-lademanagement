@@ -90,6 +90,7 @@ def ergebnisse_updaten():
     path_apfi_mpfi = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'kpis', 'apfi_mpfi')
     path_efi = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'kpis', 'efi')
     path_ef = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'kpis', 'ef')
+    path_lastgang = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'lastgang')
     # df_results = pd.read_excel(path_results, sheet_name='Results')
     
     # df_results.drop(columns=['Szenario'], inplace=True)
@@ -108,9 +109,21 @@ def ergebnisse_updaten():
             szenario_name = szenario.split("_")[-1]
             szenario_nummer = int(szenario.split("_")[-2])
             
-            dict_results[szenario_name] = [szenario_nummer, None, None, None, None, None, None, None, apfi, None, mpfi, None]
+            dict_results[szenario_name] = [szenario_nummer, None, None, None, None, None, None, None, apfi, None, mpfi, None, None, None]
             
-            
+    
+    for file_name in os.listdir(path_lastgang):
+        df_lastgang = pd.read_csv(os.path.join(path_lastgang, file_name), sep=';', decimal=',')
+        print(df_lastgang)
+        ladequote = df_lastgang["Ladequote"].iloc[0]
+        
+        file_base_name = file_name.split(".")[0]
+        szenario = file_base_name.split("lastgang_", 1)[1]
+        szenario_name = szenario.split("_")[-1]
+        dict_results[szenario_name][13] = ladequote
+
+        
+    
     for file_name in os.listdir(path_efi):
         if file_name.endswith(".csv"):
             df_efi = pd.read_csv(os.path.join(path_efi, file_name), sep=';', decimal=',')
@@ -149,7 +162,9 @@ def ergebnisse_updaten():
         df_results.iloc[6, i] = efc / efc_base -1
         df_results.iloc[9, i] = apfi / apfi_base -1
         df_results.iloc[11, i] = mpfi / mpfi_base -1
-            
+    
+    
+    
     with pd.ExcelWriter(path_results, engine='openpyxl', mode='a', if_sheet_exists='overlay') as writer:
         df_results.to_excel(writer, sheet_name='Results', index=False, header=True, startrow=0, startcol=1)
     

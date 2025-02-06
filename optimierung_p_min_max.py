@@ -14,27 +14,48 @@ start = time.time()
 def modellierung_p_max_min(szenario):
     cluster = int(szenario.split('_')[1])
     bidirektional = False if szenario.split('_')[10] == 'M' else True
+    netzanschlusslimit = True if 'Netzanschluss' in szenario.split('_')[-1] else False
     path = os.path.dirname(os.path.abspath(__file__))
     df_lkw  = pd.read_csv(os.path.join(path, 'data', 'lkws', f'eingehende_lkws_loadstatus_{szenario}.csv'), sep=';', decimal=',')
-    # df_lkw_filtered = df_lkw[(df_lkw['Cluster'] == cluster) & (df_lkw['LoadStatus'] == 1) & (df_lkw['Ladesäule'] == 'MCS')][:1].copy()
     df_lkw_filtered = df_lkw[(df_lkw['Cluster'] == cluster) & (df_lkw['LoadStatus'] == 1)][:].copy()
     df_ladehub = pd.read_csv(os.path.join(path, 'data','konfiguration_ladehub',f'anzahl_ladesaeulen_{szenario}.csv'), sep=';', decimal=',')
-
-    # Datenstruktur für den Lastgang
-    df_lastgang = pd.DataFrame({
-        'Zeit': [i for i in range(0, 11520, 5)] * 2,   # z.B. 8 Tage à 5-Min-Slots = 11520 Min
-        'Leistung_Total': [0] * 2304 * 2,
-        'Leistung_Max_Total': [0] * 2304 * 2,
-        'Leistung_NCS': [0] * 2304 * 2,
-        'Leistung_HPC': [0] * 2304 * 2,
-        'Leistung_MCS': [0] * 2304 * 2,
-        'Ladestrategie': ['p_max'] * 2304 + ['p_min'] * 2304
-    })
     
-    df_lastgang['Leistung_Total'] = df_lastgang['Leistung_Total'].astype(float)
-    df_lastgang['Leistung_NCS'] = df_lastgang['Leistung_NCS'].astype(float)
-    df_lastgang['Leistung_HPC'] = df_lastgang['Leistung_HPC'].astype(float)
-    df_lastgang['Leistung_MCS'] = df_lastgang['Leistung_MCS'].astype(float)
+    # Datenstruktur für den Lastgang
+    # df_lastgang = pd.DataFrame({
+    #     'Zeit': [i for i in range(0, 11520, 5)] * 2,   # z.B. 8 Tage à 5-Min-Slots = 11520 Min
+    #     'Zeit_Time': [pd.Timestamp('2024-01-01 00:00:00') + pd.Timedelta(minutes=i) for i in range(0, 11520, 5)] * 2,
+    #     'Leistung_Total': [0] * 2304 * 2,
+    #     'Leistung_Max_Total': [0] * 2304 * 2,
+    #     'Leistung_NCS': [0] * 2304 * 2,
+    #     'Leistung_HPC': [0] * 2304 * 2,
+    #     'Leistung_MCS': [0] * 2304 * 2,
+    #     'Ladestrategie': ['p_max'] * 2304 + ['p_min'] * 2304,
+    #     'Netzanschluss': [0] * 2304 * 2,
+    #     'Ladequote': [0] * 2304 * 2
+    # })
+    
+    
+    lastgang_dict = {}
+
+    # Zwei Ladestrategien
+    ladestrategien = ['p_max', 'p_min']
+
+    for strategie in ladestrategien:
+        for t in range(0, 11520, 5):
+            # Verwende als Schlüssel das Tupel (Zeit, Ladestrategie)
+            key = (t, strategie)
+            lastgang_dict[key] = {
+                'Zeit': t,
+                'Zeit_Time': pd.Timestamp('2024-01-01 00:00:00') + pd.Timedelta(minutes=t),
+                'Leistung_Total': 0,
+                'Leistung_Max_Total': 0,
+                'Leistung_NCS': 0,
+                'Leistung_HPC': 0,
+                'Leistung_MCS': 0,
+                'Ladestrategie': strategie,
+                'Netzanschluss': 0,
+                'Ladequote': 0
+            }
     
     dict_lkw_lastgang = {
         'LKW_ID': [],
@@ -45,13 +66,13 @@ def modellierung_p_max_min(szenario):
         'Pplus': [],
         'Pminus': [],
         'SOC': [],
-        'X': [],
         'z': [],
         'Ladestrategie': []
     }
     
-    # Zwei Ladestrategien
-    ladestrategien = ['p_max', 'p_min']
+    list_volladungen = []
+        
+
 
     # Maximale Leistung pro Ladesäulen-Typ
     ladeleistung = {
@@ -66,8 +87,8 @@ def modellierung_p_max_min(szenario):
         'HPC': int(df_ladehub['HPC'][0]),
         'MCS': int(df_ladehub['MCS'][0])
     }
- 
-    netzanschlussfaktor = int(int(szenario.split('_')[5])/100)
+
+    netzanschlussfaktor = float(int(szenario.split('_')[5])/100)
     netzanschluss = (max_saeulen['NCS'] * ladeleistung['NCS'] + max_saeulen['HPC'] * ladeleistung['HPC'] + max_saeulen['MCS'] * ladeleistung['MCS']) * netzanschlussfaktor
 
     # Gesamter Zeit-Horizont (z.B. 8 Tage à 288 5-Min-Slots pro Tag)
@@ -115,7 +136,6 @@ def modellierung_p_max_min(szenario):
         P_max_i = {}
         SoC = {}
 
-        X = {}
         z = {}
         
         for i in range(I):
@@ -130,7 +150,6 @@ def modellierung_p_max_min(szenario):
                 Pminus[(i,t)] = model.addVar(lb = 0, vtype=GRB.CONTINUOUS)
                 P_max_i[(i,t)] = model.addVar(lb=0, vtype=GRB.CONTINUOUS, name=f"Pmax_{i}_{t}")
 
-                X[(i, t)] = model.addVar(vtype=GRB.BINARY)
                 z[(i,t)] = model.addVar(vtype=GRB.BINARY)
             
             for t in range(t_in[i], t_out[i] + 2):
@@ -138,21 +157,11 @@ def modellierung_p_max_min(szenario):
         
         # --------------------------------------------------
         # 2.5) Constraints
-        # --------------------------------------------------
-        
-        # Begrenzung Anzahl Ladesäulen
-        for i in range(I):
-            for t in range(t_in[i], t_out[i] + 1):
-                model.addConstr(X[(i,t)] == 1)
-        for t in range(T):
-            for typ in max_saeulen:
-                relevant_i = [i for i in range(I) if l[i] == typ and (t_in[i] <= t <= t_out[i])]
-                if len(relevant_i) > 0:
-                    model.addConstr(quicksum(X[(i, t)] for i in relevant_i) <= max_saeulen[typ],name=f"saeulen_{typ}_{t}")        
+        # --------------------------------------------------     
         
         # Energiebedarf je LKW decken
         for i in range(I):
-            model.addConstr(quicksum(P[(i, t)] * Delta_t for t in range(t_in[i], t_out[i] + 1)) == E_req[i])        
+            model.addConstr(quicksum(P[(i, t)] * Delta_t for t in range(t_in[i], t_out[i] + 1)) <= E_req[i])        
         
         # Leistungsbegrenzung Ladekurve
         for i in range(I):
@@ -160,17 +169,17 @@ def modellierung_p_max_min(szenario):
         for i in range(I):
             for t in range(t_in[i], t_out[i]+1):
                 model.addConstr(SoC[(i, t+1)] == SoC[(i, t)] + (P[(i, t)] * Delta_t / kapazitaet[i]))
-        xvals = [0.0, 0.5, 0.5, 0.8, 0.8, 1.0]
-        yvals = [1300, 1300, 1000, 1000, 500, 500]
-        for i in range(I):
-            for t in range(t_in[i], t_out[i] + 1):
-                model.addGenConstrPWL(SoC[(i, t)], P_max_i[(i, t)],xvals, yvals)
-        for i in range(I):
-            for t in range(t_in[i], t_out[i] + 1):
-                model.addConstr(Pplus[(i,t)] <= P_max_i[(i,t)] * z[(i,t)]) 
-                model.addConstr(Pminus[(i,t)] <= P_max_i[(i,t)] * (1-z[(i,t)]))
-                # model.addConstr(Pplus[(i,t)] <= 3000 * z[(i,t)])
-                # model.addConstr(Pminus[(i,t)] <= 3000 * (1-z[(i,t)]))
+        
+        if netzanschlusslimit == False: # Nur für unlimitierten Netzanschluss, da sonsti die Komplexität zu hoch wird
+            xvals = [0.0, 0.5, 0.5, 0.8, 0.8, 1.0]
+            yvals = [1300, 1300, 1000, 1000, 500, 500]
+            for i in range(I):
+                for t in range(t_in[i], t_out[i] + 1):
+                    model.addGenConstrPWL(SoC[(i, t)], P_max_i[(i, t)],xvals, yvals)
+            for i in range(I):
+                for t in range(t_in[i], t_out[i] + 1):
+                    model.addConstr(Pplus[(i,t)] <= P_max_i[(i,t)] * z[(i,t)]) 
+                    model.addConstr(Pminus[(i,t)] <= P_max_i[(i,t)] * (1-z[(i,t)]))
 
         # Leistungsbegrenzung Ladesäulen-Typ    
         for i in range(I):
@@ -179,8 +188,6 @@ def modellierung_p_max_min(szenario):
             for t in range(t_in[i], t_out[i] + 1):
                 model.addConstr(Pplus[(i,t)] <= z[(i,t)]     * P_max_l)
                 model.addConstr(Pminus[(i,t)] <= (1-z[(i,t)]) * P_max_l)
-                # model.addConstr(Pminus[(i,t)] <= (1-z[(i,t)]) * 3000)
-                # model.addConstr(Pplus[(i,t)] <= z[(i,t)] * 3000)
         
         # Leistungsbegrenzung Netzanschluss
         for t in range(T):
@@ -197,12 +204,12 @@ def modellierung_p_max_min(szenario):
         # --------------------------------------------------
         # 2.4) Zielfunktion
         # --------------------------------------------------
-        
-        obj_expr = quicksum((t * Pplus[(i, t)]) - (t * Pminus[(i, t)]) for i in range(I) for t in range(t_in[i], t_out[i] + 1))
-
         if strategie == 'p_max':
-            model.setObjective(obj_expr, GRB.MINIMIZE)
+            obj_expr = quicksum(((1/t) * (Pplus[(i, t)])) - (t * Pminus[(i, t)]) for i in range(I) for t in range(t_in[i], t_out[i] + 1))
+            # obj_expr = quicksum((t * (-Pplus[(i, t)])) for i in range(I) for t in range(t_in[i], t_out[i] + 1))
+            model.setObjective(obj_expr, GRB.MAXIMIZE)
         elif strategie == 'p_min':
+            obj_expr = quicksum((t * Pplus[(i, t)]) - (t * Pminus[(i, t)]) for i in range(I) for t in range(t_in[i], t_out[i] + 1))
             model.setObjective(obj_expr, GRB.MAXIMIZE)
         
         # --------------------------------------------------
@@ -214,14 +221,48 @@ def modellierung_p_max_min(szenario):
         # 2.7) Ergebnisse in df_lastgang übernehmen
         # --------------------------------------------------
         if model.Status == GRB.OPTIMAL:
+            # print(f"Optimale Lösung für {strategie} gefunden.")
+            # for t in range(T):
+            #     sum_p_total = 0
+            #     sum_p_total_max = 0
+            #     sum_p_ncs = 0
+            #     sum_p_hpc = 0
+            #     sum_p_mcs = 0
+            #     for i in range(I):
+            #         if t_in[i] <= t <= t_out[i]:
+            #             sum_p_total += P[(i, t)].X
+            #             sum_p_total_max += ladeleistung[l[i]]
+            #             if l[i] == 'NCS':
+            #                 sum_p_ncs += P[(i, t)].X
+            #             elif l[i] == 'HPC':
+            #                 sum_p_hpc += P[(i, t)].X
+            #             elif l[i] == 'MCS':
+            #                 sum_p_mcs += P[(i, t)].X
+                    
+                            
+            #     df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Netzanschluss'] = netzanschluss    
+            #     df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_Total'] += sum_p_total
+            #     df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_NCS'] += sum_p_ncs
+            #     df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_HPC'] += sum_p_hpc
+            #     df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_MCS'] += sum_p_mcs
+            #     df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_Max_Total'] += sum_p_total_max
+        
             print(f"Optimale Lösung für {strategie} gefunden.")
             
-            for t in range(T):
+            for i in range(I):
+                if (SoC[(i, t_out[i]+1)].X >= SOC_req[i]-0.01):
+                    list_volladungen.append(1)
+                else:
+                    list_volladungen.append(0)
+            
+            for t in range(T):  # T entspricht hier der Anzahl der Zeitschritte (z.B. 2304)
                 sum_p_total = 0
                 sum_p_total_max = 0
                 sum_p_ncs = 0
                 sum_p_hpc = 0
                 sum_p_mcs = 0
+                
+                # Summierung der Ladeleistungen über alle LKWs
                 for i in range(I):
                     if t_in[i] <= t <= t_out[i]:
                         sum_p_total += P[(i, t)].X
@@ -232,13 +273,19 @@ def modellierung_p_max_min(szenario):
                             sum_p_hpc += P[(i, t)].X
                         elif l[i] == 'MCS':
                             sum_p_mcs += P[(i, t)].X
-                    
-                df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_Total'] += sum_p_total
-                df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_NCS'] += sum_p_ncs
-                df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_HPC'] += sum_p_hpc
-                df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_MCS'] += sum_p_mcs
-                df_lastgang.loc[(df_lastgang['Zeit'] == t*5) & (df_lastgang['Ladestrategie'] == strategie),'Leistung_Max_Total'] += sum_p_total_max
-                    
+                
+                # Beachte: Im Dictionary ist 'Zeit' in Minuten gespeichert, daher verwenden wir t*5
+                key = (t*5, strategie)
+                lastgang_dict[key]['Netzanschluss'] = netzanschluss
+                lastgang_dict[key]['Leistung_Total'] += sum_p_total
+                lastgang_dict[key]['Leistung_Max_Total'] += sum_p_total_max
+                lastgang_dict[key]['Leistung_NCS'] += sum_p_ncs
+                lastgang_dict[key]['Leistung_HPC'] += sum_p_hpc
+                lastgang_dict[key]['Leistung_MCS'] += sum_p_mcs
+                lastgang_dict[key]['Ladequote'] = sum(list_volladungen)/len(list_volladungen)
+
+            
+            
             for i in range(I):
                 t_charging = 0
                 for t in range(T):   
@@ -254,18 +301,20 @@ def modellierung_p_max_min(szenario):
                             dict_lkw_lastgang['Pplus'].append(None)
                             dict_lkw_lastgang['Pminus'].append(None)
                             dict_lkw_lastgang['SOC'].append(SoC[(i, t_out[i]+1)].X)
-                            dict_lkw_lastgang['X'].append(None)
                             dict_lkw_lastgang['z'].append(None)
                             continue
                         else:                        
-                            dict_lkw_lastgang['X'].append(X[(i, t)].X)
                             dict_lkw_lastgang['z'].append(z[(i, t)].X)
                             dict_lkw_lastgang['Pplus'].append(Pplus[(i, t)].X)
                             dict_lkw_lastgang['Pminus'].append(Pminus[(i, t)].X)
                             dict_lkw_lastgang['Leistung'].append(P[(i, t)].X)
                             dict_lkw_lastgang['SOC'].append(SoC[(i, t)].X)
-                        
-                           
+            
+            
+            
+            print(f"Ladequote: {sum(list_volladungen)/len(list_volladungen)}")
+            print(f"Geladene Energie:: {sum(P[(i, t)].X for i in range(I) for t in range(t_in[i], t_out[i] + 1))}")
+                    
         else:
             print(f"Keine optimale Lösung für {strategie} gefunden.")
     
@@ -276,12 +325,13 @@ def modellierung_p_max_min(szenario):
     
     df_lkw_lastgang = pd.DataFrame(dict_lkw_lastgang)
     df_lkw_lastgang.sort_values(by=['Ladestrategie','LKW_ID', 'Zeit'], inplace=True)
+    
+    df_lastgang = pd.DataFrame(list(lastgang_dict.values()))                        
     df_lastgang.to_csv(os.path.join(path, 'data', 'lastgang', f'lastgang_{szenario}.csv'), sep=';', decimal=',', index=False) 
     df_lkw_lastgang.to_csv(os.path.join(path, 'data', 'lastgang_lkw', f'lastgang_lkw_{szenario}.csv'), sep=';', decimal=',', index=False)
     return None
 
 def main():
-    
     for szenario in config.list_szenarien:
         print(f"Optimierung P_max/P_min: {szenario}")
         modellierung_p_max_min(szenario)        
