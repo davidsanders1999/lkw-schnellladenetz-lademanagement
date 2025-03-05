@@ -97,13 +97,14 @@ def modellierung_p_max_min(szenario):
         SOC_A = df_lkw_filtered['SOC'].tolist()
         kapazitaet = df_lkw_filtered['Kapazitaet'].tolist()
         max_lkw_leistung = df_lkw_filtered['Max_Leistung'].tolist()
+        SOC_req = df_lkw_filtered['SOC_Target'].tolist()
 
-        SOC_req = []
-        for index, row in df_lkw_filtered.iterrows():
-            if row['Ladesäule'] == 'NCS':
-                SOC_req.append(1)
-            else:
-                SOC_req.append(4.5 * 1.26 * 80 / row['Kapazitaet'] + 0.15)
+        # SOC_req = []
+        # for index, row in df_lkw_filtered.iterrows():
+        #     if row['Ladesäule'] == 'NCS':
+        #         SOC_req.append(1)
+        #     else:
+        #         SOC_req.append(4.5 * 1.26 * 80 / row['Kapazitaet'] + 0.15)
         
         E_req = [kapazitaet[i] * (SOC_req[i] - SOC_A[i]) for i in range(len(df_lkw_filtered))]
         I = len(df_lkw_filtered)
@@ -112,8 +113,8 @@ def modellierung_p_max_min(szenario):
         # 2.2) Gurobi-Modell
         # --------------------------------------------------
         model = Model("Ladehub_Optimierung")
-        model.setParam('OutputFlag', 0)
-        
+        # model.setParam('OutputFlag', 0)
+        model.setParam('MIPGap', 0.01)
         # --------------------------------------------------
         # 2.3) Variablen anlegen
         # --------------------------------------------------

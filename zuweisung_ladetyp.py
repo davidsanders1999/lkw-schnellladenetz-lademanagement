@@ -43,19 +43,36 @@ def load_configurations():
     return {
         'path': path,
         'freq': freq,
-        'kapazitaeten_lkws': {
-            '600': 0.093,
-            '720': 0.187,
-            '840': 0.289,
-            '960': 0.431
+        'lkw_id':{
+            '1': 0.093,
+            '2': 0.187,
+            '3': 0.289,
+            '4': 0.431
         },
+        'kapazitaeten_lkws': {
+            '1': 600,
+            '2': 720,
+            '3': 840,
+            '4': 960
+        },
+        'leistungen_lkws': {
+            '1': 750,
+            '2': 750,
+            '3': 1200,
+            '4': 1200
+        },
+        # 'kapazitaeten_lkws': {
+        #     '600': 0.093,
+        #     '720': 0.187,
+        #     '840': 0.289,
+        #     '960': 0.431
+        # },
         'pausentypen': ['Schnelllader', 'Nachtlader'],
         'pausenzeiten_lkws': {
             'Schnelllader': 45,
             'Nachtlader': 540
         },
         'leistung': {'HPC': 350, 'NCS': 100, 'MCS': 1000},
-        'max_leistung_lkw': 1000,
         'energie_pro_abschnitt': 80 * 4.5 * 1.26,
         'sicherheitspuffer': 0.15
     }
@@ -84,10 +101,13 @@ def get_soc(ankunftszeit):
     else:
         soc = -(0.00028) * ankunftszeit + 0.6
         soc += np.random.uniform(-0.1, 0.1)
+    
+    # soc = 0.2 + np.random.uniform(-0.1, 0.1)
+      
     return soc
 
 xvals = [0.0, 0.2, 0.2, 0.3, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6, 0.6, 0.7, 0.7, 0.8, 0.8, 1.0]
-yvals = [0.957815431, 0.957815431, 0.934481552, 0.934481552, 0.921501434, 0.921501434, 0.908521316, 0.908521316, 0.895541198, 0.895541198, 0.88256108, 0.88256108, 0.869580962, 0.869580962, 0.856600844, 0.856600844]
+yvals = [0.957815431, 0.957815431, 0.934481552, 0.934481552, 0.921501434, 0.921501434, 0.872106079, 0.872106079, 0.805719321, 0.805719321, 0.630586501, 0.630586501, 0.531460006, 0.531460006, 0.266505066, 0.266505066]
 
 interpolator = interp1d(xvals, yvals, fill_value="extrapolate")
 
@@ -113,6 +133,7 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
         'Kapazitaet': [],
         'Max_Leistung': [],
         'SOC': [],
+        'SOC_Target': [],
         'Pausenlaenge': []
     }
 
@@ -128,11 +149,24 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
             }
             for pausentyp in config['pausentypen']:  # Loop through break types
                 for _ in range(int(anzahl_lkws[pausentyp])):
-                    pausenzeit = config['pausenzeiten_lkws'][pausentyp]
-                    kapazitaet = np.random.choice(
-                        list(config['kapazitaeten_lkws'].keys()),
-                        p=list(config['kapazitaeten_lkws'].values())
+                    lkw_id = np.random.choice(
+                        list(config['lkw_id'].keys()),
+                        p=list(config['lkw_id'].values())
                     )
+                    
+                    pausenzeit = config['pausenzeiten_lkws'][pausentyp]
+                    kapazitaet = config['kapazitaeten_lkws'][lkw_id]
+                    leistung = config['leistungen_lkws'][lkw_id]
+                    
+                    if pausentyp == 'Nachtlader':
+                        soc_target = 1.0
+                    else:
+                        soc_target = config['energie_pro_abschnitt'] / kapazitaet + config['sicherheitspuffer']
+                    
+                    # kapazitaet = np.random.choice(
+                    #     list(config['kapazitaeten_lkws'].keys()),
+                    #     p=list(config['kapazitaeten_lkws'].values())
+                    # )
                     minuten = np.random.choice(
                         df_verteilungsfunktion['Zeit'],
                         p=df_verteilungsfunktion[pausentyp]
@@ -141,9 +175,10 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
                     dict_lkws['Cluster'].append(cluster_id)
                     dict_lkws['Wochentag'].append(day + 1)
                     dict_lkws['Kapazitaet'].append(kapazitaet)
-                    dict_lkws['Max_Leistung'].append(config['max_leistung_lkw'])
+                    dict_lkws['Max_Leistung'].append(leistung)
                     dict_lkws['Nummer'].append(None)  # Placeholder for ID
                     dict_lkws['SOC'].append(soc)
+                    dict_lkws['SOC_Target'].append(soc_target)
                     dict_lkws['Pausentyp'].append(pausentyp)
                     dict_lkws['Pausenlaenge'].append(pausenzeit)
                     dict_lkws['Ankunftszeit'].append(minuten)
@@ -163,19 +198,24 @@ def assign_charging_stations(df_lkws, config):
     Assign charging stations to each truck based on configurations.
     """
     df_lkws['Ladesäule'] = None
+    count = 0
     for index in range(len(df_lkws)):
+        
         kapazitaet = float(df_lkws.loc[index, 'Kapazitaet'])
         soc_init = df_lkws.loc[index, 'SOC']
         pausentyp = df_lkws.loc[index, 'Pausentyp']
         pausenzeit = df_lkws.loc[index, 'Pausenlaenge']
-        soc_target = config['energie_pro_abschnitt'] / kapazitaet + config['sicherheitspuffer']
+        max_leistung_lkw = df_lkws.loc[index, 'Max_Leistung']
+        soc_target = df_lkws.loc[index, 'SOC_Target']
+        df_lkws.loc[index, 'SOC_Target'] = soc_target
 
         if pausentyp == 'Nachtlader':
             df_lkws.loc[index, 'Ladesäule'] = 'NCS'
             continue
         
         if soc_target < soc_init:
-            raise ValueError("Error: Target SOC is less than initial SOC!")
+            print(f"Warning: Truck {df_lkws.loc[index, 'Nummer']} has a target SOC less than initial SOC!")
+            # raise ValueError("Error: Target SOC is less than initial SOC!")
 
         ladezeiten = {}
 
@@ -185,7 +225,7 @@ def assign_charging_stations(df_lkws, config):
             while soc < soc_target:
                 ladezeit += config['freq']
                 leistungsfaktor = get_leistungsfaktor(soc)
-                aktuelle_leistung = min(leistung_init, leistungsfaktor * config['max_leistung_lkw'])
+                aktuelle_leistung = min(leistung_init, leistungsfaktor * max_leistung_lkw)
                 energie = aktuelle_leistung * config['freq'] / 60
                 soc += energie / kapazitaet
             ladezeiten[station] = pausenzeit - ladezeit
@@ -194,6 +234,11 @@ def assign_charging_stations(df_lkws, config):
             df_lkws.loc[index, 'Ladesäule'] = 'HPC'
         elif ladezeiten['MCS'] >= 0:
             df_lkws.loc[index, 'Ladesäule'] = 'MCS'
+        else:
+            df_lkws.loc[index, 'Ladesäule'] = 'MCS'
+            count += 1
+    if count > 0:
+        print(f"Warning: {count} trucks have been assigned to MCS due to insufficient charging capacity.")
     return df_lkws
 
 # ======================================================

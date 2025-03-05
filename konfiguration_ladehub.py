@@ -99,6 +99,20 @@ def konfiguration_ladehub(df_eingehende_lkws, szenario):
         'HPC': float(szenario.split('_')[3].split('-')[1])/100,
         'MCS': float(szenario.split('_')[3].split('-')[2])/100
     }
+    
+    dict_ladezeit = {
+        'Schnell': int(szenario.split('_')[9].split('-')[0]),
+        'Nacht': int(szenario.split('_')[9].split('-')[1])
+    }
+
+    if (dict_ladezeit['Schnell'] != 45 or dict_ladezeit['Nacht'] != 540):
+        for idx, row in df_eingehende_lkws.iterrows():
+            if row['Pausentyp'] == 'Nachtlader':
+                df_eingehende_lkws.loc[idx, 'Pausenlaenge'] = dict_ladezeit['Nacht']
+            elif row['Pausentyp'] == 'Schnelllader':
+                df_eingehende_lkws.loc[idx, 'Pausenlaenge'] = dict_ladezeit['Schnell']
+            else:
+                raise ValueError(f"Unbekannter Pausentyp: {row['Pausentyp']}")
 
     df_anzahl_ladesaeulen = pd.DataFrame(columns=['Cluster','NCS','Ladequote_NCS','HPC','Ladequote_HPC','MCS','Ladequote_MCS'])
     df_konf_optionen = pd.DataFrame(columns=['Ladetype','Anzahl_Ladesaeulen','Ladequote'])
@@ -172,8 +186,8 @@ def konfiguration_ladehub(df_eingehende_lkws, szenario):
             #     anzahl_ladesaeulen += 1
             else:
                 # analog Ihrem bisherigen Ansatz
-                anzahl_ladesaeulen += 1
-                # anzahl_ladesaeulen = np.ceil(anzahl_ladesaeulen / ladequote * ladquote_ziel).astype(int)
+                # anzahl_ladesaeulen += 1
+                anzahl_ladesaeulen = np.ceil(anzahl_ladesaeulen / ladequote * ladquote_ziel).astype(int)
 
 
         # Speichern der Ergebnisse
