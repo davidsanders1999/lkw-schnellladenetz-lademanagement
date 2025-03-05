@@ -96,6 +96,7 @@ def modellierung_p_max_min(szenario):
         l = df_lkw_filtered['Ladesäule'].tolist()
         SOC_A = df_lkw_filtered['SOC'].tolist()
         kapazitaet = df_lkw_filtered['Kapazitaet'].tolist()
+        max_lkw_leistung = df_lkw_filtered['Max_Leistung'].tolist()
 
         SOC_req = []
         for index, row in df_lkw_filtered.iterrows():
@@ -157,10 +158,17 @@ def modellierung_p_max_min(szenario):
                 model.addConstr(SoC[(i, t+1)] == SoC[(i, t)] + (P[(i, t)] * Delta_t / kapazitaet[i]))
         
         if netzanschlusslimit == False: # Nur für unlimitierten Netzanschluss, da sonsti die Komplexität zu hoch wird
-            xvals = [0.0, 0.5, 0.5, 0.8, 0.8, 1.0]
-            yvals = [1300, 1300, 1000, 1000, 500, 500]
+            
+            # xvals = [0.0, 0.2, 0.2, 0.3, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6, 0.6, 0.7, 0.7, 0.8, 0.8, 1.0]
+            # yvals = [0.957815431, 0.957815431, 0.934481552, 0.934481552, 0.921501434, 0.921501434, 0.872106079, 0.872106079, 0.805719321, 0.805719321, 0.630586501, 0.630586501, 0.531460006, 0.531460006, 0.266505066, 0.266505066]
+            																					
+            # xvals = [0.0, 0.5, 0.5, 0.8, 0.8, 1.0]
+            # yvals = [1300, 1300, 1000, 1000, 500, 500]
             for i in range(I):
                 for t in range(t_in[i], t_out[i] + 1):
+                    ml = max_lkw_leistung[i]
+                    xvals = [0.0, 0.2, 0.2, 0.3, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6, 0.6, 0.7, 0.7, 0.8, 0.8, 1.0]
+                    yvals = [0.957815431 * ml, 0.957815431 * ml, 0.934481552 * ml, 0.934481552 * ml, 0.921501434 * ml, 0.921501434 * ml, 0.872106079 * ml, 0.872106079 * ml, 0.805719321 * ml, 0.805719321 * ml, 0.630586501 * ml, 0.630586501 * ml, 0.531460006 * ml, 0.531460006 * ml, 0.266505066 * ml, 0.266505066 * ml]
                     model.addGenConstrPWL(SoC[(i, t)], P_max_i[(i, t)],xvals, yvals)
             for i in range(I):
                 for t in range(t_in[i], t_out[i] + 1):

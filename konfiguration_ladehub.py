@@ -101,7 +101,8 @@ def konfiguration_ladehub(df_eingehende_lkws, szenario):
     }
 
     df_anzahl_ladesaeulen = pd.DataFrame(columns=['Cluster','NCS','Ladequote_NCS','HPC','Ladequote_HPC','MCS','Ladequote_MCS'])
-
+    df_konf_optionen = pd.DataFrame(columns=['Ladetype','Anzahl_Ladesaeulen','Ladequote'])
+    
     # Schleife über die verschiedenen Ladesäulen-Typen
     for ladetyp in dict_ladequoten:
         ladquote_ziel = dict_ladequoten[ladetyp]
@@ -139,6 +140,10 @@ def konfiguration_ladehub(df_eingehende_lkws, szenario):
             # Ladequote berechnen
             ladequote = lkw_geladen / ankommende_lkws
 
+            # Dokumentieren der Konfigurationsoptionen
+            df_konf_optionen.loc[len(df_konf_optionen)] = [ladetyp, anzahl_ladesaeulen, ladequote]
+            
+            # Debug-Ausgabe
             print(f"[{ladetyp}], Ladesäulen={anzahl_ladesaeulen}, Ladequote={ladequote}")
 
             # Falls Ziel-Ladequote erreicht/überschritten, LoadStatus speichern & Abbruch
@@ -160,16 +165,16 @@ def konfiguration_ladehub(df_eingehende_lkws, szenario):
                 df_eingehende_lkws_loadstatus = pd.concat([df_eingehende_lkws_loadstatus, df_eingehende_lkws_filter])
                 break
 
-            # Sonst: Anzahl Ladesäulen anpassen und nächsten Durchgang
-            # (Ein Minimalbeispiel, wie in Ihrem Code)
-            if ladequote == 0:
-                # falls gar keine LKW geladen, mindestens +1
-                anzahl_ladesaeulen += 1
+            # # Sonst: Anzahl Ladesäulen anpassen und nächsten Durchgang
+            # # (Ein Minimalbeispiel, wie in Ihrem Code)
+            # if ladequote == 0:
+            #     # falls gar keine LKW geladen, mindestens +1
+            #     anzahl_ladesaeulen += 1
             else:
                 # analog Ihrem bisherigen Ansatz
-                anzahl_ladesaeulen = np.ceil(anzahl_ladesaeulen / ladequote * ladquote_ziel).astype(int)
-                if anzahl_ladesaeulen == 0:
-                    anzahl_ladesaeulen = 1
+                anzahl_ladesaeulen += 1
+                # anzahl_ladesaeulen = np.ceil(anzahl_ladesaeulen / ladequote * ladquote_ziel).astype(int)
+
 
         # Speichern der Ergebnisse
         df_anzahl_ladesaeulen.loc[0,'Cluster'] = cluster
@@ -182,6 +187,7 @@ def konfiguration_ladehub(df_eingehende_lkws, szenario):
     # Verzeichnisse erstellen, falls sie nicht existieren
     konfiguration_ladehub_path = os.path.join(path, 'konfiguration_ladehub')
     lkws_path = os.path.join(path, 'lkws')
+    konf_optionen_path = os.path.join(path, 'konf_optionen')
     
     if not os.path.exists(konfiguration_ladehub_path):
         os.makedirs(konfiguration_ladehub_path)
@@ -189,6 +195,9 @@ def konfiguration_ladehub(df_eingehende_lkws, szenario):
     if not os.path.exists(lkws_path):
         os.makedirs(lkws_path)
 
+    if not os.path.exists(konf_optionen_path):
+        os.makedirs(konf_optionen_path)
+    
     # CSV: Anzahl Ladesäulen
     df_anzahl_ladesaeulen.to_csv(
         os.path.join(konfiguration_ladehub_path, f'anzahl_ladesaeulen_{szenario}.csv'),
@@ -199,6 +208,12 @@ def konfiguration_ladehub(df_eingehende_lkws, szenario):
     df_eingehende_lkws_loadstatus.to_csv(
         os.path.join(lkws_path, f'eingehende_lkws_loadstatus_{szenario}.csv'),
         sep=';', decimal=','
+    )
+    
+    # CSV: Konfigurationsoptionen
+    df_konf_optionen.to_csv(
+        os.path.join(konf_optionen_path, f'konf_optionen_{szenario}.csv'),
+        sep=';', decimal=',', index=False
     )
     
     return None

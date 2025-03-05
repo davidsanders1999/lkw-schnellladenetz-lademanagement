@@ -4,6 +4,7 @@
 import pandas as pd
 import numpy as np
 import os
+from scipy.interpolate import interp1d
 
 np.random.seed(42)
 
@@ -15,17 +16,17 @@ def main():
     Main function to execute the truck simulation pipeline.
     """
     # Load configurations and data
-    config = load_configurations()
-    df_verteilungsfunktion, df_ladevorgaenge_daily = load_input_data(config['path'])
+    CONFIG = load_configurations()
+    df_verteilungsfunktion, df_ladevorgaenge_daily = load_input_data(CONFIG['path'])
 
     # Generate truck data
-    df_lkws = generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily)
+    df_lkws = generate_truck_data(CONFIG, df_verteilungsfunktion, df_ladevorgaenge_daily)
 
     # Assign charging stations
-    df_lkws = assign_charging_stations(df_lkws, config)
+    df_lkws = assign_charging_stations(df_lkws, CONFIG)
 
     # Add datetime and export results
-    finalize_and_export_data(df_lkws, config)
+    finalize_and_export_data(df_lkws, CONFIG)
 
     # Analyze charging types
     analyze_charging_types(df_lkws)
@@ -85,16 +86,16 @@ def get_soc(ankunftszeit):
         soc += np.random.uniform(-0.1, 0.1)
     return soc
 
+xvals = [0.0, 0.2, 0.2, 0.3, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6, 0.6, 0.7, 0.7, 0.8, 0.8, 1.0]
+yvals = [0.957815431, 0.957815431, 0.934481552, 0.934481552, 0.921501434, 0.921501434, 0.908521316, 0.908521316, 0.895541198, 0.895541198, 0.88256108, 0.88256108, 0.869580962, 0.869580962, 0.856600844, 0.856600844]
+
+interpolator = interp1d(xvals, yvals, fill_value="extrapolate")
+
 def get_leistungsfaktor(soc):
     """
-    Adjust power factor based on SOC.
+    Adjust power factor based on SOC using interpolation.
     """
-    if soc <= 1:
-        return 1
-    elif soc < 0.9:
-        return 0.8
-    else:
-        return 0.6 if soc < 1 else 0.2
+    return interpolator(soc)
 
 # ======================================================
 # Truck Data Generation
