@@ -115,7 +115,7 @@ def konfiguration_ladehub(df_eingehende_lkws, szenario):
                 raise ValueError(f"Unbekannter Pausentyp: {row['Pausentyp']}")
 
     df_anzahl_ladesaeulen = pd.DataFrame(columns=['Cluster','NCS','Ladequote_NCS','HPC','Ladequote_HPC','MCS','Ladequote_MCS'])
-    df_konf_optionen = pd.DataFrame(columns=['Ladetype','Anzahl_Ladesaeulen','Ladequote'])
+    df_konf_optionen = pd.DataFrame(columns=['Ladetype','Anzahl_Ladesaeulen','Ladequote','LKW_pro_Ladesaeule'])
     
     # Schleife über die verschiedenen Ladesäulen-Typen
     for ladetyp in dict_ladequoten:
@@ -153,12 +153,13 @@ def konfiguration_ladehub(df_eingehende_lkws, szenario):
 
             # Ladequote berechnen
             ladequote = lkw_geladen / ankommende_lkws
+            lkw_pro_ladesaeule = lkw_geladen / anzahl_ladesaeulen / 7
 
             # Dokumentieren der Konfigurationsoptionen
-            df_konf_optionen.loc[len(df_konf_optionen)] = [ladetyp, anzahl_ladesaeulen, ladequote]
+            df_konf_optionen.loc[len(df_konf_optionen)] = [ladetyp, anzahl_ladesaeulen, ladequote, lkw_pro_ladesaeule]
             
             # Debug-Ausgabe
-            print(f"[{ladetyp}], Ladesäulen={anzahl_ladesaeulen}, Ladequote={ladequote}")
+            print(f"[{ladetyp}], Ladesäulen={anzahl_ladesaeulen}, Ladequote={ladequote}, LKW pro Ladesäule={lkw_pro_ladesaeule}")
 
             # Falls Ziel-Ladequote erreicht/überschritten, LoadStatus speichern & Abbruch
             if ladequote >= ladquote_ziel:

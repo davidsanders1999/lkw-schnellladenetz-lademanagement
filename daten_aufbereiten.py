@@ -33,7 +33,7 @@ def ef_excel_szenario_vergleich():
     excel_writer.close()
 
 def ef_base_wochentag():
-    path_input = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'kpis','ef_lang', 'ef_lang_cl_2_quote_100-100-100_netz_100_pow_100-100-100_pause_45-540_M_1_Base.csv')
+    path_input = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'kpis','ef_lang', 'ef_lang_cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base.csv')
     path_results = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output', 'results.xlsx')
     
     df = pd.read_csv(path_input, sep=';', decimal=',')
@@ -60,7 +60,7 @@ def ef_base_wochentag():
 
 def ef_base_ladetyp():
     path_results = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output', 'results.xlsx')
-    path_input = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'kpis', 'ef', 'ef_cl_2_quote_100-100-100_netz_100_pow_100-100-100_pause_45-540_M_1_Base.csv')
+    path_input = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'kpis', 'ef', 'ef_cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base.csv')
 
 
     df = pd.read_csv(os.path.join(path_input), sep=';', decimal=',')

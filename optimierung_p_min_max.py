@@ -77,7 +77,8 @@ def modellierung_p_max_min(szenario):
 
     netzanschlussfaktor = float(int(szenario.split('_')[5])/100)
     netzanschluss = (max_saeulen['NCS'] * ladeleistung['NCS'] + max_saeulen['HPC'] * ladeleistung['HPC'] + max_saeulen['MCS'] * ladeleistung['MCS']) * netzanschlussfaktor
-
+    dict_geladene_energie = {}
+    
     # Gesamter Zeit-Horizont (z.B. 8 Tage à 288 5-Min-Slots pro Tag)
     T = 288 * 8          # = 2304
     Delta_t = 5 / 60.0   # Zeitintervall in Stunden (5 Minuten)
@@ -98,6 +99,7 @@ def modellierung_p_max_min(szenario):
         kapazitaet = df_lkw_filtered['Kapazitaet'].tolist()
         max_lkw_leistung = df_lkw_filtered['Max_Leistung'].tolist()
         SOC_req = df_lkw_filtered['SOC_Target'].tolist()
+        ladetyp = df_lkw_filtered['Ladesäule'].tolist()
 
         # SOC_req = []
         # for index, row in df_lkw_filtered.iterrows():
@@ -114,7 +116,7 @@ def modellierung_p_max_min(szenario):
         # --------------------------------------------------
         model = Model("Ladehub_Optimierung")
         # model.setParam('OutputFlag', 0)
-        model.setParam('MIPGap', 0.01)
+        model.setParam('MIPGap', 0.0)
         # --------------------------------------------------
         # 2.3) Variablen anlegen
         # --------------------------------------------------
@@ -167,14 +169,19 @@ def modellierung_p_max_min(szenario):
             # yvals = [1300, 1300, 1000, 1000, 500, 500]
             for i in range(I):
                 for t in range(t_in[i], t_out[i] + 1):
-                    ml = max_lkw_leistung[i]
-                    xvals = [0.0, 0.2, 0.2, 0.3, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6, 0.6, 0.7, 0.7, 0.8, 0.8, 1.0]
-                    yvals = [0.957815431 * ml, 0.957815431 * ml, 0.934481552 * ml, 0.934481552 * ml, 0.921501434 * ml, 0.921501434 * ml, 0.872106079 * ml, 0.872106079 * ml, 0.805719321 * ml, 0.805719321 * ml, 0.630586501 * ml, 0.630586501 * ml, 0.531460006 * ml, 0.531460006 * ml, 0.266505066 * ml, 0.266505066 * ml]
-                    model.addGenConstrPWL(SoC[(i, t)], P_max_i[(i, t)],xvals, yvals)
+                    if (ladetyp[i] == 'MCS') or (ladetyp[i] == 'HPC'):
+                        ml = max_lkw_leistung[i]
+                        # xvals = [0.0, 0.2, 0.2, 0.3, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6, 0.6, 0.7, 0.7, 0.8, 0.8, 1.0]
+                        # yvals = [0.957815431 * ml, 0.957815431 * ml, 0.934481552 * ml, 0.934481552 * ml, 0.921501434 * ml, 0.921501434 * ml, 0.872106079 * ml, 0.872106079 * ml, 0.805719321 * ml, 0.805719321 * ml, 0.630586501 * ml, 0.630586501 * ml, 0.531460006 * ml, 0.531460006 * ml, 0.266505066 * ml, 0.266505066 * ml]
+                        # model.addGenConstrPWL(SoC[(i, t)], P_max_i[(i, t)],xvals, yvals)
+                        model.addConstr(P_max_i[(i, t)] == ((-1.26781) * SoC[(i, t)]**2 + (0.409923) * SoC[(i, t)] + (0.929944)) * ml)
+                                    
+                        
             for i in range(I):
                 for t in range(t_in[i], t_out[i] + 1):
-                    model.addConstr(Pplus[(i,t)] <= P_max_i[(i,t)] * z[(i,t)]) 
-                    model.addConstr(Pminus[(i,t)] <= P_max_i[(i,t)] * (1-z[(i,t)]))
+                    if (ladetyp[i] == 'MCS') or (ladetyp[i] == 'HPC'):
+                        model.addConstr(Pplus[(i,t)] <= P_max_i[(i,t)] * z[(i,t)])
+                        model.addConstr(Pminus[(i,t)] <= P_max_i[(i,t)] * (1-z[(i,t)]))
 
         # Leistungsbegrenzung Ladesäulen-Typ    
         for i in range(I):
@@ -282,11 +289,13 @@ def modellierung_p_max_min(szenario):
             
             
             print(f"Ladequote: {sum(list_volladungen)/len(list_volladungen)}")
-            print(f"Geladene Energie:: {sum(P[(i, t)].X for i in range(I) for t in range(t_in[i], t_out[i] + 1))}")
-                    
+            print(f"Geladene Energie: {sum(P[(i, t)].X for i in range(I) for t in range(t_in[i], t_out[i] + 1))}")
+            dict_geladene_energie[strategie] = sum(P[(i, t)].X for i in range(I) for t in range(t_in[i], t_out[i] + 1))
         else:
             print(f"Keine optimale Lösung für {strategie} gefunden.")
     
+    
+    print(f"Energiediffernz: {dict_geladene_energie['p_max'] - dict_geladene_energie['p_min']}")
     
     # Create directories if they do not exist
     os.makedirs(os.path.join(path, 'data', 'lastgang'), exist_ok=True)

@@ -74,7 +74,7 @@ def load_configurations():
         },
         'leistung': {'HPC': 350, 'NCS': 100, 'MCS': 1000},
         'energie_pro_abschnitt': 80 * 4.5 * 1.26,
-        'sicherheitspuffer': 0.15
+        'sicherheitspuffer': 0.1
     }
 
 def load_input_data(path):
@@ -157,21 +157,23 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
                     pausenzeit = config['pausenzeiten_lkws'][pausentyp]
                     kapazitaet = config['kapazitaeten_lkws'][lkw_id]
                     leistung = config['leistungen_lkws'][lkw_id]
-                    
-                    if pausentyp == 'Nachtlader':
-                        soc_target = 1.0
-                    else:
-                        soc_target = config['energie_pro_abschnitt'] / kapazitaet + config['sicherheitspuffer']
-                    
-                    # kapazitaet = np.random.choice(
-                    #     list(config['kapazitaeten_lkws'].keys()),
-                    #     p=list(config['kapazitaeten_lkws'].values())
-                    # )
                     minuten = np.random.choice(
                         df_verteilungsfunktion['Zeit'],
                         p=df_verteilungsfunktion[pausentyp]
                     )
                     soc = get_soc(minuten)
+                    
+                    if pausentyp == 'Nachtlader':
+                        soc_target = 1.0
+                    else:
+                        soc_target = config['energie_pro_abschnitt'] / kapazitaet + config['sicherheitspuffer']
+                        soc_target = min(soc_target, 1.0)
+                        soc_target = max(soc_target, soc)
+                    
+                    # kapazitaet = np.random.choice(
+                    #     list(config['kapazitaeten_lkws'].keys()),
+                    #     p=list(config['kapazitaeten_lkws'].values())
+                    # )
                     dict_lkws['Cluster'].append(cluster_id)
                     dict_lkws['Wochentag'].append(day + 1)
                     dict_lkws['Kapazitaet'].append(kapazitaet)

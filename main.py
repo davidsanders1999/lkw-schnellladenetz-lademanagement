@@ -9,11 +9,11 @@ import clear_data
 time_start = time.time()
 
 # clear_data.main()
-# zuweisung_ladetyp.main()
+zuweisung_ladetyp.main()
 # konfiguration_ladehub.main()
-optimierung_p_min_max.main()
-berechne_flex_kpis.main()
-daten_aufbereiten.main()
+# optimierung_p_min_max.main()
+# berechne_flex_kpis.main()
+# daten_aufbereiten.main()
 
 time_end = time.time()
 print(f'Laufzeit: {time_end - time_start} Sekunden')
