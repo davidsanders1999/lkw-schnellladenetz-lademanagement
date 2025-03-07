@@ -106,16 +106,11 @@ def get_soc(ankunftszeit):
       
     return soc
 
-xvals = [0.0, 0.2, 0.2, 0.3, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6, 0.6, 0.7, 0.7, 0.8, 0.8, 1.0]
-yvals = [0.957815431, 0.957815431, 0.934481552, 0.934481552, 0.921501434, 0.921501434, 0.872106079, 0.872106079, 0.805719321, 0.805719321, 0.630586501, 0.630586501, 0.531460006, 0.531460006, 0.266505066, 0.266505066]
-
-interpolator = interp1d(xvals, yvals, fill_value="extrapolate")
-
 def get_leistungsfaktor(soc):
     """
-    Adjust power factor based on SOC using interpolation.
+    Adjust power factor based on SOC using the minimum of two linear functions.
     """
-    return interpolator(soc)
+    return min(-0.177038 * soc + 0.970903, -1.51705 * soc + 1.6336)
 
 # ======================================================
 # Truck Data Generation
@@ -134,7 +129,8 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
         'Max_Leistung': [],
         'SOC': [],
         'SOC_Target': [],
-        'Pausenlaenge': []
+        'Pausenlaenge': [],
+        'Lkw_ID': []
     }
 
     for cluster_id in range(1, 4):  # Loop through clusters
@@ -184,6 +180,7 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
                     dict_lkws['Pausentyp'].append(pausentyp)
                     dict_lkws['Pausenlaenge'].append(pausenzeit)
                     dict_lkws['Ankunftszeit'].append(minuten)
+                    dict_lkws['Lkw_ID'].append(int(lkw_id))
 
     df_lkws = pd.DataFrame(dict_lkws)
     df_lkws.sort_values(by=['Cluster', 'Wochentag', 'Ankunftszeit'], inplace=True)
@@ -241,6 +238,16 @@ def assign_charging_stations(df_lkws, config):
             count += 1
     if count > 0:
         print(f"Warning: {count} trucks have been assigned to MCS due to insufficient charging capacity.")
+        
+    dict_anteile = {
+        1: df_lkws[df_lkws['Lkw_ID'] == 1].shape[0] / df_lkws.shape[0],
+        2: df_lkws[df_lkws['Lkw_ID'] == 2].shape[0] / df_lkws.shape[0],
+        3: df_lkws[df_lkws['Lkw_ID'] == 3].shape[0] / df_lkws.shape[0],
+        4: df_lkws[df_lkws['Lkw_ID'] == 4].shape[0] / df_lkws.shape[0]
+    }
+
+    print(dict_anteile)
+    
     return df_lkws
 
 # ======================================================

@@ -115,8 +115,8 @@ def modellierung_p_max_min(szenario):
         # 2.2) Gurobi-Modell
         # --------------------------------------------------
         model = Model("Ladehub_Optimierung")
-        # model.setParam('OutputFlag', 0)
-        model.setParam('MIPGap', 0.0)
+        model.setParam('OutputFlag', 0)
+        # model.setParam('MIPGap', 0.1)
         # --------------------------------------------------
         # 2.3) Variablen anlegen
         # --------------------------------------------------
@@ -124,6 +124,7 @@ def modellierung_p_max_min(szenario):
         Pplus = {}
         Pminus = {}
         P_max_i = {}
+        P_max_i_2 = {}
         SoC = {}
 
         z = {}
@@ -139,6 +140,7 @@ def modellierung_p_max_min(szenario):
                 Pplus[(i,t)] = model.addVar(lb = 0, vtype=GRB.CONTINUOUS)
                 Pminus[(i,t)] = model.addVar(lb = 0, vtype=GRB.CONTINUOUS)
                 P_max_i[(i,t)] = model.addVar(lb=0, vtype=GRB.CONTINUOUS, name=f"Pmax_{i}_{t}")
+                P_max_i_2[(i,t)] = model.addVar(lb=0, vtype=GRB.CONTINUOUS, name=f"Pmax2_{i}_{t}")
 
                 z[(i,t)] = model.addVar(vtype=GRB.BINARY)
             
@@ -169,19 +171,17 @@ def modellierung_p_max_min(szenario):
             # yvals = [1300, 1300, 1000, 1000, 500, 500]
             for i in range(I):
                 for t in range(t_in[i], t_out[i] + 1):
-                    if (ladetyp[i] == 'MCS') or (ladetyp[i] == 'HPC'):
-                        ml = max_lkw_leistung[i]
-                        # xvals = [0.0, 0.2, 0.2, 0.3, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6, 0.6, 0.7, 0.7, 0.8, 0.8, 1.0]
-                        # yvals = [0.957815431 * ml, 0.957815431 * ml, 0.934481552 * ml, 0.934481552 * ml, 0.921501434 * ml, 0.921501434 * ml, 0.872106079 * ml, 0.872106079 * ml, 0.805719321 * ml, 0.805719321 * ml, 0.630586501 * ml, 0.630586501 * ml, 0.531460006 * ml, 0.531460006 * ml, 0.266505066 * ml, 0.266505066 * ml]
-                        # model.addGenConstrPWL(SoC[(i, t)], P_max_i[(i, t)],xvals, yvals)
-                        model.addConstr(P_max_i[(i, t)] == ((-1.26781) * SoC[(i, t)]**2 + (0.409923) * SoC[(i, t)] + (0.929944)) * ml)
-                                    
+                    ml = max_lkw_leistung[i]
+                    model.addConstr(P_max_i[(i, t)] == (-0.177038 * SoC[(i, t)] + 0.970903) * ml)
+                    model.addConstr(P_max_i_2[(i, t)] == (-1.51705 * SoC[(i, t)] + 1.6336) * ml)
                         
-            for i in range(I):
                 for t in range(t_in[i], t_out[i] + 1):
-                    if (ladetyp[i] == 'MCS') or (ladetyp[i] == 'HPC'):
-                        model.addConstr(Pplus[(i,t)] <= P_max_i[(i,t)] * z[(i,t)])
-                        model.addConstr(Pminus[(i,t)] <= P_max_i[(i,t)] * (1-z[(i,t)]))
+                    model.addConstr(Pplus[(i,t)] <= P_max_i[(i,t)] * z[(i,t)])
+                    model.addConstr(Pminus[(i,t)] <= P_max_i[(i,t)] * (1-z[(i,t)]))
+                    
+                    model.addConstr(Pplus[(i,t)] <= P_max_i_2[(i,t)] * z[(i,t)])
+                    model.addConstr(Pminus[(i,t)] <= P_max_i_2[(i,t)] * (1-z[(i,t)]))
+                    
 
         # Leistungsbegrenzung Ladesäulen-Typ    
         for i in range(I):
