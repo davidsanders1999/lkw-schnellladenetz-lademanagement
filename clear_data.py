@@ -1,7 +1,10 @@
 import os
 import shutil
+import logging
+logging.basicConfig(filename='logs.log', level=logging.DEBUG, format='%(asctime)s; %(levelname)s; %(message)s')
 
 def main():
+    logging.info('Start: Clear Data')
     path = os.path.join(os.path.dirname(__file__), "data")
     
     

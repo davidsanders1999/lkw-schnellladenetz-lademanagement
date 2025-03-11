@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import os
 from scipy.interpolate import interp1d
+import config as config_file
 
 np.random.seed(42)
 
@@ -134,13 +135,12 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
     }
 
     for cluster_id in range(1, 4):  # Loop through clusters
-        for day in range(7):  # Loop through days
-            # anzahl_lkws = {
-            #     pausentyp: df_ladevorgaenge_daily.loc[day % 7, f'Cluster_{cluster_id}_{pausentyp}']
-            #     for pausentyp in config['pausentypen']
-            # }
+        
+        horizon = (7 if config_file.mode == 'flex' else 365)
+        
+        for day in range(horizon):  # Loop through days
             anzahl_lkws = {
-                pausentyp: df_ladevorgaenge_daily[(df_ladevorgaenge_daily['Cluster'] == cluster_id) & (df_ladevorgaenge_daily['Wochentag'] == day + 1) & (df_ladevorgaenge_daily['Ladetype'] == pausentyp)]['Anzahl'].values[0]
+                pausentyp: df_ladevorgaenge_daily[(df_ladevorgaenge_daily['Cluster'] == cluster_id) & (df_ladevorgaenge_daily['Wochentag'] == day % 7 + 1) & (df_ladevorgaenge_daily['Ladetype'] == pausentyp)]['Anzahl'].values[0]
                 for pausentyp in config['pausentypen']
             }
             for pausentyp in config['pausentypen']:  # Loop through break types
@@ -264,7 +264,7 @@ def finalize_and_export_data(df_lkws, config):
     )
     df_lkws['Ankunftszeit_total'] = df_lkws['Ankunftszeit'] + ((df_lkws['Wochentag'] - 1) * 1440)
     # Ensure the directories exist
-    output_dir = os.path.join(config['path'], 'data', 'lkw_eingehend')
+    output_dir = os.path.join(config['path'], 'data', config_file.mode, 'lkw_eingehend')
     os.makedirs(output_dir, exist_ok=True)
 
     # Export the DataFrame to a CSV file

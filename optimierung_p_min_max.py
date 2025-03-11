@@ -3,6 +3,8 @@ import pandas as pd
 import time
 import os
 import config
+import logging
+logging.basicConfig(filename='logs.log', level=logging.DEBUG, format='%(asctime)s; %(levelname)s; %(message)s')
 
 start = time.time() 
 
@@ -12,13 +14,33 @@ start = time.time()
 # ======================================================
 
 def modellierung_p_max_min(szenario):
-    cluster = int(szenario.split('_')[1])
-    bidirektional = False if szenario.split('_')[10] == 'M' else True
-    netzanschlusslimit = True if 'Netzanschluss' in szenario.split('_')[-1] else False
+    
+    base_case = 'cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base'
+    
+    dict_base = {
+        'ladequote': base_case.split('_')[3],
+        'cluster': base_case.split('_')[1],
+        'pause': base_case.split('_')[9]
+    }
+    
+    dict_szenario = {
+        'ladequote': szenario.split('_')[3],
+        'cluster': szenario.split('_')[1],
+        'pause': szenario.split('_')[9]
+    }
+    
     path = os.path.dirname(os.path.abspath(__file__))
-    df_lkw  = pd.read_csv(os.path.join(path, 'data', 'lkws', f'eingehende_lkws_loadstatus_{szenario}.csv'), sep=';', decimal=',')
-    df_lkw_filtered = df_lkw[(df_lkw['Cluster'] == cluster) & (df_lkw['LoadStatus'] == 1)][:].copy()
-    df_ladehub = pd.read_csv(os.path.join(path, 'data','konfiguration_ladehub',f'anzahl_ladesaeulen_{szenario}.csv'), sep=';', decimal=',')
+    
+    if dict_szenario['ladequote'] == dict_base['ladequote'] and dict_szenario['cluster'] == dict_base['cluster'] and dict_szenario['pause'] == dict_base['pause']:
+        df_lkw = pd.read_csv(os.path.join(path, 'data', 'flex', 'lkws', f'eingehende_lkws_loadstatus_{base_case}.csv'), sep=';', decimal=',')
+        df_ladehub = pd.read_csv(os.path.join(path, 'data', 'flex', 'konfiguration_ladehub',f'anzahl_ladesaeulen_{base_case}.csv'), sep=';', decimal=',')
+    else:
+        df_lkw  = pd.read_csv(os.path.join(path, 'data', 'flex', 'lkws', f'eingehende_lkws_loadstatus_{szenario}.csv'), sep=';', decimal=',')
+        df_ladehub = pd.read_csv(os.path.join(path, 'data', 'flex', 'konfiguration_ladehub',f'anzahl_ladesaeulen_{szenario}.csv'), sep=';', decimal=',')
+
+    df_lkw_filtered = df_lkw[(df_lkw['Cluster'] == int(dict_szenario['cluster'])) & (df_lkw['LoadStatus'] == 1)][:].copy()
+    
+    bidirektional = False if szenario.split('_')[10] == 'M' else True
 
     
     
@@ -50,6 +72,7 @@ def modellierung_p_max_min(szenario):
         'Zeit': [],
         'Ladezeit': [],
         'Leistung': [],
+        'Max_Leistung': [],
         'Pplus': [],
         'Pminus': [],
         'SOC': [],
@@ -97,7 +120,14 @@ def modellierung_p_max_min(szenario):
         l = df_lkw_filtered['Ladesäule'].tolist()
         SOC_A = df_lkw_filtered['SOC'].tolist()
         kapazitaet = df_lkw_filtered['Kapazitaet'].tolist()
-        max_lkw_leistung = df_lkw_filtered['Max_Leistung'].tolist()
+        
+        pow_split = szenario.split('_')[6].split('-')
+        if len(pow_split) > 1:
+            lkw_leistung_skalierung = int(pow_split[1])/100
+        else:
+            lkw_leistung_skalierung = 1
+            
+        max_lkw_leistung = [leistung * lkw_leistung_skalierung for leistung in df_lkw_filtered['Max_Leistung'].tolist()]
         SOC_req = df_lkw_filtered['SOC_Target'].tolist()
         ladetyp = df_lkw_filtered['Ladesäule'].tolist()
 
@@ -162,25 +192,24 @@ def modellierung_p_max_min(szenario):
             for t in range(t_in[i], t_out[i]+1):
                 model.addConstr(SoC[(i, t+1)] == SoC[(i, t)] + (P[(i, t)] * Delta_t / kapazitaet[i]))
         
-        if netzanschlusslimit == False: # Nur für unlimitierten Netzanschluss, da sonsti die Komplexität zu hoch wird
             
             # xvals = [0.0, 0.2, 0.2, 0.3, 0.3, 0.4, 0.4, 0.5, 0.5, 0.6, 0.6, 0.7, 0.7, 0.8, 0.8, 1.0]
             # yvals = [0.957815431, 0.957815431, 0.934481552, 0.934481552, 0.921501434, 0.921501434, 0.872106079, 0.872106079, 0.805719321, 0.805719321, 0.630586501, 0.630586501, 0.531460006, 0.531460006, 0.266505066, 0.266505066]
             																					
             # xvals = [0.0, 0.5, 0.5, 0.8, 0.8, 1.0]
             # yvals = [1300, 1300, 1000, 1000, 500, 500]
-            for i in range(I):
-                for t in range(t_in[i], t_out[i] + 1):
-                    ml = max_lkw_leistung[i]
-                    model.addConstr(P_max_i[(i, t)] == (-0.177038 * SoC[(i, t)] + 0.970903) * ml)
-                    model.addConstr(P_max_i_2[(i, t)] == (-1.51705 * SoC[(i, t)] + 1.6336) * ml)
-                        
-                for t in range(t_in[i], t_out[i] + 1):
-                    model.addConstr(Pplus[(i,t)] <= P_max_i[(i,t)] * z[(i,t)])
-                    model.addConstr(Pminus[(i,t)] <= P_max_i[(i,t)] * (1-z[(i,t)]))
+        for i in range(I):
+            for t in range(t_in[i], t_out[i] + 1):
+                ml = max_lkw_leistung[i]
+                model.addConstr(P_max_i[(i, t)] == (-0.177038 * SoC[(i, t)] + 0.970903) * ml)
+                model.addConstr(P_max_i_2[(i, t)] == (-1.51705 * SoC[(i, t)] + 1.6336) * ml)
                     
-                    model.addConstr(Pplus[(i,t)] <= P_max_i_2[(i,t)] * z[(i,t)])
-                    model.addConstr(Pminus[(i,t)] <= P_max_i_2[(i,t)] * (1-z[(i,t)]))
+            for t in range(t_in[i], t_out[i] + 1):
+                model.addConstr(Pplus[(i,t)] <= P_max_i[(i,t)] * z[(i,t)])
+                model.addConstr(Pminus[(i,t)] <= P_max_i[(i,t)] * (1-z[(i,t)]))
+                
+                model.addConstr(Pplus[(i,t)] <= P_max_i_2[(i,t)] * z[(i,t)])
+                model.addConstr(Pminus[(i,t)] <= P_max_i_2[(i,t)] * (1-z[(i,t)]))
                     
 
         # Leistungsbegrenzung Ladesäulen-Typ    
@@ -261,7 +290,6 @@ def modellierung_p_max_min(szenario):
                 lastgang_dict[key]['Ladequote'] = sum(list_volladungen)/len(list_volladungen)
 
             
-            
             for i in range(I):
                 t_charging = 0
                 for t in range(T):   
@@ -278,8 +306,10 @@ def modellierung_p_max_min(szenario):
                             dict_lkw_lastgang['Pminus'].append(None)
                             dict_lkw_lastgang['SOC'].append(SoC[(i, t_out[i]+1)].X)
                             dict_lkw_lastgang['z'].append(None)
+                            dict_lkw_lastgang['Max_Leistung'].append(None)
                             continue
                         else:                        
+                            dict_lkw_lastgang['Max_Leistung'].append(min(ladeleistung[l[i]], max_lkw_leistung[i]))
                             dict_lkw_lastgang['z'].append(z[(i, t)].X)
                             dict_lkw_lastgang['Pplus'].append(Pplus[(i, t)].X)
                             dict_lkw_lastgang['Pminus'].append(Pminus[(i, t)].X)
@@ -298,28 +328,27 @@ def modellierung_p_max_min(szenario):
     print(f"Energiediffernz: {dict_geladene_energie['p_max'] - dict_geladene_energie['p_min']}")
     
     # Create directories if they do not exist
-    os.makedirs(os.path.join(path, 'data', 'lastgang'), exist_ok=True)
-    os.makedirs(os.path.join(path, 'data', 'lastgang_lkw'), exist_ok=True)
+    os.makedirs(os.path.join(path, 'data', 'flex', 'lastgang'), exist_ok=True)
+    os.makedirs(os.path.join(path, 'data', 'flex', 'lastgang_lkw'), exist_ok=True)
     
     df_lkw_lastgang = pd.DataFrame(dict_lkw_lastgang)
     df_lkw_lastgang.sort_values(by=['Ladestrategie','LKW_ID', 'Zeit'], inplace=True)
     
     df_lastgang = pd.DataFrame(list(lastgang_dict.values()))                        
-    df_lastgang.to_csv(os.path.join(path, 'data', 'lastgang', f'lastgang_{szenario}.csv'), sep=';', decimal=',', index=False) 
-    df_lkw_lastgang.to_csv(os.path.join(path, 'data', 'lastgang_lkw', f'lastgang_lkw_{szenario}.csv'), sep=';', decimal=',', index=False)
+    df_lastgang.to_csv(os.path.join(path, 'data', 'flex', 'lastgang', f'lastgang_{szenario}.csv'), sep=';', decimal=',', index=False) 
+    df_lkw_lastgang.to_csv(os.path.join(path, 'data', 'flex', 'lastgang_lkw', f'lastgang_lkw_{szenario}.csv'), sep=';', decimal=',', index=False)
     return None
 
 def main():
     for szenario in config.list_szenarien:
         print(f"Optimierung P_max/P_min: {szenario}")
+        logging.info(f"Optimierung P_max/P_min: {szenario}")
         modellierung_p_max_min(szenario)        
     
     
 if __name__ == '__main__':
     
     start = time.time()
-
-    
     main()
     end = time.time()
     
