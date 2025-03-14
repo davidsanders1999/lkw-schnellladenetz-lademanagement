@@ -474,3 +474,291 @@
 2025-03-11 19:45:21,031; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
 2025-03-11 19:45:21,077; INFO; Set parameter Username
 2025-03-11 19:45:21,080; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-11 19:46:46,437; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-11 19:46:46,473; INFO; Set parameter Username
+2025-03-11 19:46:46,475; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-11 19:47:14,056; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-11 19:47:14,089; INFO; Set parameter Username
+2025-03-11 19:47:14,093; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-11 19:47:52,314; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-11 19:47:53,221; INFO; Set parameter Username
+2025-03-11 19:47:53,224; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-11 19:48:04,141; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.3.0 24D60)
+2025-03-11 19:48:04,141; INFO; 
+2025-03-11 19:48:04,141; INFO; CPU model: Apple M2
+2025-03-11 19:48:04,141; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+2025-03-11 19:48:04,142; INFO; 
+2025-03-11 19:48:04,142; INFO; Optimize a model with 566249 rows, 564266 columns and 1524782 nonzeros
+2025-03-11 19:48:04,154; INFO; Model fingerprint: 0xa8e9c3c1
+2025-03-11 19:48:04,154; INFO; Model has 321392 quadratic constraints
+2025-03-11 19:48:04,155; INFO; Variable types: 483918 continuous, 80348 integer (80348 binary)
+2025-03-11 19:48:04,161; INFO; Coefficient statistics:
+2025-03-11 19:48:04,161; INFO;   Matrix range     [9e-05, 2e+03]
+2025-03-11 19:48:04,161; INFO;   QMatrix range    [1e+00, 1e+00]
+2025-03-11 19:48:04,161; INFO;   QLMatrix range   [1e+00, 1e+00]
+2025-03-11 19:48:04,161; INFO;   Objective range  [5e-04, 2e+03]
+2025-03-11 19:48:04,161; INFO;   Bounds range     [1e+00, 1e+00]
+2025-03-11 19:48:04,161; INFO;   RHS range        [1e-01, 2e+04]
+2025-03-11 19:48:04,700; INFO; Presolve added 169340 rows and 0 columns
+2025-03-11 19:48:04,700; INFO; Presolve removed 0 rows and 151485 columns
+2025-03-11 19:48:04,700; INFO; Presolve time: 0.53s
+2025-03-11 19:48:04,704; INFO; Presolved: 779722 rows, 428914 columns, 1883107 nonzeros
+2025-03-11 19:48:04,704; INFO; Presolved model has 1422 SOS constraint(s)
+2025-03-11 19:48:04,969; INFO; Variable types: 347835 continuous, 81079 integer (81059 binary)
+2025-03-11 19:48:06,671; INFO; 
+2025-03-11 19:48:06,671; INFO; Root relaxation: objective 1.631545e+04, 1 iterations, 0.00 seconds (0.00 work units)
+2025-03-11 19:48:06,687; INFO; 
+2025-03-11 19:48:06,687; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+2025-03-11 19:48:06,688; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+2025-03-11 19:48:06,688; INFO; 
+2025-03-11 19:48:06,688; INFO; *    0     0               0    16315.445952 16315.4460  0.00%     -    2s
+2025-03-11 19:48:06,740; INFO; 
+2025-03-11 19:48:06,740; INFO; Explored 1 nodes (1 simplex iterations) in 2.60 seconds (4.20 work units)
+2025-03-11 19:48:06,740; INFO; Thread count was 8 (of 8 available processors)
+2025-03-11 19:48:06,740; INFO; 
+2025-03-11 19:48:06,740; INFO; Solution count 1: 16315.4 
+2025-03-11 19:48:06,740; INFO; 
+2025-03-11 19:48:06,740; INFO; Optimal solution found (tolerance 1.00e-04)
+2025-03-11 19:48:06,746; INFO; Best objective 1.631544595169e+04, best bound 1.631544595169e+04, gap 0.0000%
+2025-03-11 19:49:05,139; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-11 19:49:06,118; INFO; Set parameter Username
+2025-03-11 19:49:06,121; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 14:11:32,397; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 14:11:33,222; INFO; Set parameter Username
+2025-03-14 14:11:33,226; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 14:14:00,814; INFO; Start: Main
+2025-03-14 14:14:00,814; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 14:14:00,844; INFO; Set parameter Username
+2025-03-14 14:14:00,848; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 14:15:30,329; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 14:15:30,375; INFO; Set parameter Username
+2025-03-14 14:15:30,380; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 14:16:47,830; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 14:16:48,684; INFO; Set parameter Username
+2025-03-14 14:16:48,687; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 14:24:59,504; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 14:25:00,466; INFO; Set parameter Username
+2025-03-14 14:25:00,470; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 14:40:13,437; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 14:40:53,870; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 14:41:59,813; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 14:44:04,368; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 14:44:13,390; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 14:44:13,404; INFO; Set parameter Username
+2025-03-14 14:44:13,407; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 14:44:56,064; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 14:44:56,076; INFO; Set parameter Username
+2025-03-14 14:44:56,081; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 14:55:51,056; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 14:55:51,976; INFO; Set parameter Username
+2025-03-14 14:55:51,979; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 14:56:54,483; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 14:56:55,371; INFO; Set parameter Username
+2025-03-14 14:56:55,374; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 15:42:25,024; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 15:42:25,043; INFO; Set parameter Username
+2025-03-14 15:42:25,046; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 15:48:40,824; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 15:48:40,868; INFO; Set parameter Username
+2025-03-14 15:48:40,871; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 15:49:18,226; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 15:49:18,234; INFO; Set parameter Username
+2025-03-14 15:49:18,237; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 15:52:17,189; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 15:52:17,207; INFO; Set parameter Username
+2025-03-14 15:52:17,215; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 15:52:27,819; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.3.0 24D60)
+2025-03-14 15:52:27,819; INFO; 
+2025-03-14 15:52:27,819; INFO; CPU model: Apple M2
+2025-03-14 15:52:27,819; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+2025-03-14 15:52:27,819; INFO; 
+2025-03-14 15:52:27,819; INFO; Optimize a model with 570936 rows, 568956 columns and 1536106 nonzeros
+2025-03-14 15:52:27,832; INFO; Model fingerprint: 0xc6b095d7
+2025-03-14 15:52:27,832; INFO; Model has 324072 quadratic constraints
+2025-03-14 15:52:27,832; INFO; Variable types: 487938 continuous, 81018 integer (81018 binary)
+2025-03-14 15:52:27,839; INFO; Coefficient statistics:
+2025-03-14 15:52:27,839; INFO;   Matrix range     [9e-05, 2e+03]
+2025-03-14 15:52:27,839; INFO;   QMatrix range    [1e+00, 1e+00]
+2025-03-14 15:52:27,839; INFO;   QLMatrix range   [1e+00, 1e+00]
+2025-03-14 15:52:27,839; INFO;   Objective range  [5e-04, 2e+03]
+2025-03-14 15:52:27,839; INFO;   Bounds range     [1e+00, 1e+00]
+2025-03-14 15:52:27,839; INFO;   RHS range        [1e-01, 2e+04]
+2025-03-14 15:52:28,339; INFO; Presolve added 170832 rows and 0 columns
+2025-03-14 15:52:28,339; INFO; Presolve removed 0 rows and 152686 columns
+2025-03-14 15:52:28,339; INFO; Presolve time: 0.49s
+2025-03-14 15:52:28,343; INFO; Presolved: 786288 rows, 432532 columns, 1898934 nonzeros
+2025-03-14 15:52:28,343; INFO; Presolved model has 1422 SOS constraint(s)
+2025-03-14 15:52:28,575; INFO; Variable types: 350803 continuous, 81729 integer (81729 binary)
+2025-03-14 15:52:30,120; INFO; 
+2025-03-14 15:52:30,120; INFO; Root relaxation: objective 1.593583e+04, 1 iterations, 0.00 seconds (0.00 work units)
+2025-03-14 15:52:30,131; INFO; 
+2025-03-14 15:52:30,131; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+2025-03-14 15:52:30,131; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+2025-03-14 15:52:30,131; INFO; 
+2025-03-14 15:52:30,131; INFO; *    0     0               0    15935.827607 15935.8276  0.00%     -    2s
+2025-03-14 15:52:30,175; INFO; 
+2025-03-14 15:52:30,175; INFO; Explored 1 nodes (1 simplex iterations) in 2.36 seconds (4.23 work units)
+2025-03-14 15:52:30,175; INFO; Thread count was 8 (of 8 available processors)
+2025-03-14 15:52:30,175; INFO; 
+2025-03-14 15:52:30,175; INFO; Solution count 1: 15935.8 
+2025-03-14 15:52:30,175; INFO; 
+2025-03-14 15:52:30,175; INFO; Optimal solution found (tolerance 1.00e-04)
+2025-03-14 15:52:30,181; INFO; Best objective 1.593582760673e+04, best bound 1.593582760673e+04, gap 0.0000%
+2025-03-14 15:52:47,809; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 15:52:47,844; INFO; Set parameter Username
+2025-03-14 15:52:47,847; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 15:53:23,007; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 15:53:23,053; INFO; Set parameter Username
+2025-03-14 15:53:23,058; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 15:53:33,760; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.3.0 24D60)
+2025-03-14 15:53:33,761; INFO; 
+2025-03-14 15:53:33,761; INFO; CPU model: Apple M2
+2025-03-14 15:53:33,761; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+2025-03-14 15:53:33,761; INFO; 
+2025-03-14 15:53:33,761; INFO; Optimize a model with 570353 rows, 568049 columns and 1535143 nonzeros
+2025-03-14 15:53:33,773; INFO; Model fingerprint: 0xc8b900f3
+2025-03-14 15:53:33,773; INFO; Model has 323568 quadratic constraints
+2025-03-14 15:53:33,773; INFO; Variable types: 487157 continuous, 80892 integer (80892 binary)
+2025-03-14 15:53:33,779; INFO; Coefficient statistics:
+2025-03-14 15:53:33,779; INFO;   Matrix range     [9e-05, 2e+03]
+2025-03-14 15:53:33,779; INFO;   QMatrix range    [1e+00, 1e+00]
+2025-03-14 15:53:33,779; INFO;   QLMatrix range   [1e+00, 1e+00]
+2025-03-14 15:53:33,779; INFO;   Objective range  [5e-04, 2e+03]
+2025-03-14 15:53:33,779; INFO;   Bounds range     [1e+00, 1e+00]
+2025-03-14 15:53:33,779; INFO;   RHS range        [1e-01, 2e+04]
+2025-03-14 15:53:34,273; INFO; Presolve added 169870 rows and 0 columns
+2025-03-14 15:53:34,274; INFO; Presolve removed 0 rows and 152772 columns
+2025-03-14 15:53:34,274; INFO; Presolve time: 0.48s
+2025-03-14 15:53:34,278; INFO; Presolved: 783504 rows, 431260 columns, 1877940 nonzeros
+2025-03-14 15:53:34,278; INFO; Presolved model has 1556 SOS constraint(s)
+2025-03-14 15:53:34,507; INFO; Variable types: 349590 continuous, 81670 integer (81670 binary)
+2025-03-14 15:53:35,986; INFO; 
+2025-03-14 15:53:35,986; INFO; Root relaxation: objective 1.744704e+04, 1 iterations, 0.00 seconds (0.00 work units)
+2025-03-14 15:53:35,997; INFO; 
+2025-03-14 15:53:35,997; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+2025-03-14 15:53:35,997; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+2025-03-14 15:53:35,997; INFO; 
+2025-03-14 15:53:35,997; INFO; *    0     0               0    17447.042975 17447.0430  0.00%     -    2s
+2025-03-14 15:53:36,041; INFO; 
+2025-03-14 15:53:36,041; INFO; Explored 1 nodes (1 simplex iterations) in 2.28 seconds (4.23 work units)
+2025-03-14 15:53:36,041; INFO; Thread count was 8 (of 8 available processors)
+2025-03-14 15:53:36,041; INFO; 
+2025-03-14 15:53:36,041; INFO; Solution count 1: 17447 
+2025-03-14 15:53:36,041; INFO; 
+2025-03-14 15:53:36,041; INFO; Optimal solution found (tolerance 1.00e-04)
+2025-03-14 15:53:36,046; INFO; Best objective 1.744704297500e+04, best bound 1.744704297500e+04, gap 0.0000%
+2025-03-14 15:53:49,960; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.3.0 24D60)
+2025-03-14 15:53:49,960; INFO; 
+2025-03-14 15:53:49,960; INFO; CPU model: Apple M2
+2025-03-14 15:53:49,960; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+2025-03-14 15:53:49,960; INFO; 
+2025-03-14 15:53:49,960; INFO; Optimize a model with 570353 rows, 568049 columns and 1535143 nonzeros
+2025-03-14 15:53:49,972; INFO; Model fingerprint: 0xabc2bd13
+2025-03-14 15:53:49,972; INFO; Model has 323568 quadratic constraints
+2025-03-14 15:53:49,973; INFO; Variable types: 487157 continuous, 80892 integer (80892 binary)
+2025-03-14 15:53:49,978; INFO; Coefficient statistics:
+2025-03-14 15:53:49,978; INFO;   Matrix range     [9e-05, 2e+03]
+2025-03-14 15:53:49,978; INFO;   QMatrix range    [1e+00, 1e+00]
+2025-03-14 15:53:49,978; INFO;   QLMatrix range   [1e+00, 1e+00]
+2025-03-14 15:53:49,978; INFO;   Objective range  [1e+00, 2e+03]
+2025-03-14 15:53:49,978; INFO;   Bounds range     [1e+00, 1e+00]
+2025-03-14 15:53:49,978; INFO;   RHS range        [1e-01, 2e+04]
+2025-03-14 15:53:50,464; INFO; Presolve added 169870 rows and 0 columns
+2025-03-14 15:53:50,464; INFO; Presolve removed 0 rows and 152772 columns
+2025-03-14 15:53:50,465; INFO; Presolve time: 0.47s
+2025-03-14 15:53:50,470; INFO; Presolved: 783504 rows, 431260 columns, 1877940 nonzeros
+2025-03-14 15:53:50,470; INFO; Presolved model has 1556 SOS constraint(s)
+2025-03-14 15:53:50,700; INFO; Variable types: 349590 continuous, 81670 integer (81670 binary)
+2025-03-14 15:53:52,366; INFO; 
+2025-03-14 15:53:52,366; INFO; Root relaxation: objective 7.633502e+09, 28 iterations, 0.00 seconds (0.00 work units)
+2025-03-14 15:53:52,379; INFO; 
+2025-03-14 15:53:52,379; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+2025-03-14 15:53:52,379; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+2025-03-14 15:53:52,379; INFO; 
+2025-03-14 15:53:52,379; INFO; *    0     0               0    7.633502e+09 7.6335e+09 -0.00%     -    2s
+2025-03-14 15:53:52,423; INFO; 
+2025-03-14 15:53:52,423; INFO; Explored 1 nodes (28 simplex iterations) in 2.46 seconds (4.44 work units)
+2025-03-14 15:53:52,423; INFO; Thread count was 8 (of 8 available processors)
+2025-03-14 15:53:52,423; INFO; 
+2025-03-14 15:53:52,423; INFO; Solution count 1: 7.6335e+09 
+2025-03-14 15:53:52,423; INFO; 
+2025-03-14 15:53:52,423; INFO; Optimal solution found (tolerance 1.00e-04)
+2025-03-14 15:53:52,428; INFO; Best objective 7.633501699843e+09, best bound 7.633501699843e+09, gap 0.0000%
+2025-03-14 15:56:44,268; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 15:56:44,282; INFO; Set parameter Username
+2025-03-14 15:56:44,286; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 15:56:54,920; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.3.0 24D60)
+2025-03-14 15:56:54,920; INFO; 
+2025-03-14 15:56:54,920; INFO; CPU model: Apple M2
+2025-03-14 15:56:54,920; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+2025-03-14 15:56:54,920; INFO; 
+2025-03-14 15:56:54,920; INFO; Optimize a model with 570936 rows, 568956 columns and 1536106 nonzeros
+2025-03-14 15:56:54,932; INFO; Model fingerprint: 0xc6b095d7
+2025-03-14 15:56:54,932; INFO; Model has 324072 quadratic constraints
+2025-03-14 15:56:54,933; INFO; Variable types: 487938 continuous, 81018 integer (81018 binary)
+2025-03-14 15:56:54,939; INFO; Coefficient statistics:
+2025-03-14 15:56:54,939; INFO;   Matrix range     [9e-05, 2e+03]
+2025-03-14 15:56:54,939; INFO;   QMatrix range    [1e+00, 1e+00]
+2025-03-14 15:56:54,939; INFO;   QLMatrix range   [1e+00, 1e+00]
+2025-03-14 15:56:54,939; INFO;   Objective range  [5e-04, 2e+03]
+2025-03-14 15:56:54,939; INFO;   Bounds range     [1e+00, 1e+00]
+2025-03-14 15:56:54,939; INFO;   RHS range        [1e-01, 2e+04]
+2025-03-14 15:56:55,442; INFO; Presolve added 170832 rows and 0 columns
+2025-03-14 15:56:55,442; INFO; Presolve removed 0 rows and 152686 columns
+2025-03-14 15:56:55,442; INFO; Presolve time: 0.49s
+2025-03-14 15:56:55,445; INFO; Presolved: 786288 rows, 432532 columns, 1898934 nonzeros
+2025-03-14 15:56:55,445; INFO; Presolved model has 1422 SOS constraint(s)
+2025-03-14 15:56:55,682; INFO; Variable types: 350803 continuous, 81729 integer (81729 binary)
+2025-03-14 15:56:57,181; INFO; 
+2025-03-14 15:56:57,181; INFO; Root relaxation: objective 1.593583e+04, 1 iterations, 0.00 seconds (0.00 work units)
+2025-03-14 15:56:57,193; INFO; 
+2025-03-14 15:56:57,193; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+2025-03-14 15:56:57,193; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+2025-03-14 15:56:57,193; INFO; 
+2025-03-14 15:56:57,193; INFO; *    0     0               0    15935.827607 15935.8276  0.00%     -    2s
+2025-03-14 15:56:57,238; INFO; 
+2025-03-14 15:56:57,238; INFO; Explored 1 nodes (1 simplex iterations) in 2.32 seconds (4.23 work units)
+2025-03-14 15:56:57,238; INFO; Thread count was 8 (of 8 available processors)
+2025-03-14 15:56:57,238; INFO; 
+2025-03-14 15:56:57,238; INFO; Solution count 1: 15935.8 
+2025-03-14 15:56:57,238; INFO; 
+2025-03-14 15:56:57,238; INFO; Optimal solution found (tolerance 1.00e-04)
+2025-03-14 15:56:57,243; INFO; Best objective 1.593582760673e+04, best bound 1.593582760673e+04, gap 0.0000%
+2025-03-14 15:58:10,435; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 15:58:10,448; INFO; Set parameter Username
+2025-03-14 15:58:10,461; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 16:01:45,816; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 16:01:45,827; INFO; Set parameter Username
+2025-03-14 16:01:45,833; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 16:04:18,776; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 16:04:18,785; INFO; Set parameter Username
+2025-03-14 16:04:18,788; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 16:05:21,256; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 16:05:21,265; INFO; Set parameter Username
+2025-03-14 16:05:21,269; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 16:10:03,578; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 16:10:03,592; INFO; Set parameter Username
+2025-03-14 16:10:03,596; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 16:11:10,914; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 16:11:10,933; INFO; Set parameter Username
+2025-03-14 16:11:10,958; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 16:11:30,058; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 16:11:30,066; INFO; Set parameter Username
+2025-03-14 16:11:30,071; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 16:27:10,845; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 16:27:10,860; INFO; Set parameter Username
+2025-03-14 16:27:10,862; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 16:28:11,184; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 16:28:11,199; INFO; Set parameter Username
+2025-03-14 16:28:11,203; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 16:31:14,218; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 16:31:14,240; INFO; Set parameter Username
+2025-03-14 16:31:14,243; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 16:36:12,602; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 16:36:12,622; INFO; Set parameter Username
+2025-03-14 16:36:12,625; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 16:40:49,757; INFO; Start: Main
+2025-03-14 16:40:49,759; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-03-14 16:40:49,780; INFO; Set parameter Username
+2025-03-14 16:40:49,784; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-14 16:42:35,702; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base

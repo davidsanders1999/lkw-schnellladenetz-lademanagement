@@ -17,17 +17,17 @@ logging.info('Start: Main')
 
 if config.mode == 'flex':
     # clear_data.main()
-    zuweisung_ladetyp.main()
-    # konfiguration_ladehub.main()
+    # zuweisung_ladetyp.main()
+    # FLEX_konfiguration_ladehub.main()
     FLEX_optimierung_p_min_max.main()
-    berechne_flex_kpis.main()
-    FLEX_daten_aufbereiten.main()
+    # berechne_flex_kpis.main()
+    # FLEX_daten_aufbereiten.main()
     
 elif config.mode == 'epex':
-    zuweisung_ladetyp.main()
+    # zuweisung_ladetyp.main()
     # FLEX_konfiguration_ladehub.main()
-    EPEX_laden_nicht_laden.main()
-    # epex_optimierung.main()
+    # EPEX_laden_nicht_laden.main()
+    EPEX_optimierung.main()
     
 
 time_end = time.time()

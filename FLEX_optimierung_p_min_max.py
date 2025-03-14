@@ -40,6 +40,8 @@ def modellierung_p_max_min(szenario):
 
     df_lkw_filtered = df_lkw[(df_lkw['Cluster'] == int(dict_szenario['cluster'])) & (df_lkw['LoadStatus'] == 1)][:].copy()
     
+    print(f"Anzahl LKWs: {len(df_lkw_filtered)}")
+    
     bidirektional = False if szenario.split('_')[10] == 'M' else True
 
     
@@ -145,7 +147,7 @@ def modellierung_p_max_min(szenario):
         # 2.2) Gurobi-Modell
         # --------------------------------------------------
         model = Model("Ladehub_Optimierung")
-        model.setParam('OutputFlag', 0)
+        # model.setParam('OutputFlag', 0)
         # model.setParam('MIPGap', 0.1)
         # --------------------------------------------------
         # 2.3) Variablen anlegen
