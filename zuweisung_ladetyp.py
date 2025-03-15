@@ -22,7 +22,8 @@ def main():
 
     # Generate truck data
     df_lkws = generate_truck_data(CONFIG, df_verteilungsfunktion, df_ladevorgaenge_daily)
-
+    print("Truck data generated successfully.")
+    
     # Assign charging stations
     df_lkws = assign_charging_stations(df_lkws, CONFIG)
 
@@ -44,6 +45,7 @@ def load_configurations():
     return {
         'path': path,
         'freq': freq,
+        'year': 2024,
         'lkw_id':{
             '1': 0.093,
             '2': 0.187,
@@ -62,12 +64,7 @@ def load_configurations():
             '3': 1200,
             '4': 1200
         },
-        # 'kapazitaeten_lkws': {
-        #     '600': 0.093,
-        #     '720': 0.187,
-        #     '840': 0.289,
-        #     '960': 0.431
-        # },
+
         'pausentypen': ['Schnelllader', 'Nachtlader'],
         'pausenzeiten_lkws': {
             'Schnelllader': 45,
@@ -97,7 +94,7 @@ def get_soc(ankunftszeit):
     """
     Calculate the State of Charge (SOC) based on arrival time.
     """
-    if ankunftszeit < 360:  # Early morning  #TODO: Prüfen, ob 360 korrekt ist
+    if ankunftszeit < 360:  # Early morning
         soc = 0.2 + np.random.uniform(-0.1, 0.1)
     else:
         soc = -(0.00028) * ankunftszeit + 0.6
@@ -113,6 +110,17 @@ def get_leistungsfaktor(soc):
     """
     return min(-0.177038 * soc + 0.970903, -1.51705 * soc + 1.6336)
 
+def tage_im_jahr(jahr):
+    return pd.date_range(start=f"{jahr}-01-01", end=f"{jahr}-12-31", freq="D").size
+
+def wochentag_im_jahr(nummer, jahr):
+    """
+    Return the weekday for a given day number in a specific year.
+    """
+    date = pd.to_datetime(f"{jahr}-01-01") + pd.Timedelta(days=nummer)
+    return date.weekday() + 1  # Monday is 1 and Sunday is 7
+
+
 # ======================================================
 # Truck Data Generation
 # ======================================================
@@ -122,7 +130,7 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
     """
     dict_lkws = {
         'Cluster': [],
-        'Wochentag': [],
+        'Tag': [],
         'Ankunftszeit': [],
         'Nummer': [],
         'Pausentyp': [],
@@ -136,11 +144,12 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
 
     for cluster_id in range(1, 4):  # Loop through clusters
         
-        horizon = (7 if config_file.mode == 'flex' else 365)
+        horizon = (7 if config_file.mode == 'flex' else tage_im_jahr(config['year']))
         
         for day in range(horizon):  # Loop through days
+            wochentag = wochentag_im_jahr(day, config['year'])
             anzahl_lkws = {
-                pausentyp: df_ladevorgaenge_daily[(df_ladevorgaenge_daily['Cluster'] == cluster_id) & (df_ladevorgaenge_daily['Wochentag'] == day % 7 + 1) & (df_ladevorgaenge_daily['Ladetype'] == pausentyp)]['Anzahl'].values[0]
+                pausentyp: df_ladevorgaenge_daily[(df_ladevorgaenge_daily['Cluster'] == cluster_id) & (df_ladevorgaenge_daily['Wochentag'] == wochentag) & (df_ladevorgaenge_daily['Ladetype'] == pausentyp)]['Anzahl'].values[0]
                 for pausentyp in config['pausentypen']
             }
             for pausentyp in config['pausentypen']:  # Loop through break types
@@ -166,12 +175,8 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
                         soc_target = min(soc_target, 1.0)
                         soc_target = max(soc_target, soc)
                     
-                    # kapazitaet = np.random.choice(
-                    #     list(config['kapazitaeten_lkws'].keys()),
-                    #     p=list(config['kapazitaeten_lkws'].values())
-                    # )
                     dict_lkws['Cluster'].append(cluster_id)
-                    dict_lkws['Wochentag'].append(day + 1)
+                    dict_lkws['Tag'].append(day + 1)
                     dict_lkws['Kapazitaet'].append(kapazitaet)
                     dict_lkws['Max_Leistung'].append(leistung)
                     dict_lkws['Nummer'].append(None)  # Placeholder for ID
@@ -182,8 +187,9 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
                     dict_lkws['Ankunftszeit'].append(minuten)
                     dict_lkws['Lkw_ID'].append(int(lkw_id))
 
+
     df_lkws = pd.DataFrame(dict_lkws)
-    df_lkws.sort_values(by=['Cluster', 'Wochentag', 'Ankunftszeit'], inplace=True)
+    df_lkws.sort_values(by=['Cluster', 'Tag', 'Ankunftszeit'], inplace=True)
     df_lkws.reset_index(drop=True, inplace=True)
     df_lkws['Nummer'] = df_lkws.groupby('Cluster').cumcount() + 1
     df_lkws['Nummer'] = df_lkws['Nummer'].apply(lambda x: f'{x:04}')
@@ -258,11 +264,22 @@ def finalize_and_export_data(df_lkws, config):
     Finalize the DataFrame, add datetime, and export to a CSV file.
     """
     df_lkws['Zeit_DateTime'] = pd.to_datetime(
-        df_lkws['Ankunftszeit'] + ((df_lkws['Wochentag'] - 1) * 1440),
+        df_lkws['Ankunftszeit'] + ((df_lkws['Tag'] - 1) * 1440),
         unit='m',
-        origin='2021-01-01'
+        origin='2024-01-01'
     )
-    df_lkws['Ankunftszeit_total'] = df_lkws['Ankunftszeit'] + ((df_lkws['Wochentag'] - 1) * 1440)
+    df_lkws['Ankunftszeit_total'] = df_lkws['Ankunftszeit'] + ((df_lkws['Tag'] - 1) * 1440)
+    df_lkws['Wochentag'] = df_lkws['Zeit_DateTime'].dt.weekday
+    df_lkws['KW'] = df_lkws['Zeit_DateTime'].dt.isocalendar().week
+    df_lkws.loc[(df_lkws['Tag'] > 300) & (df_lkws['KW'] == 1), 'KW'] = 53
+    df_lkws.sort_values(by=['Cluster', 'Zeit_DateTime'], inplace=True)
+    # Reorder the columns
+    df_lkws = df_lkws[[
+        'Cluster',  'Zeit_DateTime', 'Ankunftszeit_total', 'Tag',  'KW','Wochentag',
+        'Ankunftszeit', 'Nummer', 'Pausentyp', 'Kapazitaet', 'Max_Leistung', 'SOC',
+        'SOC_Target', 'Pausenlaenge', 'Lkw_ID', 'Ladesäule'
+    ]]
+    
     # Ensure the directories exist
     output_dir = os.path.join(config['path'], 'data', config_file.mode, 'lkw_eingehend')
     os.makedirs(output_dir, exist_ok=True)

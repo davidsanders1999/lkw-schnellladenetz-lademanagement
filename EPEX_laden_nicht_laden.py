@@ -249,6 +249,8 @@ def main():
         os.path.join(path_data, 'flex', "konfiguration_ladehub", f"anzahl_ladesaeulen_{szenario}.csv"), 
         sep=';', decimal=',', index_col=0
     )
+    
+    cluster = int(szenario.split('_')[1])
 
     anzahl = {
         'NCS': df_anzahl_ladesaeulen.loc[0, 'NCS'],
@@ -256,9 +258,6 @@ def main():
         'MCS': df_anzahl_ladesaeulen.loc[0, 'MCS']
     }
 
-    # Wochenweise: 7 Tage => 7*24*60 = 10080 Minuten
-    WOCHE_MINUTEN = 10080
-    NUM_WEEKS = 2  # Sie könnten hier ggf. 53 ansetzen, falls 365+ Tage abgedeckt werden sollen
 
     # CSV mit allen eingehenden LKW
     df_all_incoming = pd.read_csv(
@@ -266,9 +265,12 @@ def main():
         sep=';', decimal=',', index_col=0
     )
 
-    # Beispiel: Filter auf Cluster=2 (kann natürlich auch Teil der Wochenschleife sein)
-    df_all_incoming = df_all_incoming[df_all_incoming['Cluster'] == 2].copy()
+    df_all_incoming = df_all_incoming[df_all_incoming['Cluster'] == cluster].copy()
 
+    # NUM_WEEKS = df_all_incoming['KW'].max()  # Anzahl Wochen
+    NUM_WEEKS = 2
+    
+    
     # Schleife über Ladetypen
     for ladetyp in ladetypen:
         # Extrahieren alle LKW dieses Ladetyps
@@ -277,16 +279,10 @@ def main():
         print(f"\n=== Ladetyp: {ladetyp} ===")
 
         # Schleife über Wochen
-        for week in range(NUM_WEEKS):
-            week_start = week * WOCHE_MINUTEN
-            week_end   = (week + 1) * WOCHE_MINUTEN
+        for week in range(1, NUM_WEEKS + 1):
 
-            # LKWs auswählen, die in diese Woche (Zeitfenster) fallen
-            df_week = df_eingehende_lkws[
-                (df_eingehende_lkws['Ankunftszeit_total'] >= week_start) &
-                (df_eingehende_lkws['Ankunftszeit_total'] <  week_end)
-            ].copy()
-
+            df_week = df_eingehende_lkws[df_eingehende_lkws['KW'] == week].copy()
+            
             if df_week.empty:
                 # Keine LKWs in dieser Woche
                 continue
@@ -303,7 +299,7 @@ def main():
             # Anschließend an das globale DF anhängen
             df_lkws_gesamt = pd.concat([df_lkws_gesamt, df_week])
             
-            print(f"Woche {week+1}: Ladequote: {sum(ladestatus)/len(ladestatus):.2f}")
+            print(f"Woche {week}: Ladequote: {sum(ladestatus)/len(ladestatus):.2f}")
 
     # Am Ende: df_lkws_gesamt speichern
     output_path = os.path.join(path_data, 'epex', 'lkws')
