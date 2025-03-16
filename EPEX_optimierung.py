@@ -50,57 +50,13 @@ def modellierung(szenario):
         )
 
     df_epex = pd.read_csv(os.path.join(path, 'input', 'epex_week.csv'), sep=';', decimal=',', index_col=0)
-        
+    df_nrv = pd.read_csv(os.path.join(path, 'input', 'NRV-Saldo_2024_5min_quadratic.csv'), sep=';', decimal=',', index_col=0)    
+
+    print(len(df_nrv))
+
     # Bidirektional: aus Szenario ableiten
     bidirektional = False if szenario.split('_')[10] == 'M' else True
     
-    # -------------------------------------
-    # Vorbereitung: Lastgang-Arrays
-    # -------------------------------------
-    # Ein Jahr mit 525.600 Minuten, 5-Minuten-Schritte -> 105.120 Zeitschritte
-    YEAR_MINUTES = 525600
-    TIMESTEP = 5
-    N = YEAR_MINUTES // TIMESTEP  # 525600 / 5 = 105120
-    NUM_WEEKS = df_lkw['KW'].max()  # Anzahl Wochen
-
-
-    # STRATEGIES = ["Epex"]  
-    STRATEGIES = ["T_min", "Epex", "Konstant"]
-
-    # Wir legen für jede Strategie ein Dictionary an, 
-    # in dem jede Spalte ein numpy-Array der Länge N hat.
-    # So sparen wir uns das große Dictionary lastgang_dict[(t, strategie)].
-    lastgang_data = {}
-    for strategie in STRATEGIES:
-        lastgang_data[strategie] = {
-            "Leistung_Total":       np.zeros(N, dtype=float),
-            "Leistung_Max_Total":   np.zeros(N, dtype=float),
-            "Leistung_NCS":         np.zeros(N, dtype=float),
-            "Leistung_HPC":         np.zeros(N, dtype=float),
-            "Leistung_MCS":         np.zeros(N, dtype=float),
-            "Netzanschluss":        np.zeros(N, dtype=float),
-            "Ladequote":            np.zeros(N, dtype=float), 
-        }
-    
-    dict_lkw_lastgang = {
-        'LKW_ID': [],
-        'Datum': [],
-        'Woche': [],
-        'Tag': [],
-        'Zeit': [],
-        'Ladetyp': [],
-        'Ladestrategie': [],
-        'Ladezeit': [],
-        'Preis': [],
-        'Leistung': [],
-        'SOC': [],
-        'Max_Leistung': [],
-        'Pplus': [],
-        'Pminus': [],
-        'z': []
-    }
-    
-        
     # Maximale Leistung pro Ladesäulen-Typ
     ladeleistung = {
         'NCS': int(int(szenario.split('_')[7].split('-')[0]) / 100 * config.leistung_ladetyp['NCS']),
@@ -122,6 +78,15 @@ def modellierung(szenario):
         max_saeulen['MCS'] * ladeleistung['MCS']
     ) * netzanschlussfaktor
 
+    
+    # -------------------------------------
+    # Vorbereitung: Lastgang-Arrays
+    # -------------------------------------
+    # Ein Jahr mit 525.600 Minuten, 5-Minuten-Schritte -> 105.120 Zeitschritte
+    YEAR_MINUTES = 527040
+    TIMESTEP = 5
+    N = YEAR_MINUTES // TIMESTEP  # 527040 / 5 = 105408
+    NUM_WEEKS = df_lkw['KW'].max()  # Anzahl Wochen
     # -------------------------------------
     # Wochenschleife (52-53 Wochen im Jahr)
     # Hier: range(365), was bei dir 365 Blöcke bedeutet
@@ -131,6 +96,52 @@ def modellierung(szenario):
     T_7 = 288 * 7
     
     Delta_t = TIMESTEP / 60.0
+
+    STRATEGIES = ["NRV"]  
+    # STRATEGIES = ["T_min", "Epex", "Konstant"]
+
+    # Vorbefüllen der Liste mit allen Zeitpunkten und Strategien
+    rows = []
+    for strategie in STRATEGIES:
+        for i in range(N):
+            rows.append({
+                'Datum':                pd.Timestamp('2024-01-01 00:00:00') + pd.Timedelta(minutes=i * TIMESTEP),
+                'Woche':                1 + i // T_7,
+                'Tag':                  1 + (i // 288) % 7,
+                'Zeit':                 (i * TIMESTEP) % 1440,
+                # 'Preis':                df_epex['Preis'][i],
+                'Leistung_Total':       0.0,
+                'Leistung_Max_Total':   0.0,
+                'Leistung_NCS':         0.0,
+                'Leistung_HPC':         0.0,
+                'Leistung_MCS':         0.0,
+                'Ladestrategie':        strategie,
+                'Netzanschluss':        netzanschluss,
+                'Ladequote':            0.0,
+            })
+
+    # Index-Map für schnellen Zugriff erstellen
+    row_index = {(strategie, i): idx for idx, (strategie, i) in enumerate([(r['Ladestrategie'], 
+                                             (pd.Timestamp(r['Datum']) - pd.Timestamp('2024-01-01 00:00:00')).total_seconds() // (60 * TIMESTEP)) 
+                                             for r in rows])}
+
+    dict_lkw_lastgang = {
+        'LKW_ID': [],
+        'Datum': [],
+        'Woche': [],
+        'Tag': [],
+        'Zeit': [],
+        'Ladetyp': [],
+        'Ladestrategie': [],
+        'Ladezeit': [],
+        'Preis': [],
+        'Leistung': [],
+        'SOC': [],
+        'Max_Leistung': [],
+        'Pplus': [],
+        'Pminus': [],
+        'z': []
+    }
 
     for week in range(1, NUM_WEEKS + 1):
 
@@ -142,6 +153,11 @@ def modellierung(szenario):
         df_epex_filtered = df_epex[
             (df_epex['KW'] == week)
             | (df_epex['KW'] == week+1)
+        ].copy()
+        
+        df_nrv_filtered = df_nrv[
+            (df_nrv['KW'] == week)
+            | (df_nrv['KW'] == week+1)
         ].copy()
         
         if df_lkw_filtered.empty:
@@ -166,6 +182,7 @@ def modellierung(szenario):
         maxLKW   = df_lkw_filtered['Max_Leistung'].tolist()
         SOC_req  = df_lkw_filtered['SOC_Target'].tolist()
         preis    = df_epex_filtered['Preis'].tolist()
+        nrv      = df_nrv_filtered['Saldo'].values
 
         
         # Leistungsskalierung
@@ -303,6 +320,33 @@ def modellierung(szenario):
                     for i in range(I) for t in range(t_in[i], t_out[i] + 1)
                 )
 
+            elif strategie == "NRV":
+                # NRV-Werte extrahieren 
+                nrv_values = df_nrv_filtered['Saldo'].values
+                
+                # Normalisiere NRV-Werte für bessere numerische Stabilität
+                max_abs_nrv = max(abs(v) for v in nrv_values) if len(nrv_values) > 0 else 1
+                normalized_nrv = [v / max_abs_nrv for v in nrv_values]
+                
+                # Hierarchisches Optimierungsmodell:
+                # 1. Primäres Ziel mit hoher Gewichtung: Maximiere Energieeintrag (ähnlich wie bei anderen Strategien)
+                # 2. Sekundäres Ziel: Minimiere NRV-Einfluss durch gegenläufiges Verhalten
+                #    - Bei positivem NRV (Strommangel): Weniger laden oder rückspeisen
+                #    - Bei negativem NRV (Stromüberschuss): Mehr laden
+                
+                M_energy = 10000  # Hoher Gewichtungsfaktor für die Energiemaximierung
+                
+                obj_expr = quicksum(
+                    # Primärziel: Maximiere Ladung
+                    M_energy * Pplus[(i, t)]  
+                    # Sekundärziel: NRV-Gegensteuerung
+                    # Negativer NRV-Wert * Laden: Erhöht Ladeleistung bei Überschuss
+                    # Positiver NRV-Wert * Entladen: Fördert Rückspeisung bei Mangel
+                    + (-normalized_nrv[t] * Pplus[(i, t)] + normalized_nrv[t] * Pminus[(i, t)])
+                    for i in range(I) for t in range(t_in[i], t_out[i] + 1) if t < len(normalized_nrv)
+                )
+                
+            
             model.setObjective(obj_expr, GRB.MAXIMIZE)
             model.optimize()
 
@@ -331,9 +375,7 @@ def modellierung(szenario):
                       f"Anzahl LKW: {len(df_lkw_filtered)}, "
                       f"Gesamtkosten: {gesamtkosten:.2f} €")
                 
-                # Lastgang: wir addieren die Leistungen in unsere Arrays
-                # Array-Index: (global_t_min // 5)
-                # T geht von 0..2016, wir müssen global_t_min = week_offset_minutes + t_step*5
+                # Lastgang: direkt in rows eintragen
                 for t_step in range(T_8):
                     sum_p_total = 0.0
                     sum_p_total_max = 0.0
@@ -355,17 +397,14 @@ def modellierung(szenario):
                     global_t = week_offset_minutes + t_step * TIMESTEP
                     idx = global_t // TIMESTEP  # entspricht global_t_min / 5
 
-                    # In unserem Dictionary lastgang_data[strategie] die Arrays adressieren:
-                    lastgang_data[strategie]["Leistung_Total"][idx]       += sum_p_total
-                    lastgang_data[strategie]["Leistung_Max_Total"][idx]   += sum_p_total_max
-                    lastgang_data[strategie]["Leistung_NCS"][idx]         += sum_p_ncs
-                    lastgang_data[strategie]["Leistung_HPC"][idx]         += sum_p_hpc
-                    lastgang_data[strategie]["Leistung_MCS"][idx]         += sum_p_mcs
-                    lastgang_data[strategie]["Netzanschluss"][idx]         = netzanschluss
-                    lastgang_data[strategie]["Ladequote"][idx]             = ladequote_week
-                    # Optional könntest du die Ladequote auch als gleitendes Mittel 
-                    # abbilden, wenn sich wochenweise was ändern soll.
-                            
+                    # Direktes Eintragen in rows mit dem entsprechenden Index
+                    row_idx = row_index[(strategie, idx)]
+                    rows[row_idx]['Leistung_Total'] += sum_p_total
+                    rows[row_idx]['Leistung_Max_Total'] += sum_p_total_max
+                    rows[row_idx]['Leistung_NCS'] += sum_p_ncs
+                    rows[row_idx]['Leistung_HPC'] += sum_p_hpc
+                    rows[row_idx]['Leistung_MCS'] += sum_p_mcs
+                    rows[row_idx]['Ladequote'] = ladequote_week  # Überschreiben, nicht addieren
 
                 for i in range(I):
                     t_charging = 0
@@ -406,26 +445,6 @@ def modellierung(szenario):
     # 1) Lastgang-DF je Strategie
     #    Wir packen beide Strategien zusammen in EIN DataFrame,
     #    indem wir sie untereinander (concat) kleben und eine Spalte "Ladestrategie" hinzufügen.
-    
-    rows = []
-    for strategie in STRATEGIES:
-        data = lastgang_data[strategie]
-        # Indizes 0..N-1 -> echte Zeit in Minuten = i * TIMESTEP
-        for i in range(N):
-            rows.append({
-                'Datum':                pd.Timestamp('2024-01-01 00:00:00') + pd.Timedelta(minutes=i * TIMESTEP),
-                'Woche':                1 + i // T_8,
-                'Tag':            1 + (i // 288) % 7,
-                'Zeit':                 (i * TIMESTEP) % 1440,
-                'Leistung_Total':       data["Leistung_Total"][i],
-                'Leistung_Max_Total':   data["Leistung_Max_Total"][i],
-                'Leistung_NCS':         data["Leistung_NCS"][i],
-                'Leistung_HPC':         data["Leistung_HPC"][i],
-                'Leistung_MCS':         data["Leistung_MCS"][i],
-                'Ladestrategie':        strategie,
-                'Netzanschluss':        netzanschluss,
-                'Ladequote':            data["Ladequote"][i],
-            })
     
     df_lastgang = pd.DataFrame(rows)
 
