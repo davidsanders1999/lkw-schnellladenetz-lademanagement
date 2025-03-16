@@ -65,7 +65,7 @@ def modellierung(szenario):
 
 
     # STRATEGIES = ["Epex"]  
-    STRATEGIES = ["T_min", "Epex"]
+    STRATEGIES = ["T_min", "Epex", "Konstant"]
 
     # Wir legen für jede Strategie ein Dictionary an, 
     # in dem jede Spalte ein numpy-Array der Länge N hat.
@@ -229,7 +229,7 @@ def modellierung(szenario):
                 for t_step in range(t_in[i], t_out[i]+1):
                     ml = max_lkw_leistung[i]
                     model.addConstr(P_max_i[(i, t_step)]   == (-0.177038*SoC[(i,t_step)] + 0.970903)*ml)
-                    model.addConstr(P_max_i_2[(i, t_step)] == (-1.51705*SoC[(i,t_step)] + 1.6336)*ml)
+                    model.addConstr(P_max_i_2[(i,t_step)] == (-1.51705*SoC[(i,t_step)] + 1.6336)*ml)
 
                     model.addConstr(Pplus[(i,t_step)]  <= P_max_i[(i,t_step)]   * z[(i,t_step)])
                     model.addConstr(Pminus[(i,t_step)] <= P_max_i[(i,t_step)]   * (1 - z[(i,t_step)]))
@@ -279,6 +279,29 @@ def modellierung(szenario):
 
             elif strategie == "T_min":
                 obj_expr = quicksum(((1/(t+1)) * (Pplus[(i, t)])) - (t * Pminus[(i, t)]) for i in range(I) for t in range(t_in[i], t_out[i] + 1))
+
+            elif strategie == "Konstant":
+                # Hilfsvariablen für Leistungsänderungen zwischen Zeitschritten
+                delta = {}
+                for i in range(I):
+                    for t_step in range(t_in[i], t_out[i]):
+                        # Variable für die absolute Differenz zwischen aufeinanderfolgenden Zeitschritten
+                        delta[(i,t_step)] = model.addVar(lb=0, vtype=GRB.CONTINUOUS, name=f"delta_{i}_{t_step}")
+                        # Berechnung der absoluten Differenz zwischen aufeinanderfolgenden Leistungswerten
+                        model.addConstr(delta[(i,t_step)] >= P[(i,t_step+1)] - P[(i,t_step)])
+                        model.addConstr(delta[(i,t_step)] >= P[(i,t_step)] - P[(i,t_step+1)])
+                
+                # Extrem hohe Gewichtung für die Energiemaximierung, um absolute Priorität zu gewährleisten
+                M_energy = 1000000  # Sehr hoher Gewichtungsfaktor
+                
+                # Zielfunktion: Hierarchisches Modell
+                # 1. Primäres Ziel mit sehr hoher Gewichtung: Maximiere Energie
+                # 2. Sekundäres Ziel: Minimiere Leistungsschwankungen
+                obj_expr = quicksum(
+                    M_energy * Pplus[(i, t)]  # Primärziel mit sehr hoher Gewichtung
+                    - quicksum(delta[(i, t_step)] for t_step in range(t_in[i], min(t+1, t_out[i])) if t_step < t_out[i])  # Sekundärziel
+                    for i in range(I) for t in range(t_in[i], t_out[i] + 1)
+                )
 
             model.setObjective(obj_expr, GRB.MAXIMIZE)
             model.optimize()

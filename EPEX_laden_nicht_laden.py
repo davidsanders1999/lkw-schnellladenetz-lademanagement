@@ -268,7 +268,7 @@ def main():
     df_all_incoming = df_all_incoming[df_all_incoming['Cluster'] == cluster].copy()
 
     # NUM_WEEKS = df_all_incoming['KW'].max()  # Anzahl Wochen
-    NUM_WEEKS = 2
+    NUM_WEEKS = 52
     
     
     # Schleife über Ladetypen
