@@ -7,6 +7,7 @@ import berechne_flex_kpis
 import FLEX_daten_aufbereiten
 import EPEX_laden_nicht_laden
 import EPEX_optimierung
+import EPEX_daten_aufbereiten
 import clear_data 
 import logging
 logging.basicConfig(filename='logs.log', level=logging.DEBUG, format='%(asctime)s; %(levelname)s; %(message)s')
@@ -28,6 +29,8 @@ elif config.mode == 'epex':
     # FLEX_konfiguration_ladehub.main()
     EPEX_laden_nicht_laden.main()
     EPEX_optimierung.main()
+    EPEX_daten_aufbereiten.main()
+    
     
 
 time_end = time.time()

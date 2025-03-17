@@ -144,7 +144,7 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
 
     for cluster_id in range(1, 4):  # Loop through clusters
         
-        horizon = (7 if config_file.mode == 'flex' else tage_im_jahr(config['year']))
+        horizon = (7 if config_file.mode == 'flex' else (tage_im_jahr(config['year'])-1))
         
         for day in range(horizon):  # Loop through days
             wochentag = wochentag_im_jahr(day, config['year'])

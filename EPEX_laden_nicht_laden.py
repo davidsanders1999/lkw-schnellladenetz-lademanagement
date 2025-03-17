@@ -7,6 +7,11 @@ import os
 import time
 import config
 
+CONFIG = {
+    'week_start': 1,
+    'week_end': 53
+}
+
 def max_truck_assignment(arrival_times, departure_times, num_stations):
     """
     Maximiert die Anzahl an LKWs, die bedient werden können,
@@ -124,7 +129,6 @@ def main():
     df_all_incoming = df_all_incoming[df_all_incoming['Cluster'] == cluster].copy()
 
     # NUM_WEEKS = df_all_incoming['KW'].max()  # Anzahl Wochen
-    NUM_WEEKS = 52
     
     
     # Schleife über Ladetypen
@@ -135,7 +139,7 @@ def main():
         print(f"\n=== Ladetyp: {ladetyp} ===")
 
         # Schleife über Wochen
-        for week in range(1, NUM_WEEKS + 1):
+        for week in range(CONFIG['week_start'], CONFIG['week_end']+1):
 
             df_week = df_eingehende_lkws[df_eingehende_lkws['KW'] == week].copy()
             

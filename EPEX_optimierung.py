@@ -8,6 +8,11 @@ import logging
 
 logging.basicConfig(filename='logs.log', level=logging.DEBUG, format='%(asctime)s; %(levelname)s; %(message)s')
 
+CONFIG = {
+    # 'STRATEGIES': ["Intraday", "DayAhead", "T_min"],
+    'STRATEGIES': ["Intraday", "T_min", "Konstant"],
+}
+
 def modellierung(szenario):
     
     base_case = 'cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base'
@@ -49,11 +54,13 @@ def modellierung(szenario):
             sep=';', decimal=','
         )
 
-    df_epex = pd.read_csv(os.path.join(path, 'input', 'epex_week.csv'), sep=';', decimal=',', index_col=0)
-    df_nrv = pd.read_csv(os.path.join(path, 'input', 'NRV-Saldo_2024_5min_quadratic.csv'), sep=';', decimal=',', index_col=0)    
-
-    print(len(df_nrv))
-
+    df_intraday = pd.read_csv(os.path.join(path, 'input', 'intraday_2024_5min.csv'), sep=';', decimal=',')
+    df_dayahead = pd.read_csv(os.path.join(path, 'input', 'dayahead_2024_5min.csv'), sep=';', decimal=',')
+    df_rebap = pd.read_csv(os.path.join(path, 'input', 'reBAP_5min.csv'), sep=';', decimal=',')
+    
+    if len(df_intraday) != 105408 | len(df_dayahead) != 105408:
+        raise ValueError("Fehler: Intraday- und Day-Ahead-Daten müssen 105408 Zeitschritte enthalten.")
+ 
     # Bidirektional: aus Szenario ableiten
     bidirektional = False if szenario.split('_')[10] == 'M' else True
     
@@ -82,7 +89,7 @@ def modellierung(szenario):
     # -------------------------------------
     # Vorbereitung: Lastgang-Arrays
     # -------------------------------------
-    # Ein Jahr mit 525.600 Minuten, 5-Minuten-Schritte -> 105.120 Zeitschritte
+    # STRATEGIES = ["DayAhead"]  
     YEAR_MINUTES = 527040
     TIMESTEP = 5
     N = YEAR_MINUTES // TIMESTEP  # 527040 / 5 = 105408
@@ -97,19 +104,20 @@ def modellierung(szenario):
     
     Delta_t = TIMESTEP / 60.0
 
-    STRATEGIES = ["NRV"]  
-    # STRATEGIES = ["T_min", "Epex", "Konstant"]
 
     # Vorbefüllen der Liste mit allen Zeitpunkten und Strategien
     rows = []
-    for strategie in STRATEGIES:
+    for strategie in CONFIG['STRATEGIES']:
         for i in range(N):
             rows.append({
                 'Datum':                pd.Timestamp('2024-01-01 00:00:00') + pd.Timedelta(minutes=i * TIMESTEP),
                 'Woche':                1 + i // T_7,
                 'Tag':                  1 + (i // 288) % 7,
                 'Zeit':                 (i * TIMESTEP) % 1440,
-                # 'Preis':                df_epex['Preis'][i],
+                'DayAhead':             f"{df_dayahead['Preis'][i]:.6f}".replace('.', ','),
+                'Kosten_DayAhead':      0.0,
+                'Intraday':             f"{df_intraday['Preis'][i]:.6f}".replace('.', ','),
+                'Kosten_Intraday':      0.0,
                 'Leistung_Total':       0.0,
                 'Leistung_Max_Total':   0.0,
                 'Leistung_NCS':         0.0,
@@ -134,7 +142,10 @@ def modellierung(szenario):
         'Ladetyp': [],
         'Ladestrategie': [],
         'Ladezeit': [],
-        'Preis': [],
+        'DayAhead': [],
+        'Kosten_DayAhead': [],
+        'Intraday': [],
+        'Kosten_Intraday': [],
         'Leistung': [],
         'SOC': [],
         'Max_Leistung': [],
@@ -143,21 +154,26 @@ def modellierung(szenario):
         'z': []
     }
 
-    for week in range(1, NUM_WEEKS + 1):
+    for week in range(1, 4):
 
         df_lkw_filtered = df_lkw[
             (df_lkw['KW'] == week) &
             (df_lkw['LoadStatus'] == 1)
         ].copy() 
                 
-        df_epex_filtered = df_epex[
-            (df_epex['KW'] == week)
-            | (df_epex['KW'] == week+1)
+        df_intraday_filtered = df_intraday[
+            (df_intraday['KW'] == week)
+            | (df_intraday['KW'] == week+1)
         ].copy()
         
-        df_nrv_filtered = df_nrv[
-            (df_nrv['KW'] == week)
-            | (df_nrv['KW'] == week+1)
+        df_dayahead_filtered = df_dayahead[
+            (df_dayahead['KW'] == week)
+            | (df_dayahead['KW'] == week+1)
+        ].copy()
+
+        df_rebap_filtered = df_rebap[
+            (df_rebap['KW'] == week)
+            | (df_rebap['KW'] == week+1)
         ].copy()
         
         if df_lkw_filtered.empty:
@@ -181,9 +197,9 @@ def modellierung(szenario):
         kapaz    = df_lkw_filtered['Kapazitaet'].tolist()
         maxLKW   = df_lkw_filtered['Max_Leistung'].tolist()
         SOC_req  = df_lkw_filtered['SOC_Target'].tolist()
-        preis    = df_epex_filtered['Preis'].tolist()
-        nrv      = df_nrv_filtered['Saldo'].values
-
+        dayahead  = df_dayahead_filtered['Preis'].tolist()
+        # intraday = df_intraday_filtered['Preis'].tolist()
+        intraday = df_rebap_filtered['Preis'].tolist()
         
         # Leistungsskalierung
         pow_split = szenario.split('_')[6].split('-')
@@ -196,13 +212,12 @@ def modellierung(szenario):
         E_req = [kapaz[i] * (SOC_req[i] - SOC_A[i]) for i in range(len(df_lkw_filtered))]
         I = len(df_lkw_filtered)
 
-        # Offset in Minuten für diese Woche im Jahreslauf
-        week_offset_minutes = week * T_7 * TIMESTEP
+
 
         # -------------------------------------
         # Strategien p_max / p_min
         # -------------------------------------
-        for strategie in STRATEGIES:
+        for strategie in CONFIG['STRATEGIES']:
             # Neues Gurobi-Modell
             model = Model("Ladehub_Optimierung")
             model.setParam('OutputFlag', 0)
@@ -278,19 +293,27 @@ def modellierung(szenario):
             # -------------------------------------
             # Zielfunktion
             # -------------------------------------
-            if strategie == "Epex":
+            if strategie == 'DayAhead':
+                M = 10000  
+                
+                obj_expr = quicksum(
+                    M * Pplus[(i, t)] - dayahead[t] * Pplus[(i, t)]
+                    for i in range(I) for t in range(t_in[i], t_out[i] + 1)
+                )
+            
+            elif strategie == "Intraday":
                 # Zweistufiger Ansatz:
                 # 1. Maximiere die Gesamtleistung (immer so viel wie möglich laden)
                 # 2. Verteile diese Energie kostengünstig (bei günstigsten Preisen laden)
                 
                 # Wichtig: Der Faktor M muss ausreichend groß sein, damit die Energiemaximierung
                 # immer Priorität hat vor der Kostenoptimierung
-                M = 10000  # Hoher Gewichtungsfaktor für die Energiemaximierung
+                M = 10000 
                 
                 # Primäres Ziel: Maximale Ladeleistung
                 # Sekundäres Ziel: Minimiere Kosten durch Laden bei günstigen Preisen
                 obj_expr = quicksum(
-                    M * Pplus[(i, t)] - preis[t] * Pplus[(i, t)]
+                    M * Pplus[(i, t)] - intraday[t] * Pplus[(i, t)]
                     for i in range(I) for t in range(t_in[i], t_out[i] + 1)
                 )
 
@@ -320,36 +343,10 @@ def modellierung(szenario):
                     for i in range(I) for t in range(t_in[i], t_out[i] + 1)
                 )
 
-            elif strategie == "NRV":
-                # NRV-Werte extrahieren 
-                nrv_values = df_nrv_filtered['Saldo'].values
-                
-                # Normalisiere NRV-Werte für bessere numerische Stabilität
-                max_abs_nrv = max(abs(v) for v in nrv_values) if len(nrv_values) > 0 else 1
-                normalized_nrv = [v / max_abs_nrv for v in nrv_values]
-                
-                # Hierarchisches Optimierungsmodell:
-                # 1. Primäres Ziel mit hoher Gewichtung: Maximiere Energieeintrag (ähnlich wie bei anderen Strategien)
-                # 2. Sekundäres Ziel: Minimiere NRV-Einfluss durch gegenläufiges Verhalten
-                #    - Bei positivem NRV (Strommangel): Weniger laden oder rückspeisen
-                #    - Bei negativem NRV (Stromüberschuss): Mehr laden
-                
-                M_energy = 10000  # Hoher Gewichtungsfaktor für die Energiemaximierung
-                
-                obj_expr = quicksum(
-                    # Primärziel: Maximiere Ladung
-                    M_energy * Pplus[(i, t)]  
-                    # Sekundärziel: NRV-Gegensteuerung
-                    # Negativer NRV-Wert * Laden: Erhöht Ladeleistung bei Überschuss
-                    # Positiver NRV-Wert * Entladen: Fördert Rückspeisung bei Mangel
-                    + (-normalized_nrv[t] * Pplus[(i, t)] + normalized_nrv[t] * Pminus[(i, t)])
-                    for i in range(I) for t in range(t_in[i], t_out[i] + 1) if t < len(normalized_nrv)
-                )
-                
-            
+
             model.setObjective(obj_expr, GRB.MAXIMIZE)
             model.optimize()
-
+            
             # -------------------------------------
             # Ergebnisse verarbeiten
             # -------------------------------------
@@ -364,16 +361,42 @@ def modellierung(szenario):
                 ladequote_week = sum(list_volladungen) / len(list_volladungen)
                 
                 # Berechnung der Gesamtkosten für die Ladung in dieser Woche
-                gesamtkosten = 0.0
+                
+                gesamtkosten = {
+                    'DayAhead': 0.0,
+                    'Intraday': 0.0,
+                }
+                
                 for i in range(I):
                     for t_step in range(t_in[i], t_out[i]+1):
                         # Nur positive Ladeleistung (Pplus) kostet Geld
-                        gesamtkosten += Pplus[(i, t_step)].X * Delta_t * preis[t_step]
+                        gesamtkosten['DayAhead'] += Pplus[(i, t_step)].X * Delta_t * dayahead[t_step]
+                        gesamtkosten['Intraday'] += Pplus[(i, t_step)].X * Delta_t * intraday[t_step]
+
+                if strategie == 'DayAhead':
+                    print(f"[Szenario={szenario}, Woche={week}, Strategie={strategie}] "
+                          f"Lösung OK. Ladequote: {ladequote_week:.3f}, "
+                          f"Anzahl LKW: {len(df_lkw_filtered)}, "
+                          f"DayAhead: {gesamtkosten['DayAhead']:.2f} €")
+                elif strategie == 'Intraday':
+                    print(f"[Szenario={szenario}, Woche={week}, Strategie={strategie}] "
+                          f"Lösung OK. Ladequote: {ladequote_week:.3f}, "
+                          f"Anzahl LKW: {len(df_lkw_filtered)}, "
+                          f"Intraday: {gesamtkosten['Intraday']:.2f} €")
+                elif strategie == 'T_min':
+                    print(f"[Szenario={szenario}, Woche={week}, Strategie={strategie}] "
+                          f"Lösung OK. Ladequote: {ladequote_week:.3f}, "
+                          f"Anzahl LKW: {len(df_lkw_filtered)}, "
+                          f"DayAhead: {gesamtkosten['DayAhead']:.2f} €, "
+                          f"Intraday: {gesamtkosten['Intraday']:.2f} €")
+                elif strategie == 'Konstant':
+                        print(f"[Szenario={szenario}, Woche={week}, Strategie={strategie}] "
+                          f"Lösung OK. Ladequote: {ladequote_week:.3f}, "
+                          f"Anzahl LKW: {len(df_lkw_filtered)}, "
+                          f"DayAhead: {gesamtkosten['DayAhead']:.2f} €, "
+                          f"Intraday: {gesamtkosten['Intraday']:.2f} €")
                 
-                print(f"[Szenario={szenario}, Woche={week}, Strategie={strategie}] "
-                      f"Lösung OK. Ladequote: {ladequote_week:.3f}, "
-                      f"Anzahl LKW: {len(df_lkw_filtered)}, "
-                      f"Gesamtkosten: {gesamtkosten:.2f} €")
+                week_offset_minutes = (week-1) * T_7 * TIMESTEP
                 
                 # Lastgang: direkt in rows eintragen
                 for t_step in range(T_8):
@@ -394,8 +417,15 @@ def modellierung(szenario):
                             elif l[i] == 'MCS':
                                 sum_p_mcs += val
 
+
+                    
                     global_t = week_offset_minutes + t_step * TIMESTEP
                     idx = global_t // TIMESTEP  # entspricht global_t_min / 5
+
+                    if idx >= N:
+                        if sum_p_total > 0:
+                            print(sum_p_total)
+                        continue
 
                     # Direktes Eintragen in rows mit dem entsprechenden Index
                     row_idx = row_index[(strategie, idx)]
@@ -405,15 +435,18 @@ def modellierung(szenario):
                     rows[row_idx]['Leistung_HPC'] += sum_p_hpc
                     rows[row_idx]['Leistung_MCS'] += sum_p_mcs
                     rows[row_idx]['Ladequote'] = ladequote_week  # Überschreiben, nicht addieren
+                    rows[row_idx]['Kosten_DayAhead'] += Delta_t * dayahead[t_step] * sum_p_total
+                    rows[row_idx]['Kosten_Intraday'] += Delta_t * intraday[t_step] * sum_p_total
 
                 for i in range(I):
                     t_charging = 0
                     for t in range(T_8):   
                         if t_in[i] <= t <= t_out[i]+1:
                             dict_lkw_lastgang['Datum'].append(pd.Timestamp('2024-01-01') + pd.Timedelta(minutes=week_offset_minutes + t*5))
-                            dict_lkw_lastgang['Woche'].append(week + 1)
+                            dict_lkw_lastgang['Woche'].append(week)
                             dict_lkw_lastgang['Tag'].append(df_lkw_filtered.iloc[i]['Tag'] % 7)
-                            dict_lkw_lastgang['Preis'].append(f"{preis[t]:.7f}".replace('.', ','))
+                            dict_lkw_lastgang['DayAhead'].append(f"{dayahead[t]:.6f}".replace('.', ','))
+                            dict_lkw_lastgang['Intraday'].append(f"{intraday[t]:.6f}".replace('.', ','))
                             dict_lkw_lastgang['Zeit'].append((t * 5) % 1440)
                             dict_lkw_lastgang['Ladestrategie'].append(strategie)
                             dict_lkw_lastgang['LKW_ID'].append(df_lkw_filtered.iloc[i]['Nummer'])
@@ -421,6 +454,8 @@ def modellierung(szenario):
                             dict_lkw_lastgang['Ladezeit'].append(t_charging)
                             t_charging += 5
                             if t > t_out[i]:
+                                dict_lkw_lastgang['Kosten_DayAhead'].append(None)
+                                dict_lkw_lastgang['Kosten_Intraday'].append(None)
                                 dict_lkw_lastgang['Leistung'].append(None)
                                 dict_lkw_lastgang['Pplus'].append(None)
                                 dict_lkw_lastgang['Pminus'].append(None)
@@ -428,7 +463,9 @@ def modellierung(szenario):
                                 dict_lkw_lastgang['z'].append(None)
                                 dict_lkw_lastgang['Max_Leistung'].append(None)
                                 continue
-                            else:                        
+                            else:       
+                                dict_lkw_lastgang['Kosten_DayAhead'].append(f"{dayahead[t] * Pplus[(i, t)].X * Delta_t:.4f}".replace('.', ','))
+                                dict_lkw_lastgang['Kosten_Intraday'].append(f"{intraday[t] * Pplus[(i, t)].X * Delta_t:.4f}".replace('.', ','))
                                 dict_lkw_lastgang['Max_Leistung'].append(min(ladeleistung[l[i]], max_lkw_leistung[i]))
                                 dict_lkw_lastgang['z'].append(z[(i, t)].X)
                                 dict_lkw_lastgang['Pplus'].append(Pplus[(i, t)].X)
@@ -465,7 +502,6 @@ def modellierung(szenario):
         os.path.join(path, 'data', 'epex', 'lastgang_lkw', f'lastgang_lkw_{szenario}.csv'),
         sep=';', decimal=',', index=False
     )
-
     return None
 
 
