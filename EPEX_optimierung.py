@@ -10,7 +10,7 @@ logging.basicConfig(filename='logs.log', level=logging.DEBUG, format='%(asctime)
 
 CONFIG = {
     # 'STRATEGIES': ["Intraday", "DayAhead", "T_min"],
-    'STRATEGIES': ["Intraday", "T_min", "Konstant"],
+    'STRATEGIES': ["Intraday", "DayAhead","T_min", "Konstant"],
 }
 
 def modellierung(szenario):
@@ -154,7 +154,7 @@ def modellierung(szenario):
         'z': []
     }
 
-    for week in range(1, 4):
+    for week in range(1, NUM_WEEKS+1):
 
         df_lkw_filtered = df_lkw[
             (df_lkw['KW'] == week) &
@@ -198,8 +198,8 @@ def modellierung(szenario):
         maxLKW   = df_lkw_filtered['Max_Leistung'].tolist()
         SOC_req  = df_lkw_filtered['SOC_Target'].tolist()
         dayahead  = df_dayahead_filtered['Preis'].tolist()
-        # intraday = df_intraday_filtered['Preis'].tolist()
-        intraday = df_rebap_filtered['Preis'].tolist()
+        intraday = df_intraday_filtered['Preis'].tolist()
+        # intraday = df_rebap_filtered['Preis'].tolist()
         
         # Leistungsskalierung
         pow_split = szenario.split('_')[6].split('-')
