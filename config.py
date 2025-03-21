@@ -1,5 +1,5 @@
 
-mode = 'epex' # 'flex' or 'epex'
+mode = 'flex' # 'flex' or 'epex'
 
 leistung_ladetyp = {
     'NCS': 100,

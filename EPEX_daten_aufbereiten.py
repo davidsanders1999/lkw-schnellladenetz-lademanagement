@@ -86,6 +86,12 @@ def kosten_pro_ladevorgang(df: pd.DataFrame, path_results: str):
         'Tmin':     {'NCS': 0, 'HPC': 0, 'MCS': 0},
         'Konstant': {'NCS': 0, 'HPC': 0, 'MCS': 0}
     }
+    # energie_ladevorgang = {
+    #     'NCS': 0,
+    #     'HPC': 0,
+    #     'MCS': 0
+    # }
+
 
     # DayAhead: Daten filtern und in Dictionary packen
     df_ncs_dayahead   = df[(df['Ladetyp'] == 'NCS') & (df['Ladestrategie'] == 'DayAhead')].copy()
