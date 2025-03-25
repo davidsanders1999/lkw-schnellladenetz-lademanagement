@@ -9,8 +9,8 @@ import logging
 logging.basicConfig(filename='logs.log', level=logging.DEBUG, format='%(asctime)s; %(levelname)s; %(message)s')
 
 CONFIG = {
-    # 'STRATEGIES': ["Intraday", "DayAhead", "T_min"],
-    'STRATEGIES': ["Intraday", "DayAhead","T_min", "Konstant"],
+    'STRATEGIES': ["Intraday"],
+    # 'STRATEGIES': ["Intraday", "DayAhead","T_min", "Konstant"],
 }
 
 def modellierung(szenario):
@@ -93,7 +93,9 @@ def modellierung(szenario):
     YEAR_MINUTES = 527040
     TIMESTEP = 5
     N = YEAR_MINUTES // TIMESTEP  # 527040 / 5 = 105408
-    NUM_WEEKS = df_lkw['KW'].max()  # Anzahl Wochen
+    # NUM_WEEKS = df_lkw['KW'].max()  # Anzahl Wochen
+    NUM_WEEKS = 2
+    
     # -------------------------------------
     # Wochenschleife (52-53 Wochen im Jahr)
     # Hier: range(365), was bei dir 365 Blöcke bedeutet
@@ -293,27 +295,48 @@ def modellierung(szenario):
             # -------------------------------------
             # Zielfunktion
             # -------------------------------------
+            # if strategie == 'DayAhead':
+            #     M = 10000  
+                
+            #     obj_expr = quicksum(
+            #         M * Pplus[(i, t)] - dayahead[t] * Pplus[(i, t)]
+            #         for i in range(I) for t in range(t_in[i], t_out[i] + 1)
+            #     )
+            
             if strategie == 'DayAhead':
-                M = 10000  
+                M = 10000  # Sehr hoher Gewichtungsfaktor
                 
                 obj_expr = quicksum(
-                    M * Pplus[(i, t)] - dayahead[t] * Pplus[(i, t)]
+                    M * P[(i, t)] - 
+                    dayahead[t] * Pplus[(i, t)] +  # Kosten für bezogene Energie
+                    dayahead[t] * Pminus[(i, t)]   # Erlöse für zurückgespeiste Energie
                     for i in range(I) for t in range(t_in[i], t_out[i] + 1)
                 )
             
+            
+            # elif strategie == "Intraday":
+            #     # Zweistufiger Ansatz:
+            #     # 1. Maximiere die Gesamtleistung (immer so viel wie möglich laden)
+            #     # 2. Verteile diese Energie kostengünstig (bei günstigsten Preisen laden)
+                
+            #     # Wichtig: Der Faktor M muss ausreichend groß sein, damit die Energiemaximierung
+            #     # immer Priorität hat vor der Kostenoptimierung
+            #     M = 10000 
+                
+            #     # Primäres Ziel: Maximale Ladeleistung
+            #     # Sekundäres Ziel: Minimiere Kosten durch Laden bei günstigen Preisen
+            #     obj_expr = quicksum(
+            #         M * Pplus[(i, t)] - intraday[t] * Pplus[(i, t)]
+            #         for i in range(I) for t in range(t_in[i], t_out[i] + 1)
+            #     )
+
             elif strategie == "Intraday":
-                # Zweistufiger Ansatz:
-                # 1. Maximiere die Gesamtleistung (immer so viel wie möglich laden)
-                # 2. Verteile diese Energie kostengünstig (bei günstigsten Preisen laden)
+                M = 10000  # Sehr hoher Gewichtungsfaktor
                 
-                # Wichtig: Der Faktor M muss ausreichend groß sein, damit die Energiemaximierung
-                # immer Priorität hat vor der Kostenoptimierung
-                M = 10000 
-                
-                # Primäres Ziel: Maximale Ladeleistung
-                # Sekundäres Ziel: Minimiere Kosten durch Laden bei günstigen Preisen
                 obj_expr = quicksum(
-                    M * Pplus[(i, t)] - intraday[t] * Pplus[(i, t)]
+                    M * P[(i, t)] - 
+                    intraday[t] * Pplus[(i, t)] +  # Kosten für bezogene Energie
+                    intraday[t] * Pminus[(i, t)]   # Erlöse für zurückgespeiste Energie
                     for i in range(I) for t in range(t_in[i], t_out[i] + 1)
                 )
 

@@ -1085,3 +1085,7 @@
 2025-03-17 23:39:50,263; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
 2025-03-17 23:39:55,055; INFO; Set parameter Username
 2025-03-17 23:39:55,059; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-03-25 16:57:14,598; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
+2025-03-25 17:09:02,496; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
+2025-03-25 17:09:07,539; INFO; Set parameter Username
+2025-03-25 17:09:07,543; INFO; Academic license - for non-commercial use only - expires 2025-10-16
