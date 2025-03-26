@@ -9,8 +9,8 @@ import logging
 logging.basicConfig(filename='logs.log', level=logging.DEBUG, format='%(asctime)s; %(levelname)s; %(message)s')
 
 CONFIG = {
-    'STRATEGIES': ["Intraday"],
-    # 'STRATEGIES': ["Intraday", "DayAhead","T_min", "Konstant"],
+    # 'STRATEGIES': ["Intraday", "DayAhead"]
+    'STRATEGIES': ["Intraday", "DayAhead","T_min", "Konstant"],
 }
 
 def modellierung(szenario):
@@ -93,9 +93,8 @@ def modellierung(szenario):
     YEAR_MINUTES = 527040
     TIMESTEP = 5
     N = YEAR_MINUTES // TIMESTEP  # 527040 / 5 = 105408
-    # NUM_WEEKS = df_lkw['KW'].max()  # Anzahl Wochen
-    NUM_WEEKS = 2
-    
+    NUM_WEEKS = df_lkw['KW'].max()  # Anzahl Wochen
+        
     # -------------------------------------
     # Wochenschleife (52-53 Wochen im Jahr)
     # Hier: range(365), was bei dir 365 Blöcke bedeutet
@@ -173,11 +172,7 @@ def modellierung(szenario):
             | (df_dayahead['KW'] == week+1)
         ].copy()
 
-        df_rebap_filtered = df_rebap[
-            (df_rebap['KW'] == week)
-            | (df_rebap['KW'] == week+1)
-        ].copy()
-        
+
         if df_lkw_filtered.empty:
             # Keine LKW in dieser Woche
             continue
@@ -232,11 +227,14 @@ def modellierung(szenario):
                 for t_step in range(t_in[i], t_out[i] + 1):
                     if bidirektional:
                         P[(i,t_step)] = model.addVar(lb=-GRB.INFINITY, vtype=GRB.CONTINUOUS)
+                    
                     else:
                         P[(i,t_step)] = model.addVar(lb=0, vtype=GRB.CONTINUOUS)
-
+                    
                     Pplus[(i,t_step)]  = model.addVar(lb=0, vtype=GRB.CONTINUOUS)
                     Pminus[(i,t_step)] = model.addVar(lb=0, vtype=GRB.CONTINUOUS)
+
+                        
                     P_max_i[(i,t_step)]   = model.addVar(lb=0, vtype=GRB.CONTINUOUS)
                     P_max_i_2[(i,t_step)] = model.addVar(lb=0, vtype=GRB.CONTINUOUS)
                     z[(i,t_step)] = model.addVar(vtype=GRB.BINARY)
@@ -289,8 +287,8 @@ def modellierung(szenario):
             for i in range(I):
                 for t_step in range(t_in[i], t_out[i]+1):
                     model.addConstr(P[(i,t_step)] == Pplus[(i,t_step)] - Pminus[(i,t_step)])
-                for t_step in range(t_in[i], t_out[i]):
-                    model.addConstr(z[(i, t_step+1)] >= z[(i, t_step)])
+                # for t_step in range(t_in[i], t_out[i]):
+                #     model.addConstr(z[(i, t_step+1)] >= z[(i, t_step)])
 
             # -------------------------------------
             # Zielfunktion
@@ -308,8 +306,7 @@ def modellierung(szenario):
                 
                 obj_expr = quicksum(
                     M * P[(i, t)] - 
-                    dayahead[t] * Pplus[(i, t)] +  # Kosten für bezogene Energie
-                    dayahead[t] * Pminus[(i, t)]   # Erlöse für zurückgespeiste Energie
+                    dayahead[t] * P[(i, t)]  # Kosten für bezogene Energie
                     for i in range(I) for t in range(t_in[i], t_out[i] + 1)
                 )
             
@@ -335,12 +332,17 @@ def modellierung(szenario):
                 
                 obj_expr = quicksum(
                     M * P[(i, t)] - 
-                    intraday[t] * Pplus[(i, t)] +  # Kosten für bezogene Energie
-                    intraday[t] * Pminus[(i, t)]   # Erlöse für zurückgespeiste Energie
+                    intraday[t] * P[(i, t)]
                     for i in range(I) for t in range(t_in[i], t_out[i] + 1)
                 )
 
             elif strategie == "T_min":
+                # T_min strategy that prioritizes charging early while ensuring Pminus is 0
+                for i in range(I):
+                    for t_step in range(t_in[i], t_out[i]+1):
+                        # Force all discharge (Pminus) to be zero
+                        model.addConstr(Pminus[(i, t_step)] == 0)
+
                 obj_expr = quicksum(((1/(t+1)) * (Pplus[(i, t)])) - (t * Pminus[(i, t)]) for i in range(I) for t in range(t_in[i], t_out[i] + 1))
 
             elif strategie == "Konstant":
@@ -360,8 +362,14 @@ def modellierung(szenario):
                 # Zielfunktion: Hierarchisches Modell
                 # 1. Primäres Ziel mit sehr hoher Gewichtung: Maximiere Energie
                 # 2. Sekundäres Ziel: Minimiere Leistungsschwankungen
+                # obj_expr = quicksum(
+                #     M_energy * Pplus[(i, t)]  # Primärziel mit sehr hoher Gewichtung
+                #     - quicksum(delta[(i, t_step)] for t_step in range(t_in[i], min(t+1, t_out[i])) if t_step < t_out[i])  # Sekundärziel
+                #     for i in range(I) for t in range(t_in[i], t_out[i] + 1)
+                # )
+                
                 obj_expr = quicksum(
-                    M_energy * Pplus[(i, t)]  # Primärziel mit sehr hoher Gewichtung
+                    M_energy * P[(i, t)]  # Primärziel mit sehr hoher Gewichtung
                     - quicksum(delta[(i, t_step)] for t_step in range(t_in[i], min(t+1, t_out[i])) if t_step < t_out[i])  # Sekundärziel
                     for i in range(I) for t in range(t_in[i], t_out[i] + 1)
                 )
@@ -392,9 +400,9 @@ def modellierung(szenario):
                 
                 for i in range(I):
                     for t_step in range(t_in[i], t_out[i]+1):
-                        # Nur positive Ladeleistung (Pplus) kostet Geld
-                        gesamtkosten['DayAhead'] += Pplus[(i, t_step)].X * Delta_t * dayahead[t_step]
-                        gesamtkosten['Intraday'] += Pplus[(i, t_step)].X * Delta_t * intraday[t_step]
+                        # Positive Ladeleistung (Pplus) kostet Geld, negative (Pminus) bringt Geld
+                        gesamtkosten['DayAhead'] += P[(i, t_step)].X * Delta_t * dayahead[t_step]
+                        gesamtkosten['Intraday'] += P[(i, t_step)].X * Delta_t * intraday[t_step]
 
                 if strategie == 'DayAhead':
                     print(f"[Szenario={szenario}, Woche={week}, Strategie={strategie}] "
@@ -487,8 +495,8 @@ def modellierung(szenario):
                                 dict_lkw_lastgang['Max_Leistung'].append(None)
                                 continue
                             else:       
-                                dict_lkw_lastgang['Kosten_DayAhead'].append(f"{dayahead[t] * Pplus[(i, t)].X * Delta_t:.4f}".replace('.', ','))
-                                dict_lkw_lastgang['Kosten_Intraday'].append(f"{intraday[t] * Pplus[(i, t)].X * Delta_t:.4f}".replace('.', ','))
+                                dict_lkw_lastgang['Kosten_DayAhead'].append(f"{dayahead[t] * P[(i, t)].X * Delta_t:.4f}".replace('.', ','))
+                                dict_lkw_lastgang['Kosten_Intraday'].append(f"{intraday[t] * P[(i, t)].X * Delta_t:.4f}".replace('.', ','))
                                 dict_lkw_lastgang['Max_Leistung'].append(min(ladeleistung[l[i]], max_lkw_leistung[i]))
                                 dict_lkw_lastgang['z'].append(z[(i, t)].X)
                                 dict_lkw_lastgang['Pplus'].append(Pplus[(i, t)].X)
@@ -510,7 +518,7 @@ def modellierung(szenario):
 
     # 2) LKW-Lastgang als DataFrame
     df_lkw_lastgang_df = pd.DataFrame(dict_lkw_lastgang)
-    df_lkw_lastgang_df.sort_values(['LKW_ID', 'Ladestrategie', 'Zeit'], inplace=True)
+    df_lkw_lastgang_df.sort_values(['LKW_ID', 'Ladestrategie', 'Ladezeit'], inplace=True)
     
     
     # Ordner anlegen und CSV speichern

@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import time
+import config
 
 def kosten_pro_woche(df: pd.DataFrame, path_results: str):
     """Berechnet die Kosten pro Woche und schreibt die Ergebnisse in eine Excel-Datei."""
@@ -25,7 +26,7 @@ def kosten_pro_woche(df: pd.DataFrame, path_results: str):
         '',
         ['Dayahead'] + kosten_dayahead,
         ['Konstant'] + kosten_konstant,
-        ['Tmin'] + kosten_tmin,
+        ['T_min'] + kosten_tmin,
     ]
     
     df_results_dayahead = pd.DataFrame(data_dayahead)
@@ -56,7 +57,7 @@ def kosten_pro_woche(df: pd.DataFrame, path_results: str):
         '',
         ['Intraday'] + kosten_intraday,
         ['Konstant'] + kosten_konstant,
-        ['Tmin'] + kosten_tmin,
+        ['T_min'] + kosten_tmin,
     ]
     
     df_results_intraday = pd.DataFrame(data_intraday)
@@ -71,102 +72,122 @@ def kosten_pro_woche(df: pd.DataFrame, path_results: str):
             startcol=0
         )
 
-
 def kosten_pro_ladevorgang(df: pd.DataFrame, path_results: str):
-    """Berechnet die durchschnittlichen Kosten pro Ladevorgang und schreibt die Ergebnisse in eine Excel-Datei."""
+    """Berechnet die durchschnittlichen Kosten pro kWh und schreibt die Ergebnisse in eine Excel-Datei."""
     
-    # Dictionaries für die Kosten, um eine strukturierte Ablage zu haben
+    # Dictionaries für die Kosten und Energie, um eine strukturierte Ablage zu haben
     kosten_dayahead = {
         'DayAhead': {'NCS': 0, 'HPC': 0, 'MCS': 0},
-        'Tmin':     {'NCS': 0, 'HPC': 0, 'MCS': 0},
+        'T_min':     {'NCS': 0, 'HPC': 0, 'MCS': 0},
         'Konstant': {'NCS': 0, 'HPC': 0, 'MCS': 0}
     }
     kosten_intraday = {
         'Intraday': {'NCS': 0, 'HPC': 0, 'MCS': 0},
-        'Tmin':     {'NCS': 0, 'HPC': 0, 'MCS': 0},
+        'T_min':     {'NCS': 0, 'HPC': 0, 'MCS': 0},
         'Konstant': {'NCS': 0, 'HPC': 0, 'MCS': 0}
     }
-    # energie_ladevorgang = {
-    #     'NCS': 0,
-    #     'HPC': 0,
-    #     'MCS': 0
-    # }
+    
+    # Energie-Dictionaries, um die geladene Energiemenge zu erfassen
+    energie_dayahead = {
+        'DayAhead': {'NCS': 0, 'HPC': 0, 'MCS': 0},
+        'T_min':     {'NCS': 0, 'HPC': 0, 'MCS': 0},
+        'Konstant': {'NCS': 0, 'HPC': 0, 'MCS': 0}
+    }
+    energie_intraday = {
+        'Intraday': {'NCS': 0, 'HPC': 0, 'MCS': 0},
+        'T_min':     {'NCS': 0, 'HPC': 0, 'MCS': 0},
+        'Konstant': {'NCS': 0, 'HPC': 0, 'MCS': 0}
+    }
 
+    # Berechnung der geladenen Energie pro LKW
+    # Wir nutzen die Leistung und multiplizieren mit dem Zeitintervall (5 Minuten = 5/60 Stunden)
+    df['Energie'] = df['Leistung'] * (5/60)  # Leistung in kW * Zeit in Stunden = Energie in kWh
+    
+    # Filter-Funktionen zur Wiederverwendung
+    def filter_df(ladetyp, strategie):
+        return df[(df['Ladetyp'] == ladetyp) & (df['Ladestrategie'] == strategie)].copy()
 
-    # DayAhead: Daten filtern und in Dictionary packen
-    df_ncs_dayahead   = df[(df['Ladetyp'] == 'NCS') & (df['Ladestrategie'] == 'DayAhead')].copy()
-    df_ncs_konstant   = df[(df['Ladetyp'] == 'NCS') & (df['Ladestrategie'] == 'Konstant')].copy()
-    df_ncs_tmin       = df[(df['Ladetyp'] == 'NCS') & (df['Ladestrategie'] == 'T_min')].copy()
-    
-    df_mcs_dayahead   = df[(df['Ladetyp'] == 'MCS') & (df['Ladestrategie'] == 'DayAhead')].copy()
-    df_mcs_konstant   = df[(df['Ladetyp'] == 'MCS') & (df['Ladestrategie'] == 'Konstant')].copy()
-    df_mcs_tmin       = df[(df['Ladetyp'] == 'MCS') & (df['Ladestrategie'] == 'T_min')].copy()
-    
-    df_hpc_dayahead   = df[(df['Ladetyp'] == 'HPC') & (df['Ladestrategie'] == 'DayAhead')].copy()
-    df_hpc_konstant   = df[(df['Ladetyp'] == 'HPC') & (df['Ladestrategie'] == 'Konstant')].copy()
-    df_hpc_tmin       = df[(df['Ladetyp'] == 'HPC') & (df['Ladestrategie'] == 'T_min')].copy()
-    
-    # Mittelwerte für DayAhead-Kosten ermitteln
-    kosten_dayahead['DayAhead']['NCS']  = df_ncs_dayahead.groupby('LKW_ID')['Kosten_DayAhead'].sum().mean()   / 100
-    kosten_dayahead['Konstant']['NCS']  = df_ncs_konstant.groupby('LKW_ID')['Kosten_DayAhead'].sum().mean()  / 100
-    kosten_dayahead['Tmin']['NCS']      = df_ncs_tmin.groupby('LKW_ID')['Kosten_DayAhead'].sum().mean()      / 100
-    
-    kosten_dayahead['DayAhead']['MCS']  = df_mcs_dayahead.groupby('LKW_ID')['Kosten_DayAhead'].sum().mean()  / 100
-    kosten_dayahead['Konstant']['MCS']  = df_mcs_konstant.groupby('LKW_ID')['Kosten_DayAhead'].sum().mean()  / 100
-    kosten_dayahead['Tmin']['MCS']      = df_mcs_tmin.groupby('LKW_ID')['Kosten_DayAhead'].sum().mean()      / 100
-    
-    kosten_dayahead['DayAhead']['HPC']  = df_hpc_dayahead.groupby('LKW_ID')['Kosten_DayAhead'].sum().mean()  / 100
-    kosten_dayahead['Konstant']['HPC']  = df_hpc_konstant.groupby('LKW_ID')['Kosten_DayAhead'].sum().mean()  / 100
-    kosten_dayahead['Tmin']['HPC']      = df_hpc_tmin.groupby('LKW_ID')['Kosten_DayAhead'].sum().mean()      / 100
+    # DayAhead Strategie - Kosten und Energie pro LKW berechnen
+    for ladetyp in ['NCS', 'HPC', 'MCS']:
+        for strategie in ['DayAhead', 'T_min', 'Konstant']:
+            df_filtered = filter_df(ladetyp, strategie)
+            
+            if not df_filtered.empty:
+                # Kosten und Energie pro LKW berechnen
+                kosten_pro_lkw = df_filtered.groupby('LKW_ID')['Kosten_DayAhead'].sum()   # Division durch 100 wie im Original
+                energie_pro_lkw = df_filtered.groupby('LKW_ID')['Energie'].sum()
+                
+                # Nur LKWs mit tatsächlich geladener Energie berücksichtigen
+                valid_lkws = energie_pro_lkw[energie_pro_lkw > 0].index
+                kosten_pro_lkw = kosten_pro_lkw.loc[valid_lkws]
+                energie_pro_lkw = energie_pro_lkw.loc[valid_lkws]
+                
+                # Kosten pro kWh für jeden LKW berechnen
+                if not energie_pro_lkw.empty:
+                    kosten_dayahead[strategie][ladetyp] = kosten_pro_lkw.mean() / energie_pro_lkw.mean()  
+                    energie_dayahead[strategie][ladetyp] = energie_pro_lkw.mean()
 
-    # Intraday: Daten filtern und in Dictionary packen
-    df_ncs_intraday   = df[(df['Ladetyp'] == 'NCS') & (df['Ladestrategie'] == 'Intraday')].copy()
-    df_ncs_konstant   = df[(df['Ladetyp'] == 'NCS') & (df['Ladestrategie'] == 'Konstant')].copy()
-    df_ncs_tmin       = df[(df['Ladetyp'] == 'NCS') & (df['Ladestrategie'] == 'T_min')].copy()
-    
-    df_mcs_intraday   = df[(df['Ladetyp'] == 'MCS') & (df['Ladestrategie'] == 'Intraday')].copy()
-    df_mcs_konstant   = df[(df['Ladetyp'] == 'MCS') & (df['Ladestrategie'] == 'Konstant')].copy()
-    df_mcs_tmin       = df[(df['Ladetyp'] == 'MCS') & (df['Ladestrategie'] == 'T_min')].copy()
-    
-    df_hpc_intraday   = df[(df['Ladetyp'] == 'HPC') & (df['Ladestrategie'] == 'Intraday')].copy()
-    df_hpc_konstant   = df[(df['Ladetyp'] == 'HPC') & (df['Ladestrategie'] == 'Konstant')].copy()
-    df_hpc_tmin       = df[(df['Ladetyp'] == 'HPC') & (df['Ladestrategie'] == 'T_min')].copy()
-    
-    # Mittelwerte für Intraday-Kosten ermitteln
-    # Hier werden zusätzlich /10 dividiert, wie im Originalcode
-    kosten_intraday['Intraday']['NCS']  = df_ncs_intraday.groupby('LKW_ID')['Kosten_Intraday'].sum().mean()   / 100 / 10
-    kosten_intraday['Konstant']['NCS']  = df_ncs_konstant.groupby('LKW_ID')['Kosten_Intraday'].sum().mean()   / 100 / 10
-    kosten_intraday['Tmin']['NCS']      = df_ncs_tmin.groupby('LKW_ID')['Kosten_Intraday'].sum().mean()       / 100 / 10
-    
-    kosten_intraday['Intraday']['MCS']  = df_mcs_intraday.groupby('LKW_ID')['Kosten_Intraday'].sum().mean()   / 100 / 10
-    kosten_intraday['Konstant']['MCS']  = df_mcs_konstant.groupby('LKW_ID')['Kosten_Intraday'].sum().mean()   / 100 / 10
-    kosten_intraday['Tmin']['MCS']      = df_mcs_tmin.groupby('LKW_ID')['Kosten_Intraday'].sum().mean()       / 100 / 10
-    
-    kosten_intraday['Intraday']['HPC']  = df_hpc_intraday.groupby('LKW_ID')['Kosten_Intraday'].sum().mean()   / 100 / 10
-    kosten_intraday['Konstant']['HPC']  = df_hpc_konstant.groupby('LKW_ID')['Kosten_Intraday'].sum().mean()   / 100 / 10
-    kosten_intraday['Tmin']['HPC']      = df_hpc_tmin.groupby('LKW_ID')['Kosten_Intraday'].sum().mean()       / 100 / 10
-    
-    # Excel-Export: DayAhead-Kosten
+    # Intraday Strategie - Kosten und Energie pro LKW berechnen
+    for ladetyp in ['NCS', 'HPC', 'MCS']:
+        for strategie in ['Intraday', 'T_min', 'Konstant']:
+            df_filtered = filter_df(ladetyp, strategie)
+            
+            if not df_filtered.empty:
+                # Kosten und Energie pro LKW berechnen
+                kosten_pro_lkw = df_filtered.groupby('LKW_ID')['Kosten_Intraday'].sum() / 10  # Division wie im Original
+                energie_pro_lkw = df_filtered.groupby('LKW_ID')['Energie'].sum()
+                
+                # Nur LKWs mit tatsächlich geladener Energie berücksichtigen
+                valid_lkws = energie_pro_lkw[energie_pro_lkw > 0].index
+                kosten_pro_lkw = kosten_pro_lkw.loc[valid_lkws]
+                energie_pro_lkw = energie_pro_lkw.loc[valid_lkws]
+                
+                # Kosten pro kWh für jeden LKW berechnen
+                if not energie_pro_lkw.empty:
+
+                    kosten_intraday[strategie][ladetyp] = kosten_pro_lkw.mean() / energie_pro_lkw.mean()  
+                    energie_intraday[strategie][ladetyp] = energie_pro_lkw.mean()
+        
+    # Excel-Export: DayAhead-Kosten pro kWh
     data_dayahead = [
-        ['Durchschnittliche Kosten pro Ladevorgang (Day-Ahead) in Euro'],
-        '',
-        ['Ladetyp', 'DayAhead-Strategie', 'Konstant-Strategie', 'Tmin-Strategie'],
-        ['NCS', 
-         kosten_dayahead['DayAhead']['NCS'], 
-         kosten_dayahead['Konstant']['NCS'], 
-         kosten_dayahead['Tmin']['NCS']
-        ],
-        ['MCS', 
-         kosten_dayahead['DayAhead']['MCS'], 
-         kosten_dayahead['Konstant']['MCS'], 
-         kosten_dayahead['Tmin']['MCS']
-        ],
-        ['HPC', 
-         kosten_dayahead['DayAhead']['HPC'], 
-         kosten_dayahead['Konstant']['HPC'], 
-         kosten_dayahead['Tmin']['HPC']
+            ['Durchschnittliche Kosten pro kWh (Day-Ahead) in Euro/kWh'],
+            '',
+            ['Strategie', 'NCS', 'MCS', 'HPC'],
+            ['Tmin-Strategie', 
+            kosten_dayahead['T_min']['NCS'], 
+            kosten_dayahead['T_min']['MCS'], 
+            kosten_dayahead['T_min']['HPC']
+            ],
+            ['Konstant-Strategie', 
+            kosten_dayahead['Konstant']['NCS'], 
+            kosten_dayahead['Konstant']['MCS'], 
+            kosten_dayahead['Konstant']['HPC']
+            ],
+            ['DayAhead-Strategie', 
+            kosten_dayahead['DayAhead']['NCS'], 
+            kosten_dayahead['DayAhead']['MCS'], 
+            kosten_dayahead['DayAhead']['HPC']
+            ],
+            [''],
+            ['Durchschnittliche Energie pro Ladevorgang (Day-Ahead) in kWh'],
+            '',
+            ['Strategie', 'NCS', 'MCS', 'HPC'],
+            ['Tmin-Strategie', 
+            energie_dayahead['T_min']['NCS'], 
+            energie_dayahead['T_min']['MCS'], 
+            energie_dayahead['T_min']['HPC']
+            ],
+            ['Konstant-Strategie', 
+            energie_dayahead['Konstant']['NCS'], 
+            energie_dayahead['Konstant']['MCS'], 
+            energie_dayahead['Konstant']['HPC']
+            ],
+            ['DayAhead-Strategie', 
+            energie_dayahead['DayAhead']['NCS'], 
+            energie_dayahead['DayAhead']['MCS'], 
+            energie_dayahead['DayAhead']['HPC']
+            ]
         ]
-    ]
     
     df_results_dayahead = pd.DataFrame(data_dayahead)
     with pd.ExcelWriter(path_results, engine='openpyxl', mode='a', if_sheet_exists='overlay') as writer:
@@ -179,25 +200,44 @@ def kosten_pro_ladevorgang(df: pd.DataFrame, path_results: str):
             startcol=0
         )
         
-    # Excel-Export: Intraday-Kosten
+    # Excel-Export: Intraday-Kosten pro kWh
     data_intraday = [
-        ['Durchschnittliche Kosten pro Ladevorgang (Intraday) in Euro'],
+        ['Durchschnittliche Kosten pro kWh (Intraday) in Euro/kWh'],
         '',
-        ['Ladetyp', 'Intraday-Strategie', 'Konstant-Strategie', 'Tmin-Strategie'],
-        ['NCS', 
+        ['Strategie', 'NCS', 'MCS', 'HPC'],
+        ['Tmin-Strategie', 
+         kosten_intraday['T_min']['NCS'], 
+         kosten_intraday['T_min']['MCS'], 
+         kosten_intraday['T_min']['HPC']
+        ],
+        ['Konstant-Strategie', 
+         kosten_intraday['Konstant']['NCS'], 
+         kosten_intraday['Konstant']['MCS'], 
+         kosten_intraday['Konstant']['HPC']
+        ],
+        ['Intraday-Strategie', 
          kosten_intraday['Intraday']['NCS'], 
-         kosten_intraday['Konstant']['NCS'],
-         kosten_intraday['Tmin']['NCS'],
-        ],
-        ['MCS', 
          kosten_intraday['Intraday']['MCS'], 
-         kosten_intraday['Konstant']['MCS'],
-         kosten_intraday['Tmin']['MCS'],
+         kosten_intraday['Intraday']['HPC']
         ],
-        ['HPC', 
-         kosten_intraday['Intraday']['HPC'], 
-         kosten_intraday['Konstant']['HPC'],
-         kosten_intraday['Tmin']['HPC'],
+        [''],
+        ['Durchschnittliche Energie pro Ladevorgang (Intraday) in kWh'],
+        '',
+        ['Strategie', 'NCS', 'MCS', 'HPC'],
+        ['Tmin-Strategie', 
+         energie_intraday['T_min']['NCS'], 
+         energie_intraday['T_min']['MCS'], 
+         energie_intraday['T_min']['HPC']
+        ],
+        ['Konstant-Strategie', 
+         energie_intraday['Konstant']['NCS'], 
+         energie_intraday['Konstant']['MCS'], 
+         energie_intraday['Konstant']['HPC']
+        ],
+        ['Intraday-Strategie', 
+         energie_intraday['Intraday']['NCS'], 
+         energie_intraday['Intraday']['MCS'], 
+         energie_intraday['Intraday']['HPC']
         ]
     ]
     
@@ -333,19 +373,46 @@ def kostendifferenz_pro_stunde(df: pd.DataFrame, path_results: str):
         )
 
 
+# Änderung in der main-Funktion:
 def main():
-    # Verzeichnisse/Dateipfade zentral angeben
+    # Basisverzeichnis definieren
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    path_input = os.path.join(base_dir, 'data', 'epex', 'lastgang_lkw','lastgang_lkw_cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base.csv')
-    path_results = os.path.join(base_dir, 'output', 'results_epex.xlsx')
     
-    # Lastgang nur einmal einlesen
-    df = pd.read_csv(path_input, sep=';', decimal=',')
-    
-    # Aufrufe der Funktionen mit demselben DataFrame
-    kosten_pro_woche(df, path_results)
-    kosten_pro_ladevorgang(df, path_results)
-    kostendifferenz_pro_stunde(df, path_results)
+    # Alle Szenarien aus der Konfiguration verarbeiten
+    for szenario in config.list_szenarien:
+        print(f"Verarbeite Szenario: {szenario}")
+        
+        # Pfade für dieses Szenario
+        path_input = os.path.join(base_dir, 'data', 'epex', 'lastgang_lkw', f'lastgang_lkw_{szenario}.csv')
+        
+        # Extrahiere nur das Kürzel nach dem letzten Unterstrich für den Dateinamen
+        szenario_kuerzel = szenario.split('_')[-1]
+        path_results = os.path.join(base_dir, 'output', f'results_epex_{szenario_kuerzel}.xlsx')
+        
+        # Prüfen, ob die Eingabedatei existiert
+        if not os.path.exists(path_input):
+            print(f"Eingabedatei für Szenario {szenario} nicht gefunden: {path_input}")
+            continue
+        
+        # Verzeichnis für Ausgabe erstellen, falls nicht vorhanden
+        os.makedirs(os.path.dirname(path_results), exist_ok=True)
+        
+        try:
+            # Lastgang einlesen
+            df = pd.read_csv(path_input, sep=';', decimal=',')
+            
+            # Leere Excel-Datei erstellen (wird überschrieben, falls vorhanden)
+            with pd.ExcelWriter(path_results, engine='openpyxl', mode='w') as writer:
+                pd.DataFrame().to_excel(writer)
+            
+            # Funktionen mit diesem DataFrame aufrufen
+            kosten_pro_woche(df, path_results)
+            kosten_pro_ladevorgang(df, path_results)
+            kostendifferenz_pro_stunde(df, path_results)
+            
+            print(f"Excel-Datei für Szenario {szenario} erfolgreich erstellt: {path_results}")
+        except Exception as e:
+            print(f"Fehler bei der Verarbeitung von Szenario {szenario}: {str(e)}")
 
 
 if __name__ == '__main__':
@@ -353,6 +420,4 @@ if __name__ == '__main__':
     main()
     time_end = time.time()
     
-    print(f"Laufzeit: {time_end - time_start:.2f} Sekunden")
-
-
+    print(f"Gesamtlaufzeit: {time_end - time_start:.2f} Sekunden")
