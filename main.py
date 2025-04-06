@@ -2,8 +2,8 @@ import config
 import time
 import FLEX_konfiguration_ladehub
 import FLEX_optimierung_p_min_max
-import zuweisung_ladetyp
-import berechne_flex_kpis
+import ALL_zuweisung_ladetyp
+import ALL_berechne_flex_kpis
 import FLEX_daten_aufbereiten
 import EPEX_laden_nicht_laden
 import EPEX_optimierung
