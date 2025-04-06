@@ -1,5 +1,5 @@
 # ======================================================
-# Importing Required Libraries
+# Benötigte Bibliotheken importieren
 # ======================================================
 import pandas as pd
 import numpy as np
@@ -7,41 +7,42 @@ import os
 from scipy.interpolate import interp1d
 import config as config_file
 
+# Zufalls-Seed setzen für Reproduzierbarkeit
 np.random.seed(42)
 
 # ======================================================
-# Main Function
+# Hauptfunktion der Simulation
 # ======================================================
 def main():
     """
-    Main function to execute the truck simulation pipeline.
+    Hauptfunktion zum Ausführen der LKW-Simulationspipeline.
     """
-    # Load configurations and data
+    # Konfigurationen und Input-Daten laden
     CONFIG = load_configurations()
     df_verteilungsfunktion, df_ladevorgaenge_daily = load_input_data(CONFIG['path'])
 
-    # Generate truck data
+    # LKW-Daten generieren
     df_lkws = generate_truck_data(CONFIG, df_verteilungsfunktion, df_ladevorgaenge_daily)
-    print("Truck data generated successfully.")
+    print("LKW-Daten erfolgreich generiert.")
     
-    # Assign charging stations
+    # Ladesäulen zuweisen
     df_lkws = assign_charging_stations(df_lkws, CONFIG)
 
-    # Add datetime and export results
+    # Daten finalisieren und exportieren
     finalize_and_export_data(df_lkws, CONFIG)
 
-    # Analyze charging types
+    # Auswertung der Ladesäulenarten
     analyze_charging_types(df_lkws)
 
 # ======================================================
-# Configuration and Input Data
+# Konfigurationen & Inputdaten laden
 # ======================================================
 def load_configurations():
     """
-    Load and return the configurations for the simulation.
+    Lädt und gibt die Konfigurationen für die Simulation zurück.
     """
     path = os.path.dirname(os.path.abspath(__file__))
-    freq = 5  # Frequency of updates (in minutes)
+    freq = 5  # Frequenz in Minuten
     return {
         'path': path,
         'freq': freq,
@@ -64,20 +65,19 @@ def load_configurations():
             '3': 1200,
             '4': 1200
         },
-
         'pausentypen': ['Schnelllader', 'Nachtlader'],
         'pausenzeiten_lkws': {
             'Schnelllader': 45,
             'Nachtlader': 540
         },
         'leistung': {'HPC': 350, 'NCS': 100, 'MCS': 1000},
-        'energie_pro_abschnitt': 80 * 4.5 * 1.26,
-        'sicherheitspuffer': 0.1
+        'energie_pro_abschnitt': 80 * 4.5 * 1.26,  # Energiebedarf in Wh
+        'sicherheitspuffer': 0.1  # Sicherheitsaufschlag
     }
 
 def load_input_data(path):
     """
-    Load input data from CSV files.
+    Lädt die Inputdaten aus CSV-Dateien.
     """
     df_verteilungsfunktion = pd.read_csv(
         os.path.join(path, 'input/verteilungsfunktion_mcs-ncs.csv'), sep=','
@@ -88,103 +88,90 @@ def load_input_data(path):
     return df_verteilungsfunktion, df_ladevorgaenge_daily
 
 # ======================================================
-# Helper Functions
+# Hilfsfunktionen
 # ======================================================
 def get_soc(ankunftszeit):
     """
-    Calculate the State of Charge (SOC) based on arrival time.
+    Berechnet den Ladezustand (SOC) basierend auf der Ankunftszeit.
     """
-    if ankunftszeit < 360:  # Early morning
+    if ankunftszeit < 360:
         soc = 0.2 + np.random.uniform(-0.1, 0.1)
     else:
         soc = -(0.00028) * ankunftszeit + 0.6
         soc += np.random.uniform(-0.1, 0.1)
-      
     return soc
 
 def get_leistungsfaktor(soc):
     """
-    Adjust power factor based on SOC using the minimum of two linear functions.
+    Bestimmt den Leistungsfaktor abhängig vom SOC.
     """
     return min(-0.177038 * soc + 0.970903, -1.51705 * soc + 1.6336)
 
 def tage_im_jahr(jahr):
+    """
+    Gibt die Anzahl der Tage im Jahr zurück.
+    """
     return pd.date_range(start=f"{jahr}-01-01", end=f"{jahr}-12-31", freq="D").size
 
 def wochentag_im_jahr(nummer, jahr):
     """
-    Return the weekday for a given day number in a specific year.
+    Gibt den Wochentag für eine bestimmte Tagesnummer im Jahr zurück (Montag=1).
     """
     date = pd.to_datetime(f"{jahr}-01-01") + pd.Timedelta(days=nummer)
-    return date.weekday() + 1  # Monday is 1 and Sunday is 7
-
+    return date.weekday() + 1
 
 # ======================================================
-# Truck Data Generation
+# LKW-Daten generieren
 # ======================================================
 def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
     """
-    Generate truck data based on the input configurations.
+    Generiert LKW-Daten basierend auf Konfiguration und Inputdaten.
     """
     dict_lkws = {
-        'Cluster': [],
-        'Tag': [],
-        'Ankunftszeit': [],
-        'Nummer': [],
-        'Pausentyp': [],
-        'Kapazitaet': [],
-        'Max_Leistung': [],
-        'SOC': [],
-        'SOC_Target': [],
-        'Pausenlaenge': [],
-        'Lkw_ID': []
+        'Cluster': [], 'Tag': [], 'Ankunftszeit': [], 'Nummer': [],
+        'Pausentyp': [], 'Kapazitaet': [], 'Max_Leistung': [], 'SOC': [],
+        'SOC_Target': [], 'Pausenlaenge': [], 'Lkw_ID': []
     }
 
-    for cluster_id in range(1, 4):  # Loop through clusters
+    for cluster_id in range(1, 4):
+        horizon = 7 if config_file.mode == 'flex' else (tage_im_jahr(config['year']) - 1)
         
-        horizon = (7 if config_file.mode == 'flex' else (tage_im_jahr(config['year'])-1))
-        
-        for day in range(horizon):  # Loop through days
+        for day in range(horizon):
             wochentag = wochentag_im_jahr(day, config['year'])
             anzahl_lkws = {
-                pausentyp: df_ladevorgaenge_daily[(df_ladevorgaenge_daily['Cluster'] == cluster_id) & (df_ladevorgaenge_daily['Wochentag'] == wochentag) & (df_ladevorgaenge_daily['Ladetype'] == pausentyp)]['Anzahl'].values[0]
+                pausentyp: df_ladevorgaenge_daily[
+                    (df_ladevorgaenge_daily['Cluster'] == cluster_id) &
+                    (df_ladevorgaenge_daily['Wochentag'] == wochentag) &
+                    (df_ladevorgaenge_daily['Ladetype'] == pausentyp)
+                ]['Anzahl'].values[0]
                 for pausentyp in config['pausentypen']
             }
-            for pausentyp in config['pausentypen']:  # Loop through break types
+
+            for pausentyp in config['pausentypen']:
                 for _ in range(int(anzahl_lkws[pausentyp])):
-                    lkw_id = np.random.choice(
-                        list(config['lkw_id'].keys()),
-                        p=list(config['lkw_id'].values())
-                    )
-                    
+                    lkw_id = np.random.choice(list(config['lkw_id'].keys()), p=list(config['lkw_id'].values()))
                     pausenzeit = config['pausenzeiten_lkws'][pausentyp]
                     kapazitaet = config['kapazitaeten_lkws'][lkw_id]
                     leistung = config['leistungen_lkws'][lkw_id]
-                    minuten = np.random.choice(
-                        df_verteilungsfunktion['Zeit'],
-                        p=df_verteilungsfunktion[pausentyp]
-                    )
+                    minuten = np.random.choice(df_verteilungsfunktion['Zeit'], p=df_verteilungsfunktion[pausentyp])
                     soc = get_soc(minuten)
-                    
-                    if pausentyp == 'Nachtlader':
-                        soc_target = 1.0
-                    else:
-                        soc_target = config['energie_pro_abschnitt'] / kapazitaet + config['sicherheitspuffer']
-                        soc_target = min(soc_target, 1.0)
-                        soc_target = max(soc_target, soc)
-                    
+
+                    soc_target = 1.0 if pausentyp == 'Nachtlader' else min(
+                        max(config['energie_pro_abschnitt'] / kapazitaet + config['sicherheitspuffer'], soc), 1.0
+                    )
+
+                    # Einfügen in Dictionary
                     dict_lkws['Cluster'].append(cluster_id)
                     dict_lkws['Tag'].append(day + 1)
                     dict_lkws['Kapazitaet'].append(kapazitaet)
                     dict_lkws['Max_Leistung'].append(leistung)
-                    dict_lkws['Nummer'].append(None)  # Placeholder for ID
+                    dict_lkws['Nummer'].append(None)
                     dict_lkws['SOC'].append(soc)
                     dict_lkws['SOC_Target'].append(soc_target)
                     dict_lkws['Pausentyp'].append(pausentyp)
                     dict_lkws['Pausenlaenge'].append(pausenzeit)
                     dict_lkws['Ankunftszeit'].append(minuten)
                     dict_lkws['Lkw_ID'].append(int(lkw_id))
-
 
     df_lkws = pd.DataFrame(dict_lkws)
     df_lkws.sort_values(by=['Cluster', 'Tag', 'Ankunftszeit'], inplace=True)
@@ -194,33 +181,31 @@ def generate_truck_data(config, df_verteilungsfunktion, df_ladevorgaenge_daily):
     return df_lkws
 
 # ======================================================
-# Assign Charging Stations
+# Ladesäulen zuweisen
 # ======================================================
 def assign_charging_stations(df_lkws, config):
     """
-    Assign charging stations to each truck based on configurations.
+    Weist Ladesäulen basierend auf SOC und Ladezeiten zu.
     """
     df_lkws['Ladesäule'] = None
-    count = 0
+    nicht_erfüllt = 0
+
     for index in range(len(df_lkws)):
-        
         kapazitaet = float(df_lkws.loc[index, 'Kapazitaet'])
         soc_init = df_lkws.loc[index, 'SOC']
         pausentyp = df_lkws.loc[index, 'Pausentyp']
         pausenzeit = df_lkws.loc[index, 'Pausenlaenge']
         max_leistung_lkw = df_lkws.loc[index, 'Max_Leistung']
         soc_target = df_lkws.loc[index, 'SOC_Target']
-        df_lkws.loc[index, 'SOC_Target'] = soc_target
 
         if pausentyp == 'Nachtlader':
             df_lkws.loc[index, 'Ladesäule'] = 'NCS'
             continue
         
         if soc_target < soc_init:
-            print(f"Warning: Truck {df_lkws.loc[index, 'Nummer']} has a target SOC less than initial SOC!")
+            print(f"⚠️ Achtung: LKW {df_lkws.loc[index, 'Nummer']} hat Ziel-SOC < Initial-SOC!")
 
         ladezeiten = {}
-
         for station, leistung_init in config['leistung'].items():
             ladezeit = 0
             soc = soc_init
@@ -238,67 +223,61 @@ def assign_charging_stations(df_lkws, config):
             df_lkws.loc[index, 'Ladesäule'] = 'MCS'
         else:
             df_lkws.loc[index, 'Ladesäule'] = 'MCS'
-            count += 1
-    if count > 0:
-        print(f"Warning: {count} Ladeanforderungen können nicht erfüllt werden.")
-        
-    dict_anteile = {
-        1: df_lkws[df_lkws['Lkw_ID'] == 1].shape[0] / df_lkws.shape[0],
-        2: df_lkws[df_lkws['Lkw_ID'] == 2].shape[0] / df_lkws.shape[0],
-        3: df_lkws[df_lkws['Lkw_ID'] == 3].shape[0] / df_lkws.shape[0],
-        4: df_lkws[df_lkws['Lkw_ID'] == 4].shape[0] / df_lkws.shape[0]
-    }
+            nicht_erfüllt += 1
 
-    print(dict_anteile)
-    
+    if nicht_erfüllt > 0:
+        print(f"⚠️ {nicht_erfüllt} Ladevorgänge konnten innerhalb der Pausenzeit nicht vollständig erfüllt werden.")
+
+    # Ausgabe der Verteilung der LKW-IDs
+    anteile = df_lkws['Lkw_ID'].value_counts(normalize=True).sort_index().to_dict()
+    print("Verteilung der LKW-Typen:", anteile)
+
     return df_lkws
 
 # ======================================================
-# Finalize and Export Data
+# Daten finalisieren und exportieren
 # ======================================================
 def finalize_and_export_data(df_lkws, config):
     """
-    Finalize the DataFrame, add datetime, and export to a CSV file.
+    Ergänzt Zeitspalten, sortiert und exportiert die Ergebnisse als CSV.
     """
     df_lkws['Zeit_DateTime'] = pd.to_datetime(
         df_lkws['Ankunftszeit'] + ((df_lkws['Tag'] - 1) * 1440),
-        unit='m',
-        origin='2024-01-01'
+        unit='m', origin='2024-01-01'
     )
     df_lkws['Ankunftszeit_total'] = df_lkws['Ankunftszeit'] + ((df_lkws['Tag'] - 1) * 1440)
     df_lkws['Wochentag'] = df_lkws['Zeit_DateTime'].dt.weekday
     df_lkws['KW'] = df_lkws['Zeit_DateTime'].dt.isocalendar().week
     df_lkws.loc[(df_lkws['Tag'] > 300) & (df_lkws['KW'] == 1), 'KW'] = 53
+
     df_lkws.sort_values(by=['Cluster', 'Zeit_DateTime'], inplace=True)
-    # Reorder the columns
+
     df_lkws = df_lkws[[
-        'Cluster',  'Zeit_DateTime', 'Ankunftszeit_total', 'Tag',  'KW','Wochentag',
-        'Ankunftszeit', 'Nummer', 'Pausentyp', 'Kapazitaet', 'Max_Leistung', 'SOC',
-        'SOC_Target', 'Pausenlaenge', 'Lkw_ID', 'Ladesäule'
+        'Cluster', 'Zeit_DateTime', 'Ankunftszeit_total', 'Tag', 'KW', 'Wochentag',
+        'Ankunftszeit', 'Nummer', 'Pausentyp', 'Kapazitaet', 'Max_Leistung',
+        'SOC', 'SOC_Target', 'Pausenlaenge', 'Lkw_ID', 'Ladesäule'
     ]]
-    
-    # Ensure the directories exist
+
     output_dir = os.path.join(config['path'], 'data', config_file.mode, 'lkw_eingehend')
     os.makedirs(output_dir, exist_ok=True)
 
-    # Export the DataFrame to a CSV file
     df_lkws.to_csv(
         os.path.join(output_dir, 'eingehende_lkws_ladesaeule.csv'),
         sep=';', decimal=','
     )
 
 # ======================================================
-# Analyze Charging Types
+# Auswertung der Ladesäulenarten
 # ======================================================
 def analyze_charging_types(df_lkws):
     """
-    Analyze and print the proportion of each charging type.
+    Gibt die Anzahl der verwendeten Ladesäulenarten aus.
     """
     df_ladetypen = df_lkws.groupby('Ladesäule').size().reset_index(name='Anzahl')
     print(df_ladetypen)
 
 # ======================================================
-# Main Execution
+# Starte das Hauptprogramm
 # ======================================================
 if __name__ == "__main__":
     main()
