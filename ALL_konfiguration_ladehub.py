@@ -3,7 +3,6 @@ import numpy as np
 import networkx as nx
 import os
 import config
-import time
 import logging
 logging.basicConfig(filename='logs.log', level=logging.DEBUG, format='%(asctime)s; %(levelname)s; %(message)s')
 
@@ -75,16 +74,10 @@ def build_flow_network(df_filter, anzahl_ladesaeulen):
         G.add_edge(arrival_node, lkw_arr, capacity=1, weight=0)
         G.add_edge(lkw_dep, departure_node, capacity=1, weight=0)
         G.add_edge(lkw_arr, lkw_dep, capacity=1, weight=0)
-
-        # # Drucke alle Kanten, bei denen mindestens ein LKW beteiligt ist
-        # for u, v, data in G.edges(data=True):
-        #     if 'LKW' in u or 'LKW' in v:
-        #         print(f"Kante: {u} -> {v}, Kapazität: {data['capacity']}, Gewicht: {data['weight']}")
     
     flow_dict = nx.max_flow_min_cost(G, S, T)
     
     return flow_dict
-    # return G, S, T
 
 def konfiguration_ladehub(df_eingehende_lkws, szenario):
     """
@@ -136,11 +129,7 @@ def konfiguration_ladehub(df_eingehende_lkws, szenario):
         # Wiederholung in Schritten bis zur Ziel-Ladequote
         for durchgang in range(ankommende_lkws):
             # Graphen via Node-Splitting-Ansatz aufbauen
-            # G, S, T = build_flow_network(df_eingehende_lkws_filter, anzahl_ladesaeulen)
             flow_dict = build_flow_network(df_eingehende_lkws_filter, anzahl_ladesaeulen)
-
-            # Max-Flow-Min-Cost
-            # flow_dict = nx.max_flow_min_cost(G, S, T)
 
             # Bestimmen, wie viele LKW tatsächlich geladen wurden
             lkw_geladen = 0
@@ -182,16 +171,9 @@ def konfiguration_ladehub(df_eingehende_lkws, szenario):
                 df_eingehende_lkws_loadstatus = pd.concat([df_eingehende_lkws_loadstatus, df_eingehende_lkws_filter])
                 break
 
-            # # Sonst: Anzahl Ladesäulen anpassen und nächsten Durchgang
-            # # (Ein Minimalbeispiel, wie in Ihrem Code)
-            # if ladequote == 0:
-            #     # falls gar keine LKW geladen, mindestens +1
-            #     anzahl_ladesaeulen += 1
             else:
                 # analog Ihrem bisherigen Ansatz
-                # anzahl_ladesaeulen += 1
                 anzahl_ladesaeulen = np.ceil(anzahl_ladesaeulen / ladequote * ladquote_ziel).astype(int)
-
 
         # Speichern der Ergebnisse
         df_anzahl_ladesaeulen.loc[0,'Cluster'] = cluster
@@ -256,7 +238,7 @@ def main():
         if dict_szenario['ladequote'] == dict_base['ladequote'] and dict_szenario['cluster'] == dict_base['cluster'] and dict_szenario['pause'] == dict_base['pause'] and dict_szenario['name'] != dict_base['name']:
             logging.info(f"Konfiguration übersprungen: {szenario}")
             print(f"Konfiguration übersprungen: {szenario}")
-        else:   
+        else:
             print(f"Konfiguration Hub: {szenario}")
             logging.info(f"Konfiguration Hub: {szenario}")
             konfiguration_ladehub(df_eingehende_lkws, szenario)

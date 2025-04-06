@@ -99,8 +99,6 @@ def get_soc(ankunftszeit):
     else:
         soc = -(0.00028) * ankunftszeit + 0.6
         soc += np.random.uniform(-0.1, 0.1)
-    
-    # soc = 0.2 + np.random.uniform(-0.1, 0.1)
       
     return soc
 
@@ -220,7 +218,6 @@ def assign_charging_stations(df_lkws, config):
         
         if soc_target < soc_init:
             print(f"Warning: Truck {df_lkws.loc[index, 'Nummer']} has a target SOC less than initial SOC!")
-            # raise ValueError("Error: Target SOC is less than initial SOC!")
 
         ladezeiten = {}
 
@@ -243,7 +240,7 @@ def assign_charging_stations(df_lkws, config):
             df_lkws.loc[index, 'Ladesäule'] = 'MCS'
             count += 1
     if count > 0:
-        print(f"Warning: {count} trucks have been assigned to MCS due to insufficient charging capacity.")
+        print(f"Warning: {count} Ladeanforderungen können nicht erfüllt werden.")
         
     dict_anteile = {
         1: df_lkws[df_lkws['Lkw_ID'] == 1].shape[0] / df_lkws.shape[0],
