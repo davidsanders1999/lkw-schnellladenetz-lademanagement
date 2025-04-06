@@ -23,7 +23,7 @@ if config.mode == 'flex':
     FLEX_daten_aufbereiten.main()
     
 elif config.mode == 'epex':
-    zuweisung_ladetyp.main()
+    ALL_zuweisung_ladetyp.main()
     ALL_konfiguration_ladehub.main()
     EPEX_laden_nicht_laden.main()
     EPEX_optimierung.main()

@@ -9,7 +9,6 @@ import logging
 logging.basicConfig(filename='logs.log', level=logging.DEBUG, format='%(asctime)s; %(levelname)s; %(message)s')
 
 CONFIG = {
-    # 'STRATEGIES': ["Intraday", "DayAhead"]
     'STRATEGIES': ["Intraday", "DayAhead","T_min", "Konstant"],
 }
 
@@ -89,7 +88,6 @@ def modellierung(szenario):
     # -------------------------------------
     # Vorbereitung: Lastgang-Arrays
     # -------------------------------------
-    # STRATEGIES = ["DayAhead"]  
     YEAR_MINUTES = 527040
     TIMESTEP = 5
     N = YEAR_MINUTES // TIMESTEP  # 527040 / 5 = 105408
@@ -196,7 +194,7 @@ def modellierung(szenario):
         SOC_req  = df_lkw_filtered['SOC_Target'].tolist()
         dayahead  = df_dayahead_filtered['Preis'].tolist()
         intraday = df_intraday_filtered['Preis'].tolist()
-        # intraday = df_rebap_filtered['Preis'].tolist()
+        
         
         # Leistungsskalierung
         pow_split = szenario.split('_')[6].split('-')
@@ -362,12 +360,7 @@ def modellierung(szenario):
                 # Zielfunktion: Hierarcsdfhisches Modell
                 # 1. Primäres Ziel mit sehr hoher Gewichtung: Maximiere Energie
                 # 2. Sekundäres Ziel: Minimiere Leistungsschwankungen
-                # obj_expr = quicksum(
-                #     M_energy * Pplus[(i, t)]  # Primärziel mit sehr hoher Gewichtung
-                #     - quicksum(delta[(i, t_step)] for t_step in range(t_in[i], min(t+1, t_out[i])) if t_step < t_out[i])  # Sekundärziel
-                #     for i in range(I) for t in range(t_in[i], t_out[i] + 1)
-                # )
-                
+
                 obj_expr = quicksum(
                     M_energy * P[(i, t)]  # Primärziel mit sehr hoher Gewichtung
                     - quicksum(delta[(i, t_step)] for t_step in range(t_in[i], min(t+1, t_out[i])) if t_step < t_out[i])  # Sekundärziel
