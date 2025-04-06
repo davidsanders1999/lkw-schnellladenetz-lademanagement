@@ -359,7 +359,7 @@ def modellierung(szenario):
                 # Extrem hohe Gewichtung für die Energiemaximierung, um absolute Priorität zu gewährleisten
                 M_energy = 1000000  # Sehr hoher Gewichtungsfaktor
                 
-                # Zielfunktion: Hierarchisches Modell
+                # Zielfunktion: Hierarcsdfhisches Modell
                 # 1. Primäres Ziel mit sehr hoher Gewichtung: Maximiere Energie
                 # 2. Sekundäres Ziel: Minimiere Leistungsschwankungen
                 # obj_expr = quicksum(
