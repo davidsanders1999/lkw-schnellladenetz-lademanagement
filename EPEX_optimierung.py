@@ -469,6 +469,9 @@ def modellierung(szenario):
     )
     return None
 
+# ======================================================
+# Programmstart
+# ======================================================
 
 def main():
     for szenario in config.list_szenarien:

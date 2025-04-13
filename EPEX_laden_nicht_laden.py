@@ -130,7 +130,7 @@ def main():
     print(f"⏱️ Gesamtlaufzeit: {time_end - time_start:.2f} Sekunden.")
 
 # ======================================================
-# Programmstart
+# Ausführung
 # ======================================================
 if __name__ == "__main__":
     main()

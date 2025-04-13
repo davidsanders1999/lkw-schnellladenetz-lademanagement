@@ -1,1154 +1,358 @@
-2025-03-07 22:48:55,394; INFO; Start: Main
-2025-03-07 22:48:55,394; INFO; Start: Clear Data
-2025-03-07 22:48:56,758; INFO; Start: Konfiguration
-2025-03-07 22:48:56,764; INFO; Konfiguration Hub: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-07 22:49:25,330; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-07 22:49:25,331; INFO; Konfiguration Hub: cl_1_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_3_Cluster-1
-2025-03-07 22:49:44,049; INFO; Konfiguration Hub: cl_3_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_4_Cluster-3
-2025-03-07 22:50:38,139; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow_110-100-100_pause_45-540_M_5_Leistung-NCS-110
-2025-03-07 22:50:38,139; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow_120-100-100_pause_45-540_M_6_Leistung-NCS-120
-2025-03-07 22:50:38,139; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow_130-100-100_pause_45-540_M_7_Leistung-NCS-130
-2025-03-07 22:50:38,139; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow_140-100-100_pause_45-540_M_8_Leistung-NCS-140
-2025-03-07 22:50:38,139; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow_100-110-100_pause_45-540_M_9_Leistung-HPC-110
-2025-03-07 22:50:38,139; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow_100-120-100_pause_45-540_M_10_Leistung-HPC-120
-2025-03-07 22:50:38,139; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow_100-130-100_pause_45-540_M_11_Leistung-HPC-130
-2025-03-07 22:50:38,139; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow_100-140-100_pause_45-540_M_12_Leistung-HPC-140
-2025-03-07 22:50:38,139; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-07 22:50:38,139; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow_100-100-120_pause_45-540_M_14_Leistung-MCS-120
-2025-03-07 22:50:38,139; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow_100-100-130_pause_45-540_M_15_Leistung-MCS-130
-2025-03-07 22:50:38,139; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-07 22:50:38,139; INFO; Konfiguration Hub: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_50-540_M_17_Schnellzeit-110
-2025-03-07 22:51:09,972; INFO; Konfiguration Hub: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_55-540_M_18_Schnellzeit-120
-2025-03-07 22:51:41,722; INFO; Konfiguration Hub: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_60-540_M_19_Schnellzeit-130
-2025-03-07 22:52:16,296; INFO; Konfiguration Hub: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_65-540_M_20_Schnellzeit-140
-2025-03-07 22:52:47,773; INFO; Konfiguration Hub: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-595_M_21_Nachtzeit-110
-2025-03-07 22:53:17,974; INFO; Konfiguration Hub: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-650_M_22_Nachtzeit-120
-2025-03-07 22:53:46,511; INFO; Konfiguration Hub: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-705_M_23_Nachtzeit-130
-2025-03-07 22:54:15,569; INFO; Konfiguration Hub: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-760_M_24_Nachtzeit-140
-2025-03-07 22:54:43,460; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_90_pow_100-100-100_pause_45-540_M_25_Netzanschluss-90
-2025-03-07 22:54:43,460; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_80_pow_100-100-100_pause_45-540_M_26_Netzanschluss-80
-2025-03-07 22:54:43,460; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_70_pow_100-100-100_pause_45-540_M_27_Netzanschluss-70
-2025-03-07 22:54:43,460; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_60_pow_100-100-100_pause_45-540_M_28_Netzanschluss-60
-2025-03-07 22:54:43,460; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_50_pow_100-100-100_pause_45-540_M_29_Netzanschluss-50
-2025-03-07 22:54:43,460; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_40_pow_100-100-100_pause_45-540_M_30_Netzanschluss-40
-2025-03-07 22:54:43,460; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_30_pow_100-100-100_pause_45-540_M_31_Netzanschluss-30
-2025-03-07 22:54:43,460; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_20_pow_100-100-100_pause_45-540_M_32_Netzanschluss-20
-2025-03-07 22:54:43,460; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_10_pow_100-100-100_pause_45-540_M_33_Netzanschluss-10
-2025-03-07 22:54:43,461; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-07 22:54:43,487; INFO; Set parameter Username
-2025-03-07 22:54:43,491; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-07 22:55:19,226; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-07 22:56:03,945; INFO; Optimierung P_max/P_min: cl_1_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_3_Cluster-1
-2025-03-07 22:56:17,501; INFO; Optimierung P_max/P_min: cl_3_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_4_Cluster-3
-2025-03-07 22:57:13,180; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_110-100-100_pause_45-540_M_5_Leistung-NCS-110
-2025-03-07 22:57:47,857; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_120-100-100_pause_45-540_M_6_Leistung-NCS-120
-2025-03-07 22:58:22,662; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_130-100-100_pause_45-540_M_7_Leistung-NCS-130
-2025-03-07 22:58:57,703; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_140-100-100_pause_45-540_M_8_Leistung-NCS-140
-2025-03-07 22:59:41,526; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-110-100_pause_45-540_M_9_Leistung-HPC-110
-2025-03-07 23:00:16,839; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-120-100_pause_45-540_M_10_Leistung-HPC-120
-2025-03-07 23:00:52,196; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-130-100_pause_45-540_M_11_Leistung-HPC-130
-2025-03-07 23:01:27,792; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-140-100_pause_45-540_M_12_Leistung-HPC-140
-2025-03-07 23:02:03,555; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-07 23:02:41,566; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-120_pause_45-540_M_14_Leistung-MCS-120
-2025-03-07 23:03:17,770; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-130_pause_45-540_M_15_Leistung-MCS-130
-2025-03-07 23:03:53,828; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-07 23:04:29,396; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_50-540_M_17_Schnellzeit-110
-2025-03-07 23:05:05,625; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_55-540_M_18_Schnellzeit-120
-2025-03-07 23:05:42,915; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_60-540_M_19_Schnellzeit-130
-2025-03-07 23:06:20,760; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_65-540_M_20_Schnellzeit-140
-2025-03-07 23:06:58,955; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-595_M_21_Nachtzeit-110
-2025-03-07 23:07:37,923; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-650_M_22_Nachtzeit-120
-2025-03-07 23:08:19,786; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-705_M_23_Nachtzeit-130
-2025-03-07 23:09:05,085; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-760_M_24_Nachtzeit-140
-2025-03-07 23:09:54,238; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_90_pow_100-100-100_pause_45-540_M_25_Netzanschluss-90
-2025-03-07 23:10:30,099; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_80_pow_100-100-100_pause_45-540_M_26_Netzanschluss-80
-2025-03-07 23:11:05,952; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_70_pow_100-100-100_pause_45-540_M_27_Netzanschluss-70
-2025-03-07 23:11:42,342; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_60_pow_100-100-100_pause_45-540_M_28_Netzanschluss-60
-2025-03-07 23:12:19,378; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_50_pow_100-100-100_pause_45-540_M_29_Netzanschluss-50
-2025-03-07 23:12:56,299; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_40_pow_100-100-100_pause_45-540_M_30_Netzanschluss-40
-2025-03-07 23:13:32,503; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_30_pow_100-100-100_pause_45-540_M_31_Netzanschluss-30
-2025-03-07 23:14:10,073; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_20_pow_100-100-100_pause_45-540_M_32_Netzanschluss-20
-2025-03-07 23:14:46,648; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_10_pow_100-100-100_pause_45-540_M_33_Netzanschluss-10
-2025-03-07 23:15:24,087; INFO; Start: Flex KPIs
-2025-03-07 23:15:24,087; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-07 23:15:24,234; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-08 14:30:19,906; INFO; Start: Main
-2025-03-08 14:30:19,907; INFO; Start: Flex KPIs
-2025-03-08 14:30:19,907; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 14:30:20,192; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-08 14:30:41,285; INFO; Start: Main
-2025-03-08 14:30:41,287; INFO; Start: Flex KPIs
-2025-03-08 14:30:41,287; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 14:30:45,285; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-08 14:33:23,232; INFO; Start: Main
-2025-03-08 14:33:23,233; INFO; Start: Flex KPIs
-2025-03-08 14:33:23,233; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 14:33:23,470; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-08 14:33:23,702; INFO; Flex KPIs: cl_1_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_3_Cluster-1
-2025-03-08 14:33:31,697; INFO; Start: Main
-2025-03-08 14:33:31,697; INFO; Start: Flex KPIs
-2025-03-08 14:33:31,697; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 14:33:31,949; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-08 14:33:32,177; INFO; Flex KPIs: cl_1_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_3_Cluster-1
-2025-03-08 14:34:21,882; INFO; Start: Main
-2025-03-08 14:34:21,884; INFO; Start: Flex KPIs
-2025-03-08 14:34:21,884; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 14:34:22,165; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-08 14:34:22,425; INFO; Flex KPIs: cl_1_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_3_Cluster-1
-2025-03-08 14:34:22,560; INFO; Flex KPIs: cl_3_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_4_Cluster-3
-2025-03-08 14:34:23,035; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_110-100-100_pause_45-540_M_5_Leistung-NCS-110
-2025-03-08 14:34:23,957; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_120-100-100_pause_45-540_M_6_Leistung-NCS-120
-2025-03-08 14:34:24,388; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_130-100-100_pause_45-540_M_7_Leistung-NCS-130
-2025-03-08 14:34:24,779; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_140-100-100_pause_45-540_M_8_Leistung-NCS-140
-2025-03-08 14:34:25,140; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-110-100_pause_45-540_M_9_Leistung-HPC-110
-2025-03-08 14:34:25,908; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-120-100_pause_45-540_M_10_Leistung-HPC-120
-2025-03-08 14:34:26,672; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-130-100_pause_45-540_M_11_Leistung-HPC-130
-2025-03-08 14:34:27,360; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-140-100_pause_45-540_M_12_Leistung-HPC-140
-2025-03-08 14:34:28,080; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 14:34:28,809; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-120_pause_45-540_M_14_Leistung-MCS-120
-2025-03-08 14:34:29,275; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-130_pause_45-540_M_15_Leistung-MCS-130
-2025-03-08 14:34:29,645; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 14:34:30,046; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_50-540_M_17_Schnellzeit-110
-2025-03-08 14:34:30,438; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_55-540_M_18_Schnellzeit-120
-2025-03-08 14:34:30,861; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_60-540_M_19_Schnellzeit-130
-2025-03-08 14:34:31,317; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_65-540_M_20_Schnellzeit-140
-2025-03-08 14:34:32,138; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-595_M_21_Nachtzeit-110
-2025-03-08 14:34:33,405; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-650_M_22_Nachtzeit-120
-2025-03-08 14:34:34,114; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-705_M_23_Nachtzeit-130
-2025-03-08 14:34:35,761; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-760_M_24_Nachtzeit-140
-2025-03-08 14:34:37,557; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_90_pow_100-100-100_pause_45-540_M_25_Netzanschluss-90
-2025-03-08 14:34:38,734; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_80_pow_100-100-100_pause_45-540_M_26_Netzanschluss-80
-2025-03-08 14:34:39,378; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_70_pow_100-100-100_pause_45-540_M_27_Netzanschluss-70
-2025-03-08 14:34:40,057; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_60_pow_100-100-100_pause_45-540_M_28_Netzanschluss-60
-2025-03-08 14:34:40,486; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_50_pow_100-100-100_pause_45-540_M_29_Netzanschluss-50
-2025-03-08 14:34:41,045; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_40_pow_100-100-100_pause_45-540_M_30_Netzanschluss-40
-2025-03-08 14:34:41,481; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_30_pow_100-100-100_pause_45-540_M_31_Netzanschluss-30
-2025-03-08 14:34:42,906; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_20_pow_100-100-100_pause_45-540_M_32_Netzanschluss-20
-2025-03-08 14:34:44,093; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_10_pow_100-100-100_pause_45-540_M_33_Netzanschluss-10
-2025-03-08 14:34:44,885; INFO; Start: Daten aufbereiten
-2025-03-08 14:34:44,887; INFO; Wochentage
-2025-03-08 14:34:48,354; INFO; Start: Flex KPIs
-2025-03-08 14:34:48,354; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 14:34:48,771; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-08 14:34:49,236; INFO; Flex KPIs: cl_1_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_3_Cluster-1
-2025-03-08 14:34:49,634; INFO; Flex KPIs: cl_3_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_4_Cluster-3
-2025-03-08 14:34:50,282; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_110-100-100_pause_45-540_M_5_Leistung-NCS-110
-2025-03-08 14:34:50,888; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_120-100-100_pause_45-540_M_6_Leistung-NCS-120
-2025-03-08 14:34:51,289; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_130-100-100_pause_45-540_M_7_Leistung-NCS-130
-2025-03-08 14:34:51,899; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_140-100-100_pause_45-540_M_8_Leistung-NCS-140
-2025-03-08 14:34:52,282; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-110-100_pause_45-540_M_9_Leistung-HPC-110
-2025-03-08 14:34:52,637; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-120-100_pause_45-540_M_10_Leistung-HPC-120
-2025-03-08 14:34:52,962; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-130-100_pause_45-540_M_11_Leistung-HPC-130
-2025-03-08 14:34:53,263; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-140-100_pause_45-540_M_12_Leistung-HPC-140
-2025-03-08 14:34:53,937; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 14:34:54,432; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-120_pause_45-540_M_14_Leistung-MCS-120
-2025-03-08 14:34:55,331; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-130_pause_45-540_M_15_Leistung-MCS-130
-2025-03-08 14:34:58,204; INFO; Start: Main
-2025-03-08 14:34:58,204; INFO; Start: Flex KPIs
-2025-03-08 14:34:58,205; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 14:34:58,578; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-08 14:34:59,423; INFO; Flex KPIs: cl_1_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_3_Cluster-1
-2025-03-08 14:34:59,796; INFO; Flex KPIs: cl_3_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_4_Cluster-3
-2025-03-08 14:35:00,423; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_110-100-100_pause_45-540_M_5_Leistung-NCS-110
-2025-03-08 14:35:00,987; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_120-100-100_pause_45-540_M_6_Leistung-NCS-120
-2025-03-08 14:35:01,521; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_130-100-100_pause_45-540_M_7_Leistung-NCS-130
-2025-03-08 14:35:02,012; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_140-100-100_pause_45-540_M_8_Leistung-NCS-140
-2025-03-08 14:35:02,420; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-110-100_pause_45-540_M_9_Leistung-HPC-110
-2025-03-08 14:35:02,949; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-120-100_pause_45-540_M_10_Leistung-HPC-120
-2025-03-08 14:35:03,483; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-130-100_pause_45-540_M_11_Leistung-HPC-130
-2025-03-08 14:35:04,297; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-140-100_pause_45-540_M_12_Leistung-HPC-140
-2025-03-08 14:35:05,210; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 14:35:05,868; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-120_pause_45-540_M_14_Leistung-MCS-120
-2025-03-08 14:35:06,446; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-130_pause_45-540_M_15_Leistung-MCS-130
-2025-03-08 14:35:07,055; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 14:35:07,684; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_50-540_M_17_Schnellzeit-110
-2025-03-08 14:35:08,196; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_55-540_M_18_Schnellzeit-120
-2025-03-08 14:35:09,181; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_60-540_M_19_Schnellzeit-130
-2025-03-08 14:35:10,321; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_65-540_M_20_Schnellzeit-140
-2025-03-08 14:35:10,816; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-595_M_21_Nachtzeit-110
-2025-03-08 14:35:11,308; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-650_M_22_Nachtzeit-120
-2025-03-08 14:35:11,629; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-705_M_23_Nachtzeit-130
-2025-03-08 14:35:12,039; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-760_M_24_Nachtzeit-140
-2025-03-08 14:35:12,680; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_90_pow_100-100-100_pause_45-540_M_25_Netzanschluss-90
-2025-03-08 14:35:13,164; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_80_pow_100-100-100_pause_45-540_M_26_Netzanschluss-80
-2025-03-08 14:35:13,560; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_70_pow_100-100-100_pause_45-540_M_27_Netzanschluss-70
-2025-03-08 14:35:14,009; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_60_pow_100-100-100_pause_45-540_M_28_Netzanschluss-60
-2025-03-08 14:35:14,545; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_50_pow_100-100-100_pause_45-540_M_29_Netzanschluss-50
-2025-03-08 14:35:15,048; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_40_pow_100-100-100_pause_45-540_M_30_Netzanschluss-40
-2025-03-08 14:35:15,515; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_30_pow_100-100-100_pause_45-540_M_31_Netzanschluss-30
-2025-03-08 14:35:16,329; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_20_pow_100-100-100_pause_45-540_M_32_Netzanschluss-20
-2025-03-08 14:35:16,931; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_10_pow_100-100-100_pause_45-540_M_33_Netzanschluss-10
-2025-03-08 14:35:17,445; INFO; Start: Daten aufbereiten
-2025-03-08 14:35:17,445; INFO; Wochentage
-2025-03-08 14:35:18,817; INFO; Ergebnisse updaten
-2025-03-08 14:35:20,908; INFO; Szenarien vergleichen
-2025-03-08 14:47:42,430; INFO; Start: Daten aufbereiten
-2025-03-08 14:47:42,431; INFO; Wochentage
-2025-03-08 14:47:42,834; INFO; Ergebnisse updaten
-2025-03-08 14:47:43,174; INFO; Szenarien vergleichen
-2025-03-08 15:02:37,027; INFO; Start: Main
-2025-03-08 15:02:37,028; INFO; Start: Flex KPIs
-2025-03-08 15:02:37,028; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 15:02:37,441; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-08 15:02:37,753; INFO; Flex KPIs: cl_1_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_3_Cluster-1
-2025-03-08 15:02:38,677; INFO; Flex KPIs: cl_3_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_4_Cluster-3
-2025-03-08 15:02:39,582; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_110-100-100_pause_45-540_M_5_Leistung-NCS-110
-2025-03-08 15:02:40,015; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_120-100-100_pause_45-540_M_6_Leistung-NCS-120
-2025-03-08 15:02:40,679; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_130-100-100_pause_45-540_M_7_Leistung-NCS-130
-2025-03-08 15:02:41,688; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_140-100-100_pause_45-540_M_8_Leistung-NCS-140
-2025-03-08 15:02:42,575; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-110-100_pause_45-540_M_9_Leistung-HPC-110
-2025-03-08 15:02:43,343; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-120-100_pause_45-540_M_10_Leistung-HPC-120
-2025-03-08 15:02:43,826; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-130-100_pause_45-540_M_11_Leistung-HPC-130
-2025-03-08 15:02:44,217; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-140-100_pause_45-540_M_12_Leistung-HPC-140
-2025-03-08 15:02:44,854; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 15:02:45,317; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-120_pause_45-540_M_14_Leistung-MCS-120
-2025-03-08 15:02:45,664; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-130_pause_45-540_M_15_Leistung-MCS-130
-2025-03-08 15:02:46,071; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 15:02:46,437; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_50-540_M_17_Schnellzeit-110
-2025-03-08 15:02:46,774; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_55-540_M_18_Schnellzeit-120
-2025-03-08 15:02:47,087; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_60-540_M_19_Schnellzeit-130
-2025-03-08 15:02:47,454; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_65-540_M_20_Schnellzeit-140
-2025-03-08 15:02:47,856; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-595_M_21_Nachtzeit-110
-2025-03-08 15:02:48,873; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-650_M_22_Nachtzeit-120
-2025-03-08 15:02:49,325; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-705_M_23_Nachtzeit-130
-2025-03-08 15:02:49,765; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-760_M_24_Nachtzeit-140
-2025-03-08 15:02:50,181; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_90_pow_100-100-100_pause_45-540_M_25_Netzanschluss-90
-2025-03-08 15:02:50,494; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_80_pow_100-100-100_pause_45-540_M_26_Netzanschluss-80
-2025-03-08 15:02:50,802; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_70_pow_100-100-100_pause_45-540_M_27_Netzanschluss-70
-2025-03-08 15:02:51,144; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_60_pow_100-100-100_pause_45-540_M_28_Netzanschluss-60
-2025-03-08 15:02:51,472; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_50_pow_100-100-100_pause_45-540_M_29_Netzanschluss-50
-2025-03-08 15:02:51,758; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_40_pow_100-100-100_pause_45-540_M_30_Netzanschluss-40
-2025-03-08 15:02:52,129; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_30_pow_100-100-100_pause_45-540_M_31_Netzanschluss-30
-2025-03-08 15:02:52,446; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_20_pow_100-100-100_pause_45-540_M_32_Netzanschluss-20
-2025-03-08 15:02:52,764; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_10_pow_100-100-100_pause_45-540_M_33_Netzanschluss-10
-2025-03-08 15:02:53,096; INFO; Start: Daten aufbereiten
-2025-03-08 15:02:53,096; INFO; Wochentage
-2025-03-08 15:02:53,656; INFO; Ergebnisse updaten
-2025-03-08 15:02:54,245; INFO; Szenarien vergleichen
-2025-03-08 15:09:58,448; INFO; Start: Daten aufbereiten
-2025-03-08 15:09:58,449; INFO; Wochentage
-2025-03-08 15:09:58,844; INFO; Ergebnisse updaten
-2025-03-08 15:09:59,195; INFO; Szenarien vergleichen
-2025-03-08 15:34:24,350; INFO; Start: Daten aufbereiten
-2025-03-08 15:34:24,352; INFO; Wochentage
-2025-03-08 15:34:24,858; INFO; Ergebnisse updaten
-2025-03-08 15:34:25,110; INFO; Szenarien vergleichen
-2025-03-08 15:34:37,798; INFO; Start: Daten aufbereiten
-2025-03-08 15:34:37,799; INFO; Wochentage
-2025-03-08 15:34:38,305; INFO; Ergebnisse updaten
-2025-03-08 15:34:38,641; INFO; Szenarien vergleichen
-2025-03-08 15:35:35,537; INFO; Start: Daten aufbereiten
-2025-03-08 15:35:35,537; INFO; Wochentage
-2025-03-08 15:35:36,052; INFO; Ergebnisse updaten
-2025-03-08 15:35:36,391; INFO; Szenarien vergleichen
-2025-03-08 15:37:53,563; INFO; Start: Daten aufbereiten
-2025-03-08 15:37:53,566; INFO; Wochentage
-2025-03-08 15:37:54,044; INFO; Ergebnisse updaten
-2025-03-08 15:37:54,390; INFO; Szenarien vergleichen
-2025-03-08 16:02:41,843; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 16:02:42,808; INFO; Set parameter Username
-2025-03-08 16:02:42,811; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-08 16:03:20,440; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 16:03:56,174; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 16:03:57,082; INFO; Set parameter Username
-2025-03-08 16:03:57,084; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-08 16:04:39,336; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 16:04:40,261; INFO; Set parameter Username
-2025-03-08 16:04:40,263; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-08 16:04:48,045; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 16:04:51,353; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-08 16:05:23,879; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-110-100_pause_45-540_M_9_Leistung-HPC-110
-2025-03-08 16:06:27,975; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-110_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 16:06:55,529; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-110_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 16:07:44,101; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-110_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 16:12:09,488; INFO; Start: Main
-2025-03-08 16:12:10,935; INFO; Start: Konfiguration
-2025-03-08 16:12:10,942; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow-110_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 16:12:10,942; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow-120_100-100-120_pause_45-540_M_14_Leistung-MCS-120
-2025-03-08 16:12:10,942; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow-130_100-100-130_pause_45-540_M_15_Leistung-MCS-130
-2025-03-08 16:12:10,942; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow-140_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:12:10,942; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-110_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 16:12:10,967; INFO; Set parameter Username
-2025-03-08 16:12:10,970; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-08 16:12:44,723; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-120_100-100-120_pause_45-540_M_14_Leistung-MCS-120
-2025-03-08 16:13:17,359; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-130_100-100-130_pause_45-540_M_15_Leistung-MCS-130
-2025-03-08 16:13:50,236; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-140_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:14:23,493; INFO; Start: Flex KPIs
-2025-03-08 16:14:23,493; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-110_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 16:14:23,636; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-120_100-100-120_pause_45-540_M_14_Leistung-MCS-120
-2025-03-08 16:14:23,778; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-130_100-100-130_pause_45-540_M_15_Leistung-MCS-130
-2025-03-08 16:14:23,914; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-140_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:14:24,045; INFO; Start: Daten aufbereiten
-2025-03-08 16:14:24,045; INFO; Wochentage
-2025-03-08 16:14:24,459; INFO; Ergebnisse updaten
-2025-03-08 16:14:24,805; INFO; Szenarien vergleichen
-2025-03-08 16:19:32,970; INFO; Start: Main
-2025-03-08 16:19:34,410; INFO; Start: Konfiguration
-2025-03-08 16:19:34,416; INFO; Konfiguration übersprungen: cl_2_quote_80-80-80_netz_100_pow-140_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:19:34,416; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-140_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:19:34,441; INFO; Set parameter Username
-2025-03-08 16:19:34,445; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-08 16:20:08,899; INFO; Start: Flex KPIs
-2025-03-08 16:20:08,899; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-140_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:20:09,044; INFO; Start: Daten aufbereiten
-2025-03-08 16:20:09,044; INFO; Wochentage
-2025-03-08 16:20:09,462; INFO; Ergebnisse updaten
-2025-03-08 16:20:09,843; INFO; Szenarien vergleichen
-2025-03-08 16:20:21,193; INFO; Start: Main
-2025-03-08 16:20:21,193; INFO; Start: Flex KPIs
-2025-03-08 16:20:21,193; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-140_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:20:21,328; INFO; Start: Daten aufbereiten
-2025-03-08 16:20:21,329; INFO; Wochentage
-2025-03-08 16:20:21,770; INFO; Ergebnisse updaten
-2025-03-08 16:20:22,079; INFO; Szenarien vergleichen
-2025-03-08 16:22:19,181; INFO; Start: Main
-2025-03-08 16:22:19,182; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-300_100-100-300_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:22:19,216; INFO; Set parameter Username
-2025-03-08 16:22:19,223; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-08 16:22:52,822; INFO; Start: Flex KPIs
-2025-03-08 16:22:52,822; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-300_100-100-300_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:22:52,971; INFO; Start: Daten aufbereiten
-2025-03-08 16:22:52,971; INFO; Wochentage
-2025-03-08 16:22:53,415; INFO; Ergebnisse updaten
-2025-03-08 16:22:53,778; INFO; Szenarien vergleichen
-2025-03-08 16:24:42,468; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-300_100-100-300_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:24:42,518; INFO; Set parameter Username
-2025-03-08 16:24:42,521; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-08 16:25:05,862; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-300_100-100-300_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:26:31,564; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-300_100-100-300_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:26:36,946; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-300_100-100-300_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:26:36,983; INFO; Set parameter Username
-2025-03-08 16:26:36,987; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-08 16:28:14,438; INFO; Start: Main
-2025-03-08 16:28:14,439; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-400_100-100-400_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:28:14,472; INFO; Set parameter Username
-2025-03-08 16:28:14,475; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-08 16:28:50,726; INFO; Start: Flex KPIs
-2025-03-08 16:28:50,726; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-400_100-100-400_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:28:50,920; INFO; Start: Daten aufbereiten
-2025-03-08 16:28:50,920; INFO; Wochentage
-2025-03-08 16:28:51,417; INFO; Ergebnisse updaten
-2025-03-08 16:28:51,857; INFO; Szenarien vergleichen
-2025-03-08 16:31:21,726; INFO; Start: Main
-2025-03-08 16:31:21,727; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-110_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 16:31:21,761; INFO; Set parameter Username
-2025-03-08 16:31:21,765; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-08 16:31:58,299; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-120_100-100-120_pause_45-540_M_14_Leistung-MCS-120
-2025-03-08 16:32:33,857; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-130_100-100-130_pause_45-540_M_15_Leistung-MCS-130
-2025-03-08 16:33:09,504; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-1400_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:33:45,928; INFO; Start: Flex KPIs
-2025-03-08 16:33:45,929; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-110_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 16:33:46,101; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-120_100-100-120_pause_45-540_M_14_Leistung-MCS-120
-2025-03-08 16:33:46,261; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-130_100-100-130_pause_45-540_M_15_Leistung-MCS-130
-2025-03-08 16:33:46,408; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-1400_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:33:46,576; INFO; Start: Daten aufbereiten
-2025-03-08 16:33:46,576; INFO; Wochentage
-2025-03-08 16:33:47,077; INFO; Ergebnisse updaten
-2025-03-08 16:33:47,576; INFO; Szenarien vergleichen
-2025-03-08 16:35:37,699; INFO; Start: Main
-2025-03-08 16:35:37,700; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-140_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:35:37,734; INFO; Set parameter Username
-2025-03-08 16:35:37,738; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-08 16:36:15,038; INFO; Start: Flex KPIs
-2025-03-08 16:36:15,039; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-140_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:36:15,179; INFO; Start: Daten aufbereiten
-2025-03-08 16:36:15,179; INFO; Wochentage
-2025-03-08 16:36:15,662; INFO; Ergebnisse updaten
-2025-03-08 16:36:16,152; INFO; Szenarien vergleichen
-2025-03-08 16:38:04,221; INFO; Start: Daten aufbereiten
-2025-03-08 16:38:04,221; INFO; Wochentage
-2025-03-08 16:38:04,753; INFO; Ergebnisse updaten
-2025-03-08 16:38:05,159; INFO; Szenarien vergleichen
-2025-03-08 16:38:12,614; INFO; Start: Daten aufbereiten
-2025-03-08 16:38:12,614; INFO; Wochentage
-2025-03-08 16:38:13,072; INFO; Ergebnisse updaten
-2025-03-08 16:38:13,376; INFO; Szenarien vergleichen
-2025-03-08 16:41:25,385; INFO; Start: Main
-2025-03-08 16:41:25,385; INFO; Start: Flex KPIs
-2025-03-08 16:41:25,385; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-140_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:41:25,542; INFO; Start: Daten aufbereiten
-2025-03-08 16:41:25,542; INFO; Wochentage
-2025-03-08 16:41:25,992; INFO; Ergebnisse updaten
-2025-03-08 16:42:00,811; INFO; Start: Main
-2025-03-08 16:42:00,812; INFO; Start: Flex KPIs
-2025-03-08 16:42:00,812; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-140_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:42:00,972; INFO; Start: Daten aufbereiten
-2025-03-08 16:42:00,972; INFO; Wochentage
-2025-03-08 16:42:01,524; INFO; Ergebnisse updaten
-2025-03-08 16:44:34,367; INFO; Start: Main
-2025-03-08 16:44:34,367; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-110_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 16:44:34,402; INFO; Set parameter Username
-2025-03-08 16:44:34,405; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-08 16:45:08,679; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-120_100-100-120_pause_45-540_M_14_Leistung-MCS-120
-2025-03-08 16:45:41,760; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-130_100-100-130_pause_45-540_M_15_Leistung-MCS-130
-2025-03-08 16:46:14,393; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow-140_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:46:48,021; INFO; Start: Flex KPIs
-2025-03-08 16:46:48,021; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-110_100-100-110_pause_45-540_M_13_Leistung-MCS-110
-2025-03-08 16:46:48,182; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-120_100-100-120_pause_45-540_M_14_Leistung-MCS-120
-2025-03-08 16:46:48,338; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-130_100-100-130_pause_45-540_M_15_Leistung-MCS-130
-2025-03-08 16:46:48,486; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow-140_100-100-140_pause_45-540_M_16_Leistung-MCS-140
-2025-03-08 16:46:48,636; INFO; Start: Daten aufbereiten
-2025-03-08 16:46:48,636; INFO; Wochentage
-2025-03-08 16:46:49,068; INFO; Ergebnisse updaten
-2025-03-08 16:46:49,480; INFO; Szenarien vergleichen
-2025-03-09 12:57:14,762; INFO; Start: Flex KPIs
-2025-03-09 12:57:14,763; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 17:47:16,537; INFO; Start: Flex KPIs
-2025-03-09 17:47:16,538; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 17:54:07,245; INFO; Start: Flex KPIs
-2025-03-09 17:54:07,246; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 17:54:53,046; INFO; Start: Flex KPIs
-2025-03-09 17:54:53,046; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 17:57:53,918; INFO; Start: Flex KPIs
-2025-03-09 17:57:53,919; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 18:01:07,803; INFO; Start: Flex KPIs
-2025-03-09 18:01:07,804; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 18:05:37,298; INFO; Start: Main
-2025-03-09 18:05:37,299; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 18:05:37,338; INFO; Set parameter Username
-2025-03-09 18:05:37,342; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-09 18:06:10,098; INFO; Start: Flex KPIs
-2025-03-09 18:06:10,098; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 18:06:10,272; INFO; Start: Daten aufbereiten
-2025-03-09 18:06:10,272; INFO; Wochentage
-2025-03-09 18:06:10,944; INFO; Ergebnisse updaten
-2025-03-09 18:06:11,337; INFO; Szenarien vergleichen
-2025-03-09 18:30:32,700; INFO; Start: Main
-2025-03-09 18:31:21,979; INFO; Start: Flex KPIs
-2025-03-09 18:31:21,980; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 18:31:43,058; INFO; Start: Flex KPIs
-2025-03-09 18:31:43,058; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 18:36:17,407; INFO; Start: Flex KPIs
-2025-03-09 18:36:17,408; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 18:36:28,159; INFO; Start: Flex KPIs
-2025-03-09 18:36:28,160; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 18:45:00,006; INFO; Start: Flex KPIs
-2025-03-09 18:45:00,007; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 18:45:14,552; INFO; Start: Flex KPIs
-2025-03-09 18:45:14,553; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 18:47:16,985; INFO; Start: Flex KPIs
-2025-03-09 18:47:16,986; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 18:48:48,368; INFO; Start: Flex KPIs
-2025-03-09 18:48:48,368; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 18:49:25,585; INFO; Start: Flex KPIs
-2025-03-09 18:49:25,586; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 18:54:39,495; INFO; Start: Flex KPIs
-2025-03-09 18:54:39,495; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 19:04:16,665; INFO; Start: Flex KPIs
-2025-03-09 19:04:16,666; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 19:06:27,141; INFO; Start: Flex KPIs
-2025-03-09 19:06:27,142; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 19:06:40,386; INFO; Start: Flex KPIs
-2025-03-09 19:06:40,387; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-09 19:12:40,690; INFO; Start: Flex KPIs
-2025-03-09 19:12:40,691; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 18:15:48,567; INFO; Start: Flex KPIs
-2025-03-11 18:15:48,568; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 18:16:11,008; INFO; Start: Flex KPIs
-2025-03-11 18:16:11,009; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 18:22:06,782; INFO; Start: Daten aufbereiten
-2025-03-11 18:22:06,782; INFO; Wochentage
-2025-03-11 18:22:07,466; INFO; Ergebnisse updaten
-2025-03-11 18:22:07,792; INFO; Szenarien vergleichen
-2025-03-11 18:25:32,793; INFO; Start: Konfiguration
-2025-03-11 18:25:32,805; INFO; Konfiguration Hub: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 18:25:56,298; INFO; Start: Konfiguration
-2025-03-11 18:25:56,308; INFO; Konfiguration Hub: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 18:27:18,562; INFO; Start: Konfiguration
-2025-03-11 18:27:18,576; INFO; Konfiguration Hub: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 18:30:14,923; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 18:30:21,453; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 18:30:21,497; INFO; Set parameter Username
-2025-03-11 18:30:21,501; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-11 18:30:27,573; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 18:30:27,611; INFO; Set parameter Username
-2025-03-11 18:30:27,613; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-11 19:09:51,506; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 19:14:49,052; INFO; Start: Main
-2025-03-11 19:27:19,103; INFO; Start: Main
-2025-03-11 19:28:31,931; INFO; Set parameter Username
-2025-03-11 19:28:31,935; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-11 19:41:07,030; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 19:41:07,894; INFO; Set parameter Username
-2025-03-11 19:41:07,896; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-11 19:45:21,031; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 19:45:21,077; INFO; Set parameter Username
-2025-03-11 19:45:21,080; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-11 19:46:46,437; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 19:46:46,473; INFO; Set parameter Username
-2025-03-11 19:46:46,475; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-11 19:47:14,056; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 19:47:14,089; INFO; Set parameter Username
-2025-03-11 19:47:14,093; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-11 19:47:52,314; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 19:47:53,221; INFO; Set parameter Username
-2025-03-11 19:47:53,224; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-11 19:48:04,141; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.3.0 24D60)
-2025-03-11 19:48:04,141; INFO; 
-2025-03-11 19:48:04,141; INFO; CPU model: Apple M2
-2025-03-11 19:48:04,141; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
-2025-03-11 19:48:04,142; INFO; 
-2025-03-11 19:48:04,142; INFO; Optimize a model with 566249 rows, 564266 columns and 1524782 nonzeros
-2025-03-11 19:48:04,154; INFO; Model fingerprint: 0xa8e9c3c1
-2025-03-11 19:48:04,154; INFO; Model has 321392 quadratic constraints
-2025-03-11 19:48:04,155; INFO; Variable types: 483918 continuous, 80348 integer (80348 binary)
-2025-03-11 19:48:04,161; INFO; Coefficient statistics:
-2025-03-11 19:48:04,161; INFO;   Matrix range     [9e-05, 2e+03]
-2025-03-11 19:48:04,161; INFO;   QMatrix range    [1e+00, 1e+00]
-2025-03-11 19:48:04,161; INFO;   QLMatrix range   [1e+00, 1e+00]
-2025-03-11 19:48:04,161; INFO;   Objective range  [5e-04, 2e+03]
-2025-03-11 19:48:04,161; INFO;   Bounds range     [1e+00, 1e+00]
-2025-03-11 19:48:04,161; INFO;   RHS range        [1e-01, 2e+04]
-2025-03-11 19:48:04,700; INFO; Presolve added 169340 rows and 0 columns
-2025-03-11 19:48:04,700; INFO; Presolve removed 0 rows and 151485 columns
-2025-03-11 19:48:04,700; INFO; Presolve time: 0.53s
-2025-03-11 19:48:04,704; INFO; Presolved: 779722 rows, 428914 columns, 1883107 nonzeros
-2025-03-11 19:48:04,704; INFO; Presolved model has 1422 SOS constraint(s)
-2025-03-11 19:48:04,969; INFO; Variable types: 347835 continuous, 81079 integer (81059 binary)
-2025-03-11 19:48:06,671; INFO; 
-2025-03-11 19:48:06,671; INFO; Root relaxation: objective 1.631545e+04, 1 iterations, 0.00 seconds (0.00 work units)
-2025-03-11 19:48:06,687; INFO; 
-2025-03-11 19:48:06,687; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-2025-03-11 19:48:06,688; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-2025-03-11 19:48:06,688; INFO; 
-2025-03-11 19:48:06,688; INFO; *    0     0               0    16315.445952 16315.4460  0.00%     -    2s
-2025-03-11 19:48:06,740; INFO; 
-2025-03-11 19:48:06,740; INFO; Explored 1 nodes (1 simplex iterations) in 2.60 seconds (4.20 work units)
-2025-03-11 19:48:06,740; INFO; Thread count was 8 (of 8 available processors)
-2025-03-11 19:48:06,740; INFO; 
-2025-03-11 19:48:06,740; INFO; Solution count 1: 16315.4 
-2025-03-11 19:48:06,740; INFO; 
-2025-03-11 19:48:06,740; INFO; Optimal solution found (tolerance 1.00e-04)
-2025-03-11 19:48:06,746; INFO; Best objective 1.631544595169e+04, best bound 1.631544595169e+04, gap 0.0000%
-2025-03-11 19:49:05,139; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-11 19:49:06,118; INFO; Set parameter Username
-2025-03-11 19:49:06,121; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 14:11:32,397; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 14:11:33,222; INFO; Set parameter Username
-2025-03-14 14:11:33,226; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 14:14:00,814; INFO; Start: Main
-2025-03-14 14:14:00,814; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 14:14:00,844; INFO; Set parameter Username
-2025-03-14 14:14:00,848; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 14:15:30,329; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 14:15:30,375; INFO; Set parameter Username
-2025-03-14 14:15:30,380; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 14:16:47,830; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 14:16:48,684; INFO; Set parameter Username
-2025-03-14 14:16:48,687; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 14:24:59,504; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 14:25:00,466; INFO; Set parameter Username
-2025-03-14 14:25:00,470; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 14:40:13,437; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 14:40:53,870; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 14:41:59,813; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 14:44:04,368; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 14:44:13,390; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 14:44:13,404; INFO; Set parameter Username
-2025-03-14 14:44:13,407; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 14:44:56,064; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 14:44:56,076; INFO; Set parameter Username
-2025-03-14 14:44:56,081; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 14:55:51,056; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 14:55:51,976; INFO; Set parameter Username
-2025-03-14 14:55:51,979; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 14:56:54,483; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 14:56:55,371; INFO; Set parameter Username
-2025-03-14 14:56:55,374; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 15:42:25,024; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 15:42:25,043; INFO; Set parameter Username
-2025-03-14 15:42:25,046; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 15:48:40,824; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 15:48:40,868; INFO; Set parameter Username
-2025-03-14 15:48:40,871; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 15:49:18,226; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 15:49:18,234; INFO; Set parameter Username
-2025-03-14 15:49:18,237; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 15:52:17,189; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 15:52:17,207; INFO; Set parameter Username
-2025-03-14 15:52:17,215; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 15:52:27,819; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.3.0 24D60)
-2025-03-14 15:52:27,819; INFO; 
-2025-03-14 15:52:27,819; INFO; CPU model: Apple M2
-2025-03-14 15:52:27,819; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
-2025-03-14 15:52:27,819; INFO; 
-2025-03-14 15:52:27,819; INFO; Optimize a model with 570936 rows, 568956 columns and 1536106 nonzeros
-2025-03-14 15:52:27,832; INFO; Model fingerprint: 0xc6b095d7
-2025-03-14 15:52:27,832; INFO; Model has 324072 quadratic constraints
-2025-03-14 15:52:27,832; INFO; Variable types: 487938 continuous, 81018 integer (81018 binary)
-2025-03-14 15:52:27,839; INFO; Coefficient statistics:
-2025-03-14 15:52:27,839; INFO;   Matrix range     [9e-05, 2e+03]
-2025-03-14 15:52:27,839; INFO;   QMatrix range    [1e+00, 1e+00]
-2025-03-14 15:52:27,839; INFO;   QLMatrix range   [1e+00, 1e+00]
-2025-03-14 15:52:27,839; INFO;   Objective range  [5e-04, 2e+03]
-2025-03-14 15:52:27,839; INFO;   Bounds range     [1e+00, 1e+00]
-2025-03-14 15:52:27,839; INFO;   RHS range        [1e-01, 2e+04]
-2025-03-14 15:52:28,339; INFO; Presolve added 170832 rows and 0 columns
-2025-03-14 15:52:28,339; INFO; Presolve removed 0 rows and 152686 columns
-2025-03-14 15:52:28,339; INFO; Presolve time: 0.49s
-2025-03-14 15:52:28,343; INFO; Presolved: 786288 rows, 432532 columns, 1898934 nonzeros
-2025-03-14 15:52:28,343; INFO; Presolved model has 1422 SOS constraint(s)
-2025-03-14 15:52:28,575; INFO; Variable types: 350803 continuous, 81729 integer (81729 binary)
-2025-03-14 15:52:30,120; INFO; 
-2025-03-14 15:52:30,120; INFO; Root relaxation: objective 1.593583e+04, 1 iterations, 0.00 seconds (0.00 work units)
-2025-03-14 15:52:30,131; INFO; 
-2025-03-14 15:52:30,131; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-2025-03-14 15:52:30,131; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-2025-03-14 15:52:30,131; INFO; 
-2025-03-14 15:52:30,131; INFO; *    0     0               0    15935.827607 15935.8276  0.00%     -    2s
-2025-03-14 15:52:30,175; INFO; 
-2025-03-14 15:52:30,175; INFO; Explored 1 nodes (1 simplex iterations) in 2.36 seconds (4.23 work units)
-2025-03-14 15:52:30,175; INFO; Thread count was 8 (of 8 available processors)
-2025-03-14 15:52:30,175; INFO; 
-2025-03-14 15:52:30,175; INFO; Solution count 1: 15935.8 
-2025-03-14 15:52:30,175; INFO; 
-2025-03-14 15:52:30,175; INFO; Optimal solution found (tolerance 1.00e-04)
-2025-03-14 15:52:30,181; INFO; Best objective 1.593582760673e+04, best bound 1.593582760673e+04, gap 0.0000%
-2025-03-14 15:52:47,809; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 15:52:47,844; INFO; Set parameter Username
-2025-03-14 15:52:47,847; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 15:53:23,007; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 15:53:23,053; INFO; Set parameter Username
-2025-03-14 15:53:23,058; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 15:53:33,760; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.3.0 24D60)
-2025-03-14 15:53:33,761; INFO; 
-2025-03-14 15:53:33,761; INFO; CPU model: Apple M2
-2025-03-14 15:53:33,761; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
-2025-03-14 15:53:33,761; INFO; 
-2025-03-14 15:53:33,761; INFO; Optimize a model with 570353 rows, 568049 columns and 1535143 nonzeros
-2025-03-14 15:53:33,773; INFO; Model fingerprint: 0xc8b900f3
-2025-03-14 15:53:33,773; INFO; Model has 323568 quadratic constraints
-2025-03-14 15:53:33,773; INFO; Variable types: 487157 continuous, 80892 integer (80892 binary)
-2025-03-14 15:53:33,779; INFO; Coefficient statistics:
-2025-03-14 15:53:33,779; INFO;   Matrix range     [9e-05, 2e+03]
-2025-03-14 15:53:33,779; INFO;   QMatrix range    [1e+00, 1e+00]
-2025-03-14 15:53:33,779; INFO;   QLMatrix range   [1e+00, 1e+00]
-2025-03-14 15:53:33,779; INFO;   Objective range  [5e-04, 2e+03]
-2025-03-14 15:53:33,779; INFO;   Bounds range     [1e+00, 1e+00]
-2025-03-14 15:53:33,779; INFO;   RHS range        [1e-01, 2e+04]
-2025-03-14 15:53:34,273; INFO; Presolve added 169870 rows and 0 columns
-2025-03-14 15:53:34,274; INFO; Presolve removed 0 rows and 152772 columns
-2025-03-14 15:53:34,274; INFO; Presolve time: 0.48s
-2025-03-14 15:53:34,278; INFO; Presolved: 783504 rows, 431260 columns, 1877940 nonzeros
-2025-03-14 15:53:34,278; INFO; Presolved model has 1556 SOS constraint(s)
-2025-03-14 15:53:34,507; INFO; Variable types: 349590 continuous, 81670 integer (81670 binary)
-2025-03-14 15:53:35,986; INFO; 
-2025-03-14 15:53:35,986; INFO; Root relaxation: objective 1.744704e+04, 1 iterations, 0.00 seconds (0.00 work units)
-2025-03-14 15:53:35,997; INFO; 
-2025-03-14 15:53:35,997; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-2025-03-14 15:53:35,997; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-2025-03-14 15:53:35,997; INFO; 
-2025-03-14 15:53:35,997; INFO; *    0     0               0    17447.042975 17447.0430  0.00%     -    2s
-2025-03-14 15:53:36,041; INFO; 
-2025-03-14 15:53:36,041; INFO; Explored 1 nodes (1 simplex iterations) in 2.28 seconds (4.23 work units)
-2025-03-14 15:53:36,041; INFO; Thread count was 8 (of 8 available processors)
-2025-03-14 15:53:36,041; INFO; 
-2025-03-14 15:53:36,041; INFO; Solution count 1: 17447 
-2025-03-14 15:53:36,041; INFO; 
-2025-03-14 15:53:36,041; INFO; Optimal solution found (tolerance 1.00e-04)
-2025-03-14 15:53:36,046; INFO; Best objective 1.744704297500e+04, best bound 1.744704297500e+04, gap 0.0000%
-2025-03-14 15:53:49,960; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.3.0 24D60)
-2025-03-14 15:53:49,960; INFO; 
-2025-03-14 15:53:49,960; INFO; CPU model: Apple M2
-2025-03-14 15:53:49,960; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
-2025-03-14 15:53:49,960; INFO; 
-2025-03-14 15:53:49,960; INFO; Optimize a model with 570353 rows, 568049 columns and 1535143 nonzeros
-2025-03-14 15:53:49,972; INFO; Model fingerprint: 0xabc2bd13
-2025-03-14 15:53:49,972; INFO; Model has 323568 quadratic constraints
-2025-03-14 15:53:49,973; INFO; Variable types: 487157 continuous, 80892 integer (80892 binary)
-2025-03-14 15:53:49,978; INFO; Coefficient statistics:
-2025-03-14 15:53:49,978; INFO;   Matrix range     [9e-05, 2e+03]
-2025-03-14 15:53:49,978; INFO;   QMatrix range    [1e+00, 1e+00]
-2025-03-14 15:53:49,978; INFO;   QLMatrix range   [1e+00, 1e+00]
-2025-03-14 15:53:49,978; INFO;   Objective range  [1e+00, 2e+03]
-2025-03-14 15:53:49,978; INFO;   Bounds range     [1e+00, 1e+00]
-2025-03-14 15:53:49,978; INFO;   RHS range        [1e-01, 2e+04]
-2025-03-14 15:53:50,464; INFO; Presolve added 169870 rows and 0 columns
-2025-03-14 15:53:50,464; INFO; Presolve removed 0 rows and 152772 columns
-2025-03-14 15:53:50,465; INFO; Presolve time: 0.47s
-2025-03-14 15:53:50,470; INFO; Presolved: 783504 rows, 431260 columns, 1877940 nonzeros
-2025-03-14 15:53:50,470; INFO; Presolved model has 1556 SOS constraint(s)
-2025-03-14 15:53:50,700; INFO; Variable types: 349590 continuous, 81670 integer (81670 binary)
-2025-03-14 15:53:52,366; INFO; 
-2025-03-14 15:53:52,366; INFO; Root relaxation: objective 7.633502e+09, 28 iterations, 0.00 seconds (0.00 work units)
-2025-03-14 15:53:52,379; INFO; 
-2025-03-14 15:53:52,379; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-2025-03-14 15:53:52,379; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-2025-03-14 15:53:52,379; INFO; 
-2025-03-14 15:53:52,379; INFO; *    0     0               0    7.633502e+09 7.6335e+09 -0.00%     -    2s
-2025-03-14 15:53:52,423; INFO; 
-2025-03-14 15:53:52,423; INFO; Explored 1 nodes (28 simplex iterations) in 2.46 seconds (4.44 work units)
-2025-03-14 15:53:52,423; INFO; Thread count was 8 (of 8 available processors)
-2025-03-14 15:53:52,423; INFO; 
-2025-03-14 15:53:52,423; INFO; Solution count 1: 7.6335e+09 
-2025-03-14 15:53:52,423; INFO; 
-2025-03-14 15:53:52,423; INFO; Optimal solution found (tolerance 1.00e-04)
-2025-03-14 15:53:52,428; INFO; Best objective 7.633501699843e+09, best bound 7.633501699843e+09, gap 0.0000%
-2025-03-14 15:56:44,268; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 15:56:44,282; INFO; Set parameter Username
-2025-03-14 15:56:44,286; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 15:56:54,920; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.3.0 24D60)
-2025-03-14 15:56:54,920; INFO; 
-2025-03-14 15:56:54,920; INFO; CPU model: Apple M2
-2025-03-14 15:56:54,920; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
-2025-03-14 15:56:54,920; INFO; 
-2025-03-14 15:56:54,920; INFO; Optimize a model with 570936 rows, 568956 columns and 1536106 nonzeros
-2025-03-14 15:56:54,932; INFO; Model fingerprint: 0xc6b095d7
-2025-03-14 15:56:54,932; INFO; Model has 324072 quadratic constraints
-2025-03-14 15:56:54,933; INFO; Variable types: 487938 continuous, 81018 integer (81018 binary)
-2025-03-14 15:56:54,939; INFO; Coefficient statistics:
-2025-03-14 15:56:54,939; INFO;   Matrix range     [9e-05, 2e+03]
-2025-03-14 15:56:54,939; INFO;   QMatrix range    [1e+00, 1e+00]
-2025-03-14 15:56:54,939; INFO;   QLMatrix range   [1e+00, 1e+00]
-2025-03-14 15:56:54,939; INFO;   Objective range  [5e-04, 2e+03]
-2025-03-14 15:56:54,939; INFO;   Bounds range     [1e+00, 1e+00]
-2025-03-14 15:56:54,939; INFO;   RHS range        [1e-01, 2e+04]
-2025-03-14 15:56:55,442; INFO; Presolve added 170832 rows and 0 columns
-2025-03-14 15:56:55,442; INFO; Presolve removed 0 rows and 152686 columns
-2025-03-14 15:56:55,442; INFO; Presolve time: 0.49s
-2025-03-14 15:56:55,445; INFO; Presolved: 786288 rows, 432532 columns, 1898934 nonzeros
-2025-03-14 15:56:55,445; INFO; Presolved model has 1422 SOS constraint(s)
-2025-03-14 15:56:55,682; INFO; Variable types: 350803 continuous, 81729 integer (81729 binary)
-2025-03-14 15:56:57,181; INFO; 
-2025-03-14 15:56:57,181; INFO; Root relaxation: objective 1.593583e+04, 1 iterations, 0.00 seconds (0.00 work units)
-2025-03-14 15:56:57,193; INFO; 
-2025-03-14 15:56:57,193; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-2025-03-14 15:56:57,193; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-2025-03-14 15:56:57,193; INFO; 
-2025-03-14 15:56:57,193; INFO; *    0     0               0    15935.827607 15935.8276  0.00%     -    2s
-2025-03-14 15:56:57,238; INFO; 
-2025-03-14 15:56:57,238; INFO; Explored 1 nodes (1 simplex iterations) in 2.32 seconds (4.23 work units)
-2025-03-14 15:56:57,238; INFO; Thread count was 8 (of 8 available processors)
-2025-03-14 15:56:57,238; INFO; 
-2025-03-14 15:56:57,238; INFO; Solution count 1: 15935.8 
-2025-03-14 15:56:57,238; INFO; 
-2025-03-14 15:56:57,238; INFO; Optimal solution found (tolerance 1.00e-04)
-2025-03-14 15:56:57,243; INFO; Best objective 1.593582760673e+04, best bound 1.593582760673e+04, gap 0.0000%
-2025-03-14 15:58:10,435; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 15:58:10,448; INFO; Set parameter Username
-2025-03-14 15:58:10,461; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 16:01:45,816; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 16:01:45,827; INFO; Set parameter Username
-2025-03-14 16:01:45,833; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 16:04:18,776; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 16:04:18,785; INFO; Set parameter Username
-2025-03-14 16:04:18,788; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 16:05:21,256; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 16:05:21,265; INFO; Set parameter Username
-2025-03-14 16:05:21,269; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 16:10:03,578; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 16:10:03,592; INFO; Set parameter Username
-2025-03-14 16:10:03,596; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 16:11:10,914; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 16:11:10,933; INFO; Set parameter Username
-2025-03-14 16:11:10,958; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 16:11:30,058; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 16:11:30,066; INFO; Set parameter Username
-2025-03-14 16:11:30,071; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 16:27:10,845; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 16:27:10,860; INFO; Set parameter Username
-2025-03-14 16:27:10,862; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 16:28:11,184; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 16:28:11,199; INFO; Set parameter Username
-2025-03-14 16:28:11,203; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 16:31:14,218; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 16:31:14,240; INFO; Set parameter Username
-2025-03-14 16:31:14,243; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 16:36:12,602; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 16:36:12,622; INFO; Set parameter Username
-2025-03-14 16:36:12,625; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 16:40:49,757; INFO; Start: Main
-2025-03-14 16:40:49,759; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 16:40:49,780; INFO; Set parameter Username
-2025-03-14 16:40:49,784; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 16:42:35,702; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 16:51:47,225; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 16:53:30,325; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 17:11:47,049; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 17:17:14,304; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 17:21:39,810; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 17:21:39,913; INFO; Set parameter Username
-2025-03-14 17:21:39,917; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 17:25:18,137; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 17:25:18,232; INFO; Set parameter Username
-2025-03-14 17:25:18,243; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 17:25:46,905; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 17:25:46,988; INFO; Set parameter Username
-2025-03-14 17:25:46,990; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 17:27:42,328; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 17:27:42,418; INFO; Set parameter Username
-2025-03-14 17:27:42,421; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 17:29:27,593; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 17:30:00,410; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 17:33:44,422; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 17:33:44,520; INFO; Set parameter Username
-2025-03-14 17:33:44,524; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 17:34:45,284; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 17:34:45,403; INFO; Set parameter Username
-2025-03-14 17:34:45,407; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-14 17:36:40,338; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-14 17:36:40,419; INFO; Set parameter Username
-2025-03-14 17:36:40,423; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:03:49,732; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:03:49,813; INFO; Set parameter Username
-2025-03-15 12:03:49,816; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:08:36,554; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:08:36,665; INFO; Set parameter Username
-2025-03-15 12:08:36,668; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:14:11,116; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:14:11,210; INFO; Set parameter Username
-2025-03-15 12:14:11,214; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:23:26,173; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:23:26,265; INFO; Set parameter Username
-2025-03-15 12:23:26,268; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:28:02,025; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:28:02,133; INFO; Set parameter Username
-2025-03-15 12:28:02,136; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:28:43,614; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:28:43,706; INFO; Set parameter Username
-2025-03-15 12:28:43,709; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:36:47,452; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:36:47,559; INFO; Set parameter Username
-2025-03-15 12:36:47,564; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:39:07,602; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:39:07,701; INFO; Set parameter Username
-2025-03-15 12:39:07,704; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:44:36,861; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:44:36,947; INFO; Set parameter Username
-2025-03-15 12:44:36,951; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:45:06,875; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:45:06,958; INFO; Set parameter Username
-2025-03-15 12:45:06,961; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:46:01,675; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:46:01,760; INFO; Set parameter Username
-2025-03-15 12:46:01,762; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:47:05,102; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:47:05,186; INFO; Set parameter Username
-2025-03-15 12:47:05,189; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:52:14,503; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:52:14,604; INFO; Set parameter Username
-2025-03-15 12:52:14,608; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:53:17,761; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:53:17,850; INFO; Set parameter Username
-2025-03-15 12:53:17,854; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:55:52,162; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:55:52,265; INFO; Set parameter Username
-2025-03-15 12:55:52,268; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:57:50,145; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:57:50,237; INFO; Set parameter Username
-2025-03-15 12:57:50,240; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 12:58:21,408; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 12:58:21,495; INFO; Set parameter Username
-2025-03-15 12:58:21,497; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 13:09:26,426; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 13:09:26,528; INFO; Set parameter Username
-2025-03-15 13:09:26,532; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 13:17:09,749; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 13:18:42,920; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 13:18:43,030; INFO; Set parameter Username
-2025-03-15 13:18:43,034; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 14:20:22,134; INFO; Start: Main
-2025-03-15 14:21:14,361; INFO; Start: Main
-2025-03-15 14:22:28,012; INFO; Set parameter Username
-2025-03-15 14:22:28,017; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 14:32:41,305; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:33:19,043; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:33:19,129; INFO; Set parameter Username
-2025-03-15 14:33:19,131; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 14:34:37,007; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:35:11,174; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:35:52,559; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:35:52,652; INFO; Set parameter Username
-2025-03-15 14:35:52,655; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 14:37:04,869; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:37:04,970; INFO; Set parameter Username
-2025-03-15 14:37:04,973; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 14:37:52,381; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:37:52,470; INFO; Set parameter Username
-2025-03-15 14:37:52,473; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 14:50:24,362; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:50:24,455; INFO; Set parameter Username
-2025-03-15 14:50:24,459; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 14:51:28,325; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:51:31,494; INFO; Set parameter Username
-2025-03-15 14:51:31,497; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 14:52:05,061; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:52:05,150; INFO; Set parameter Username
-2025-03-15 14:52:05,152; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 14:52:53,631; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:52:53,725; INFO; Set parameter Username
-2025-03-15 14:52:53,728; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 14:53:53,894; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:54:30,998; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:54:31,085; INFO; Set parameter Username
-2025-03-15 14:54:31,088; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 14:55:22,903; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:56:02,444; INFO; Set parameter Username
-2025-03-15 14:56:02,448; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 14:56:18,417; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:56:54,640; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:56:59,317; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-15 14:56:59,415; INFO; Set parameter Username
-2025-03-15 14:56:59,418; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-15 15:07:33,169; INFO; Start: Main
-2025-03-15 15:07:46,891; INFO; Start: Main
-2025-03-15 15:07:47,188; INFO; Set parameter Username
-2025-03-15 15:07:47,193; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-16 15:52:11,156; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 15:52:40,994; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 17:58:57,662; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 17:59:23,340; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:01:04,772; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:20:05,790; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:20:32,299; INFO; Set parameter Username
-2025-03-16 18:20:32,303; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-16 18:20:38,185; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:21:01,824; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:21:38,373; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:21:57,107; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:22:38,877; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:22:58,094; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:24:37,743; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:26:47,177; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:27:38,036; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:28:28,186; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:28:41,471; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-16 18:41:23,381; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 09:25:18,665; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 09:25:27,536; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 09:25:45,255; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 09:30:51,149; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 09:32:48,433; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 09:33:23,311; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 09:33:24,654; INFO; Set parameter Username
-2025-03-17 09:33:24,659; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 09:40:52,427; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 09:40:53,678; INFO; Set parameter Username
-2025-03-17 09:40:53,681; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 09:46:05,260; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 09:46:06,516; INFO; Set parameter Username
-2025-03-17 09:46:06,519; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 09:52:37,779; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 09:52:39,848; INFO; Set parameter Username
-2025-03-17 09:52:39,851; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 10:03:36,925; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 10:03:38,964; INFO; Set parameter Username
-2025-03-17 10:03:38,968; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 10:08:59,451; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 10:09:01,431; INFO; Set parameter Username
-2025-03-17 10:09:01,434; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 10:20:14,600; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 10:20:16,682; INFO; Set parameter Username
-2025-03-17 10:20:16,685; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 10:39:21,434; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 10:39:23,506; INFO; Set parameter Username
-2025-03-17 10:39:23,510; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 10:40:46,774; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 10:40:48,821; INFO; Set parameter Username
-2025-03-17 10:40:48,825; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 10:45:21,571; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 10:45:23,699; INFO; Set parameter Username
-2025-03-17 10:45:23,702; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 10:49:46,510; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 10:49:48,706; INFO; Set parameter Username
-2025-03-17 10:49:48,710; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 10:51:13,933; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 10:51:16,015; INFO; Set parameter Username
-2025-03-17 10:51:16,018; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 10:53:08,406; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 10:53:14,210; INFO; Set parameter Username
-2025-03-17 10:53:14,213; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 10:57:28,245; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 10:57:34,092; INFO; Set parameter Username
-2025-03-17 10:57:34,096; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 10:59:58,005; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 11:00:03,928; INFO; Set parameter Username
-2025-03-17 11:00:03,932; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 11:25:47,567; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 11:25:53,502; INFO; Set parameter Username
-2025-03-17 11:25:53,506; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 11:28:02,030; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 11:28:08,002; INFO; Set parameter Username
-2025-03-17 11:28:08,007; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 11:36:05,030; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 11:36:11,073; INFO; Set parameter Username
-2025-03-17 11:36:11,077; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 11:48:11,178; INFO; Start: Main
-2025-03-17 11:48:11,626; INFO; Set parameter Username
-2025-03-17 11:48:11,632; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 11:51:56,325; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 15:19:50,827; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 15:19:56,892; INFO; Set parameter Username
-2025-03-17 15:19:56,896; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 17:41:26,394; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 17:41:28,048; INFO; Set parameter Username
-2025-03-17 17:41:28,052; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 17:43:14,709; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 17:43:16,232; INFO; Set parameter Username
-2025-03-17 17:43:16,236; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 17:43:32,685; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.3.0 24D60)
-2025-03-17 17:43:32,685; INFO; 
-2025-03-17 17:43:32,686; INFO; CPU model: Apple M2
-2025-03-17 17:43:32,686; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
-2025-03-17 17:43:32,686; INFO; 
-2025-03-17 17:43:32,686; INFO; Optimize a model with 729415 rows, 648144 columns and 2012640 nonzeros
-2025-03-17 17:43:32,702; INFO; Model fingerprint: 0x65b35f38
-2025-03-17 17:43:32,702; INFO; Model has 324072 quadratic constraints
-2025-03-17 17:43:32,702; INFO; Variable types: 567126 continuous, 81018 integer (81018 binary)
-2025-03-17 17:43:32,710; INFO; Coefficient statistics:
-2025-03-17 17:43:32,710; INFO;   Matrix range     [9e-05, 2e+03]
-2025-03-17 17:43:32,710; INFO;   QMatrix range    [1e+00, 1e+00]
-2025-03-17 17:43:32,710; INFO;   QLMatrix range   [1e+00, 1e+00]
-2025-03-17 17:43:32,710; INFO;   Objective range  [2e+00, 1e+06]
-2025-03-17 17:43:32,710; INFO;   Bounds range     [1e+00, 1e+00]
-2025-03-17 17:43:32,710; INFO;   RHS range        [1e-01, 2e+04]
-2025-03-17 17:43:33,630; INFO; Presolve removed 138503 rows and 152686 columns
-2025-03-17 17:43:33,630; INFO; Presolve time: 0.90s
-2025-03-17 17:43:33,635; INFO; Presolved: 635432 rows, 511720 columns, 1755598 nonzeros
-2025-03-17 17:43:33,636; INFO; Presolved model has 1422 SOS constraint(s)
-2025-03-17 17:43:33,928; INFO; Variable types: 429991 continuous, 81729 integer (81729 binary)
-2025-03-17 17:43:39,226; INFO; Found heuristic solution: objective 8.322879e+12
-2025-03-17 17:43:39,227; INFO; 
-2025-03-17 17:43:39,227; INFO; Root simplex log...
-2025-03-17 17:43:39,227; INFO; 
-2025-03-17 17:43:39,227; INFO; Iteration    Objective       Primal Inf.    Dual Inf.      Time
-2025-03-17 17:43:39,227; INFO;        0    8.3661323e+12   1.770800e+04   0.000000e+00      7s
-2025-03-17 17:43:39,227; INFO; 
-2025-03-17 17:43:39,227; INFO; Root relaxation: cutoff, 28 iterations, 0.00 seconds (0.00 work units)
-2025-03-17 17:43:39,227; INFO; 
-2025-03-17 17:43:39,227; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-2025-03-17 17:43:39,227; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-2025-03-17 17:43:39,227; INFO; 
-2025-03-17 17:43:39,227; INFO;      0     0     cutoff    0      8.3229e+12 8.3229e+12 -0.00%     -    6s
-2025-03-17 17:43:39,293; INFO; 
-2025-03-17 17:43:39,293; INFO; Explored 1 nodes (28 simplex iterations) in 6.61 seconds (9.47 work units)
-2025-03-17 17:43:39,293; INFO; Thread count was 8 (of 8 available processors)
-2025-03-17 17:43:39,293; INFO; 
-2025-03-17 17:43:39,293; INFO; Solution count 1: 8.32288e+12 
-2025-03-17 17:43:39,293; INFO; 
-2025-03-17 17:43:39,293; INFO; Optimal solution found (tolerance 1.00e-04)
-2025-03-17 17:43:39,301; INFO; Best objective 8.322878915452e+12, best bound 8.322878915452e+12, gap 0.0000%
-2025-03-17 17:45:06,887; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 17:45:08,446; INFO; Set parameter Username
-2025-03-17 17:45:08,449; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 17:45:24,670; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.3.0 24D60)
-2025-03-17 17:45:24,671; INFO; 
-2025-03-17 17:45:24,671; INFO; CPU model: Apple M2
-2025-03-17 17:45:24,671; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
-2025-03-17 17:45:24,671; INFO; 
-2025-03-17 17:45:24,672; INFO; Optimize a model with 729415 rows, 648144 columns and 2012640 nonzeros
-2025-03-17 17:45:24,687; INFO; Model fingerprint: 0x65b35f38
-2025-03-17 17:45:24,687; INFO; Model has 324072 quadratic constraints
-2025-03-17 17:45:24,688; INFO; Variable types: 567126 continuous, 81018 integer (81018 binary)
-2025-03-17 17:45:24,695; INFO; Coefficient statistics:
-2025-03-17 17:45:24,695; INFO;   Matrix range     [9e-05, 2e+03]
-2025-03-17 17:45:24,695; INFO;   QMatrix range    [1e+00, 1e+00]
-2025-03-17 17:45:24,695; INFO;   QLMatrix range   [1e+00, 1e+00]
-2025-03-17 17:45:24,695; INFO;   Objective range  [2e+00, 1e+06]
-2025-03-17 17:45:24,695; INFO;   Bounds range     [1e+00, 1e+00]
-2025-03-17 17:45:24,695; INFO;   RHS range        [1e-01, 2e+04]
-2025-03-17 17:45:25,539; INFO; Presolve removed 138503 rows and 152686 columns
-2025-03-17 17:45:25,539; INFO; Presolve time: 0.82s
-2025-03-17 17:45:25,545; INFO; Presolved: 635432 rows, 511720 columns, 1755598 nonzeros
-2025-03-17 17:45:25,545; INFO; Presolved model has 1422 SOS constraint(s)
-2025-03-17 17:45:25,891; INFO; Variable types: 429991 continuous, 81729 integer (81729 binary)
-2025-03-17 17:45:32,231; INFO; Found heuristic solution: objective 8.322879e+12
-2025-03-17 17:45:32,232; INFO; 
-2025-03-17 17:45:32,232; INFO; Root simplex log...
-2025-03-17 17:45:32,232; INFO; 
-2025-03-17 17:45:32,232; INFO; Iteration    Objective       Primal Inf.    Dual Inf.      Time
-2025-03-17 17:45:32,232; INFO;        0    8.3661323e+12   1.770800e+04   0.000000e+00      8s
-2025-03-17 17:45:32,232; INFO; 
-2025-03-17 17:45:32,232; INFO; Root relaxation: cutoff, 28 iterations, 0.00 seconds (0.00 work units)
-2025-03-17 17:45:32,232; INFO; 
-2025-03-17 17:45:32,232; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
-2025-03-17 17:45:32,232; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
-2025-03-17 17:45:32,232; INFO; 
-2025-03-17 17:45:32,232; INFO;      0     0     cutoff    0      8.3229e+12 8.3229e+12 -0.00%     -    7s
-2025-03-17 17:45:32,335; INFO; 
-2025-03-17 17:45:32,335; INFO; Explored 1 nodes (28 simplex iterations) in 7.66 seconds (9.47 work units)
-2025-03-17 17:45:32,335; INFO; Thread count was 8 (of 8 available processors)
-2025-03-17 17:45:32,335; INFO; 
-2025-03-17 17:45:32,335; INFO; Solution count 1: 8.32288e+12 
-2025-03-17 17:45:32,335; INFO; 
-2025-03-17 17:45:32,335; INFO; Optimal solution found (tolerance 1.00e-04)
-2025-03-17 17:45:32,343; INFO; Best objective 8.322878915452e+12, best bound 8.322878915452e+12, gap 0.0000%
-2025-03-17 18:10:20,380; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 18:10:22,058; INFO; Set parameter Username
-2025-03-17 18:10:22,062; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 18:12:14,638; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 18:12:17,649; INFO; Set parameter Username
-2025-03-17 18:12:17,653; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 18:14:02,335; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 18:14:07,025; INFO; Set parameter Username
-2025-03-17 18:14:07,029; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-17 23:39:50,263; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-17 23:39:55,055; INFO; Set parameter Username
-2025-03-17 23:39:55,059; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 16:57:14,598; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 17:09:02,496; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 17:09:07,539; INFO; Set parameter Username
-2025-03-25 17:09:07,543; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 17:21:12,856; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 17:21:14,220; INFO; Set parameter Username
-2025-03-25 17:21:14,223; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 17:25:01,213; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 17:25:02,599; INFO; Set parameter Username
-2025-03-25 17:25:02,602; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 17:31:04,968; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 17:31:06,457; INFO; Set parameter Username
-2025-03-25 17:31:06,462; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 17:32:22,170; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 17:32:25,122; INFO; Set parameter Username
-2025-03-25 17:32:25,125; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 17:36:26,106; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 17:36:28,945; INFO; Set parameter Username
-2025-03-25 17:36:28,948; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 17:41:37,669; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 17:41:39,393; INFO; Set parameter Username
-2025-03-25 17:41:39,396; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 17:45:17,145; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 17:45:18,483; INFO; Set parameter Username
-2025-03-25 17:45:18,486; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 17:46:54,991; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 17:46:56,469; INFO; Set parameter Username
-2025-03-25 17:46:56,472; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 17:47:29,829; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-25 17:47:31,169; INFO; Set parameter Username
-2025-03-25 17:47:31,172; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 17:47:50,207; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 17:54:27,005; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-25 17:54:29,741; INFO; Set parameter Username
-2025-03-25 17:54:29,744; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 17:55:10,731; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 18:08:44,726; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-25 18:08:46,260; INFO; Set parameter Username
-2025-03-25 18:08:46,264; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 18:09:04,631; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 18:12:45,300; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-25 18:12:46,678; INFO; Set parameter Username
-2025-03-25 18:12:46,680; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 18:13:04,645; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 18:14:37,779; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 18:14:40,612; INFO; Set parameter Username
-2025-03-25 18:14:40,615; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 18:19:13,931; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 18:19:16,471; INFO; Set parameter Username
-2025-03-25 18:19:16,474; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 18:36:23,884; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional
-2025-03-25 18:36:28,761; INFO; Set parameter Username
-2025-03-25 18:36:28,765; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-03-25 20:25:53,442; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-03-25 20:25:58,296; INFO; Set parameter Username
-2025-03-25 20:25:58,299; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-04-06 19:27:37,320; INFO; Start: Ladehub-Konfiguration
-2025-04-06 19:27:37,336; INFO; Konfiguration wird ausgeführt: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-04-06 19:50:52,900; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-04-06 19:51:01,062; INFO; Set parameter Username
-2025-04-06 19:51:01,066; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-04-06 19:56:26,336; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-04-06 19:56:34,392; INFO; Set parameter Username
-2025-04-06 19:56:34,396; INFO; Academic license - for non-commercial use only - expires 2025-10-16
-2025-04-06 19:58:25,306; INFO; Optimierung p_max/p_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
-2025-04-06 19:58:33,211; INFO; Set parameter Username
-2025-04-06 19:58:33,214; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-04-13 16:36:39,351; INFO; 🟢 Starte Flex KPI Berechnungen
+2025-04-13 16:36:39,351; INFO; ⚙️ Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:36:39,712; INFO; EF erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:37:16,243; INFO; Starte Flex KPI Berechnungen
+2025-04-13 16:37:16,243; INFO; ⚙️ Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:37:16,612; INFO; EF erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:38:59,676; INFO; Starte Flex KPI Berechnungen
+2025-04-13 16:38:59,676; INFO; ⚙️ Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:39:00,034; INFO; EF erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:39:14,391; INFO; Starte Flex KPI Berechnungen
+2025-04-13 16:39:14,392; INFO; ⚙️ Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:39:14,755; INFO; EF erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:39:47,199; INFO; Start: Flex KPIs
+2025-04-13 16:39:47,200; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:39:55,015; INFO; Start: Flex KPIs
+2025-04-13 16:39:55,015; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:41:32,928; INFO; Start: Main
+2025-04-13 16:41:34,740; INFO; Start: Ladehub-Konfiguration
+2025-04-13 16:41:34,750; INFO; Konfiguration wird ausgeführt: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:42:19,029; INFO; Optimierung P_max/P_min: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:42:19,065; INFO; Set parameter Username
+2025-04-13 16:42:19,071; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-04-13 16:42:38,596; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.4.0 24E248)
+2025-04-13 16:42:38,597; INFO; 
+2025-04-13 16:42:38,597; INFO; CPU model: Apple M2
+2025-04-13 16:42:38,597; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+2025-04-13 16:42:38,597; INFO; 
+2025-04-13 16:42:38,597; INFO; Optimize a model with 571110 rows, 568806 columns and 1537194 nonzeros
+2025-04-13 16:42:38,619; INFO; Model fingerprint: 0x31bc9c05
+2025-04-13 16:42:38,620; INFO; Model has 324000 quadratic constraints
+2025-04-13 16:42:38,620; INFO; Variable types: 487806 continuous, 81000 integer (81000 binary)
+2025-04-13 16:42:38,630; INFO; Coefficient statistics:
+2025-04-13 16:42:38,631; INFO;   Matrix range     [9e-05, 2e+03]
+2025-04-13 16:42:38,631; INFO;   QMatrix range    [1e+00, 1e+00]
+2025-04-13 16:42:38,631; INFO;   QLMatrix range   [1e+00, 1e+00]
+2025-04-13 16:42:38,631; INFO;   Objective range  [5e-04, 2e+03]
+2025-04-13 16:42:38,631; INFO;   Bounds range     [1e+00, 1e+00]
+2025-04-13 16:42:38,631; INFO;   RHS range        [1e-01, 2e+04]
+2025-04-13 16:42:39,549; INFO; Presolve added 170119 rows and 0 columns
+2025-04-13 16:42:39,549; INFO; Presolve removed 0 rows and 152957 columns
+2025-04-13 16:42:39,549; INFO; Presolve time: 0.90s
+2025-04-13 16:42:39,555; INFO; Presolved: 784612 rows, 431856 columns, 1880522 nonzeros
+2025-04-13 16:42:39,555; INFO; Presolved model has 1546 SOS constraint(s)
+2025-04-13 16:42:39,954; INFO; Variable types: 350083 continuous, 81773 integer (81773 binary)
+2025-04-13 16:42:42,562; INFO; 
+2025-04-13 16:42:42,563; INFO; Root relaxation: objective 1.746617e+04, 1 iterations, 0.00 seconds (0.00 work units)
+2025-04-13 16:42:42,582; INFO; 
+2025-04-13 16:42:42,582; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+2025-04-13 16:42:42,582; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+2025-04-13 16:42:42,582; INFO; 
+2025-04-13 16:42:42,582; INFO; *    0     0               0    17466.168481 17466.1685  0.00%     -    3s
+2025-04-13 16:42:42,658; INFO; 
+2025-04-13 16:42:42,658; INFO; Explored 1 nodes (1 simplex iterations) in 4.06 seconds (4.23 work units)
+2025-04-13 16:42:42,658; INFO; Thread count was 8 (of 8 available processors)
+2025-04-13 16:42:42,658; INFO; 
+2025-04-13 16:42:42,658; INFO; Solution count 1: 17466.2 
+2025-04-13 16:42:42,658; INFO; 
+2025-04-13 16:42:42,658; INFO; Optimal solution found (tolerance 1.00e-04)
+2025-04-13 16:42:42,667; INFO; Best objective 1.746616848059e+04, best bound 1.746616848059e+04, gap 0.0000%
+2025-04-13 16:43:06,951; INFO; Gurobi Optimizer version 11.0.3 build v11.0.3rc0 (mac64[arm] - Darwin 24.4.0 24E248)
+2025-04-13 16:43:06,952; INFO; 
+2025-04-13 16:43:06,952; INFO; CPU model: Apple M2
+2025-04-13 16:43:06,952; INFO; Thread count: 8 physical cores, 8 logical processors, using up to 8 threads
+2025-04-13 16:43:06,952; INFO; 
+2025-04-13 16:43:06,952; INFO; Optimize a model with 571110 rows, 568806 columns and 1537194 nonzeros
+2025-04-13 16:43:06,974; INFO; Model fingerprint: 0xc6803902
+2025-04-13 16:43:06,974; INFO; Model has 324000 quadratic constraints
+2025-04-13 16:43:06,974; INFO; Variable types: 487806 continuous, 81000 integer (81000 binary)
+2025-04-13 16:43:06,984; INFO; Coefficient statistics:
+2025-04-13 16:43:06,984; INFO;   Matrix range     [9e-05, 2e+03]
+2025-04-13 16:43:06,985; INFO;   QMatrix range    [1e+00, 1e+00]
+2025-04-13 16:43:06,985; INFO;   QLMatrix range   [1e+00, 1e+00]
+2025-04-13 16:43:06,985; INFO;   Objective range  [1e+00, 2e+03]
+2025-04-13 16:43:06,985; INFO;   Bounds range     [1e+00, 1e+00]
+2025-04-13 16:43:06,985; INFO;   RHS range        [1e-01, 2e+04]
+2025-04-13 16:43:07,851; INFO; Presolve added 170119 rows and 0 columns
+2025-04-13 16:43:07,851; INFO; Presolve removed 0 rows and 152957 columns
+2025-04-13 16:43:07,851; INFO; Presolve time: 0.85s
+2025-04-13 16:43:07,857; INFO; Presolved: 784612 rows, 431856 columns, 1880522 nonzeros
+2025-04-13 16:43:07,857; INFO; Presolved model has 1546 SOS constraint(s)
+2025-04-13 16:43:08,250; INFO; Variable types: 350083 continuous, 81773 integer (81773 binary)
+2025-04-13 16:43:10,928; INFO; 
+2025-04-13 16:43:10,928; INFO; Root relaxation: objective 7.645603e+09, 28 iterations, 0.00 seconds (0.00 work units)
+2025-04-13 16:43:10,945; INFO; 
+2025-04-13 16:43:10,945; INFO;     Nodes    |    Current Node    |     Objective Bounds      |     Work
+2025-04-13 16:43:10,945; INFO;  Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+2025-04-13 16:43:10,945; INFO; 
+2025-04-13 16:43:10,945; INFO; *    0     0               0    7.645603e+09 7.6456e+09 -0.00%     -    3s
+2025-04-13 16:43:11,018; INFO; 
+2025-04-13 16:43:11,018; INFO; Explored 1 nodes (28 simplex iterations) in 4.07 seconds (4.45 work units)
+2025-04-13 16:43:11,018; INFO; Thread count was 8 (of 8 available processors)
+2025-04-13 16:43:11,018; INFO; 
+2025-04-13 16:43:11,018; INFO; Solution count 1: 7.6456e+09 
+2025-04-13 16:43:11,018; INFO; 
+2025-04-13 16:43:11,018; INFO; Optimal solution found (tolerance 1.00e-04)
+2025-04-13 16:43:11,026; INFO; Best objective 7.645603300458e+09, best bound 7.645603300458e+09, gap 0.0000%
+2025-04-13 16:43:16,958; INFO; Start: Flex KPIs
+2025-04-13 16:43:16,959; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:45:02,541; INFO; Start: Flex KPIs
+2025-04-13 16:45:02,541; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:45:17,595; INFO; Start: Flex KPIs
+2025-04-13 16:45:17,596; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:46:13,112; INFO; Start: Flex KPIs
+2025-04-13 16:46:13,112; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:46:21,199; INFO; Start: Flex KPIs
+2025-04-13 16:46:21,199; INFO; Flex KPIs: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:46:41,567; INFO; Starte Flex KPI Berechnungen
+2025-04-13 16:46:41,568; INFO; ⚙️ Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:46:41,594; INFO; EF erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:46:41,764; INFO; EFC pro NCS [kWh²]: 1587.97
+2025-04-13 16:46:41,764; INFO; EFC pro HPC [kWh²]: 30.65
+2025-04-13 16:46:41,764; INFO; EFC pro MCS [kWh²]: 99.63
+2025-04-13 16:46:41,777; INFO; EF_Lang erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:46:41,938; INFO; EFI für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.366
+2025-04-13 16:46:41,939; INFO; EFI_NCS für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.301
+2025-04-13 16:46:41,939; INFO; EFI_HPC für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.266
+2025-04-13 16:46:41,942; INFO; EFI_MCS für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.522
+2025-04-13 16:46:41,943; INFO; EFI erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:46:51,248; INFO; Starte Flex KPI Berechnungen
+2025-04-13 16:46:51,248; INFO; ⚙️ Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:46:51,288; INFO; EF erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:46:51,444; INFO; EFC pro NCS [kWh²]: 1587.97
+2025-04-13 16:46:51,445; INFO; EFC pro HPC [kWh²]: 30.65
+2025-04-13 16:46:51,445; INFO; EFC pro MCS [kWh²]: 99.63
+2025-04-13 16:46:51,455; INFO; EF_Lang erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:46:51,588; INFO; EFI für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.366
+2025-04-13 16:46:51,588; INFO; EFI_NCS für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.301
+2025-04-13 16:46:51,588; INFO; EFI_HPC für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.266
+2025-04-13 16:46:51,589; INFO; EFI_MCS für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.522
+2025-04-13 16:46:51,589; INFO; EFI erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:47:23,696; INFO; Starte Flex KPI Berechnungen
+2025-04-13 16:47:23,697; INFO; ⚙️ Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:47:23,737; INFO; EF erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:47:23,883; INFO; EFC pro NCS [kWh²]: 1587.97
+2025-04-13 16:47:23,883; INFO; EFC pro HPC [kWh²]: 30.65
+2025-04-13 16:47:23,883; INFO; EFC pro MCS [kWh²]: 99.63
+2025-04-13 16:47:23,893; INFO; EF_Lang erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:47:24,022; INFO; EFI für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.366
+2025-04-13 16:47:24,022; INFO; EFI_NCS für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.301
+2025-04-13 16:47:24,022; INFO; EFI_HPC für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.266
+2025-04-13 16:47:24,022; INFO; EFI_MCS für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.522
+2025-04-13 16:47:24,023; INFO; EFI erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:47:24,035; INFO; MPFI/APFI berechnet für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: MPFI=0.560, APFI=0.837
+2025-04-13 16:47:24,036; INFO; ✅ Alle Szenarien abgeschlossen.
+2025-04-13 16:47:49,374; INFO; Starte Flex KPI Berechnungen
+2025-04-13 16:47:49,374; INFO; ⚙️ Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:47:49,398; INFO; EF erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:47:49,543; INFO; EFC pro NCS [kWh²]: 1587.97
+2025-04-13 16:47:49,543; INFO; EFC pro HPC [kWh²]: 30.65
+2025-04-13 16:47:49,543; INFO; EFC pro MCS [kWh²]: 99.63
+2025-04-13 16:47:49,553; INFO; EF_Lang erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:47:49,680; INFO; EFI für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.366
+2025-04-13 16:47:49,680; INFO; EFI_NCS für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.301
+2025-04-13 16:47:49,680; INFO; EFI_HPC für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.266
+2025-04-13 16:47:49,680; INFO; EFI_MCS für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.522
+2025-04-13 16:47:49,681; INFO; EFI erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:47:49,691; INFO; MPFI/APFI berechnet für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: MPFI=0.560, APFI=0.837
+2025-04-13 16:47:49,692; INFO; ✅ Alle Szenarien abgeschlossen.
+2025-04-13 16:49:17,311; INFO; Start: Datenaufbereitung
+2025-04-13 16:49:17,314; INFO; Starte: Wochentags-Auswertung für Basecase
+2025-04-13 16:49:18,014; INFO; ✅ Wochentage erfolgreich geschrieben
+2025-04-13 16:49:18,014; INFO; Starte: Ladetyp-Auswertung für Basecase
+2025-04-13 16:49:18,322; INFO; ✅ Ladetypen erfolgreich geschrieben
+2025-04-13 16:49:18,322; INFO; Starte: KPI-Ergebnisse aktualisieren
+2025-04-13 16:49:18,322; INFO; ✅ KPI-Tabelle aktualisiert
+2025-04-13 16:49:18,322; INFO; Starte: Szenarien-Vergleich
+2025-04-13 16:52:14,884; INFO; Start: Datenaufbereitung
+2025-04-13 16:52:14,885; INFO; Starte: Wochentags-Auswertung für Basecase
+2025-04-13 16:52:15,345; INFO; ✅ Wochentage erfolgreich geschrieben
+2025-04-13 16:52:15,345; INFO; Starte: Ladetyp-Auswertung für Basecase
+2025-04-13 16:52:15,658; INFO; ✅ Ladetypen erfolgreich geschrieben
+2025-04-13 16:52:15,658; INFO; Starte: KPI-Ergebnisse aktualisieren
+2025-04-13 16:52:16,188; INFO; ✅ KPI-Tabelle aktualisiert
+2025-04-13 16:52:16,188; INFO; Starte: Szenarien-Vergleich
+2025-04-13 16:52:16,189; INFO; Vergleiche: Cluster
+2025-04-13 16:52:16,493; INFO; ✅ Vergleich abgeschlossen für: Cluster
+2025-04-13 16:52:16,493; INFO; Vergleiche: Pow_NCS
+2025-04-13 16:52:16,803; INFO; ✅ Vergleich abgeschlossen für: Pow_NCS
+2025-04-13 16:52:16,803; INFO; Vergleiche: Pow_HPC
+2025-04-13 16:52:17,122; INFO; ✅ Vergleich abgeschlossen für: Pow_HPC
+2025-04-13 16:52:17,122; INFO; Vergleiche: Pow_MCS
+2025-04-13 16:52:17,420; INFO; ✅ Vergleich abgeschlossen für: Pow_MCS
+2025-04-13 16:52:17,420; INFO; Vergleiche: Schnellzeit
+2025-04-13 16:52:17,727; INFO; ✅ Vergleich abgeschlossen für: Schnellzeit
+2025-04-13 16:52:17,727; INFO; Vergleiche: Nachtzeit
+2025-04-13 16:52:18,069; INFO; ✅ Vergleich abgeschlossen für: Nachtzeit
+2025-04-13 16:52:18,069; INFO; Vergleiche: Netzanschluss
+2025-04-13 16:52:18,393; INFO; ✅ Vergleich abgeschlossen für: Netzanschluss
+2025-04-13 16:52:18,393; INFO; Vergleiche: Ladequoten
+2025-04-13 16:52:18,695; INFO; ✅ Vergleich abgeschlossen für: Ladequoten
+2025-04-13 16:52:18,695; INFO; ✅ Datenaufbereitung abgeschlossen
+2025-04-13 16:52:44,745; INFO; Start: Datenaufbereitung
+2025-04-13 16:52:44,745; INFO; Starte: Wochentags-Auswertung für Basecase
+2025-04-13 16:52:45,177; INFO; ✅ Wochentage erfolgreich geschrieben
+2025-04-13 16:52:45,177; INFO; Starte: Ladetyp-Auswertung für Basecase
+2025-04-13 16:52:45,489; INFO; ✅ Ladetypen erfolgreich geschrieben
+2025-04-13 16:52:45,490; INFO; Starte: KPI-Ergebnisse aktualisieren
+2025-04-13 16:52:46,034; INFO; ✅ KPI-Tabelle aktualisiert
+2025-04-13 16:52:46,034; INFO; Starte: Szenarien-Vergleich
+2025-04-13 16:52:46,034; INFO; Vergleiche: Cluster
+2025-04-13 16:52:46,323; INFO; ✅ Vergleich abgeschlossen für: Cluster
+2025-04-13 16:52:46,323; INFO; Vergleiche: Pow_NCS
+2025-04-13 16:52:46,623; INFO; ✅ Vergleich abgeschlossen für: Pow_NCS
+2025-04-13 16:52:46,623; INFO; Vergleiche: Pow_HPC
+2025-04-13 16:52:46,916; INFO; ✅ Vergleich abgeschlossen für: Pow_HPC
+2025-04-13 16:52:46,916; INFO; Vergleiche: Pow_MCS
+2025-04-13 16:52:47,210; INFO; ✅ Vergleich abgeschlossen für: Pow_MCS
+2025-04-13 16:52:47,210; INFO; Vergleiche: Schnellzeit
+2025-04-13 16:52:47,518; INFO; ✅ Vergleich abgeschlossen für: Schnellzeit
+2025-04-13 16:52:47,518; INFO; Vergleiche: Nachtzeit
+2025-04-13 16:52:47,842; INFO; ✅ Vergleich abgeschlossen für: Nachtzeit
+2025-04-13 16:52:47,842; INFO; Vergleiche: Netzanschluss
+2025-04-13 16:52:48,162; INFO; ✅ Vergleich abgeschlossen für: Netzanschluss
+2025-04-13 16:52:48,162; INFO; Vergleiche: Ladequoten
+2025-04-13 16:52:48,464; INFO; ✅ Vergleich abgeschlossen für: Ladequoten
+2025-04-13 16:52:48,464; INFO; ✅ Datenaufbereitung abgeschlossen
+2025-04-13 16:53:44,241; INFO; Starte Flex KPI Berechnungen
+2025-04-13 16:53:44,241; INFO; Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:53:44,264; INFO; EF erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:53:44,409; INFO; EFC pro NCS [kWh²]: 1587.97
+2025-04-13 16:53:44,409; INFO; EFC pro HPC [kWh²]: 30.65
+2025-04-13 16:53:44,409; INFO; EFC pro MCS [kWh²]: 99.63
+2025-04-13 16:53:44,420; INFO; EF_Lang erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:53:44,548; INFO; EFI für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.366
+2025-04-13 16:53:44,548; INFO; EFI_NCS für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.301
+2025-04-13 16:53:44,548; INFO; EFI_HPC für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.266
+2025-04-13 16:53:44,548; INFO; EFI_MCS für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.522
+2025-04-13 16:53:44,550; INFO; EFI erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:53:44,563; INFO; MPFI/APFI berechnet für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: MPFI=0.560, APFI=0.837
+2025-04-13 16:53:44,564; INFO; ✅ Alle Szenarien abgeschlossen.
+2025-04-13 16:53:52,424; INFO; Start: Datenaufbereitung
+2025-04-13 16:53:52,425; INFO; Starte: Wochentags-Auswertung für Basecase
+2025-04-13 16:53:52,875; INFO; ✅ Wochentage erfolgreich geschrieben
+2025-04-13 16:53:52,875; INFO; Starte: Ladetyp-Auswertung für Basecase
+2025-04-13 16:53:53,188; INFO; ✅ Ladetypen erfolgreich geschrieben
+2025-04-13 16:53:53,188; INFO; Starte: KPI-Ergebnisse aktualisieren
+2025-04-13 16:53:53,738; INFO; ✅ KPI-Tabelle aktualisiert
+2025-04-13 16:53:53,738; INFO; Starte: Szenarien-Vergleich
+2025-04-13 16:53:53,738; INFO; Vergleiche: Cluster
+2025-04-13 16:53:54,024; INFO; ✅ Vergleich abgeschlossen für: Cluster
+2025-04-13 16:53:54,024; INFO; Vergleiche: Pow_NCS
+2025-04-13 16:53:54,347; INFO; ✅ Vergleich abgeschlossen für: Pow_NCS
+2025-04-13 16:53:54,347; INFO; Vergleiche: Pow_HPC
+2025-04-13 16:53:54,696; INFO; ✅ Vergleich abgeschlossen für: Pow_HPC
+2025-04-13 16:53:54,696; INFO; Vergleiche: Pow_MCS
+2025-04-13 16:53:54,997; INFO; ✅ Vergleich abgeschlossen für: Pow_MCS
+2025-04-13 16:53:54,997; INFO; Vergleiche: Schnellzeit
+2025-04-13 16:53:55,374; INFO; ✅ Vergleich abgeschlossen für: Schnellzeit
+2025-04-13 16:53:55,374; INFO; Vergleiche: Nachtzeit
+2025-04-13 16:53:55,704; INFO; ✅ Vergleich abgeschlossen für: Nachtzeit
+2025-04-13 16:53:55,704; INFO; Vergleiche: Netzanschluss
+2025-04-13 16:53:56,031; INFO; ✅ Vergleich abgeschlossen für: Netzanschluss
+2025-04-13 16:53:56,031; INFO; Vergleiche: Ladequoten
+2025-04-13 16:53:56,326; INFO; ✅ Vergleich abgeschlossen für: Ladequoten
+2025-04-13 16:53:56,326; INFO; ✅ Datenaufbereitung abgeschlossen
+2025-04-13 16:56:05,926; INFO; 🚀 Hauptlauf gestartet
+2025-04-13 16:56:05,931; INFO; ➡️ Starte Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:56:05,931; INFO; ⚙️ Start Modellierung für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 16:56:05,943; INFO; 📦 Anzahl LKWs im Szenario: 1806
+2025-04-13 16:56:05,943; INFO; 🔁 Bidirektional: False
+2025-04-13 16:56:05,943; INFO; 🔌 Netzanschlussleistung: 24550.00 kW
+2025-04-13 16:56:05,984; INFO; 🚀 Optimierung läuft: p_max
+2025-04-13 16:56:05,990; INFO; Set parameter Username
+2025-04-13 16:56:05,995; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-04-13 16:56:06,003; INFO; ✅ Optimale Lösung für Strategie 'p_max'
+2025-04-13 17:00:04,200; INFO; 🚀 Hauptlauf gestartet
+2025-04-13 17:00:04,204; INFO; ➡️ Starte Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 17:00:04,204; INFO; ⚙️ Start Modellierung für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 17:00:04,216; INFO; 📦 Anzahl LKWs im Szenario: 1806
+2025-04-13 17:00:04,216; INFO; 🔁 Bidirektional: False
+2025-04-13 17:00:04,258; INFO; 🚀 Optimierung für Strategie: p_max
+2025-04-13 17:00:04,265; INFO; Set parameter Username
+2025-04-13 17:00:04,270; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-04-13 17:00:26,535; INFO; ✅ Optimale Lösung für p_max
+2025-04-13 17:00:30,091; INFO; ⚡ Geladene Energie (p_max): 8402528.49 kWh
+2025-04-13 17:00:30,091; INFO; 🚀 Optimierung für Strategie: p_min
+2025-04-13 17:00:54,007; INFO; ✅ Optimale Lösung für p_min
+2025-04-13 17:00:57,617; INFO; ⚡ Geladene Energie (p_min): 8402528.49 kWh
+2025-04-13 17:00:57,617; INFO; 📉 Energiedifferenz (p_max - p_min): 0.00 kWh
+2025-04-13 17:00:59,163; INFO; 💾 Export abgeschlossen für Szenario cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 17:00:59,715; INFO; ✅ Alle Optimierungen abgeschlossen
+2025-04-13 17:00:59,715; INFO; ⏱️ Gesamtlaufzeit: 55.51 Sekunden
+2025-04-13 17:02:52,389; INFO; Hauptlauf gestartet
+2025-04-13 17:02:52,390; INFO; ➡️ Starte Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 17:02:52,390; INFO; Start Modellierung für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 17:02:52,396; INFO; Anzahl LKWs im Szenario: 1806
+2025-04-13 17:02:52,396; INFO; Bidirektional: False
+2025-04-13 17:02:52,433; INFO; Optimierung für Strategie: p_max
+2025-04-13 17:02:52,436; INFO; Set parameter Username
+2025-04-13 17:02:52,438; INFO; Academic license - for non-commercial use only - expires 2025-10-16
+2025-04-13 17:03:14,821; INFO; Optimale Lösung für p_max
+2025-04-13 17:03:18,481; INFO; ⚡ Geladene Energie (p_max): 8402528.49 kWh
+2025-04-13 17:03:18,481; INFO; Optimierung für Strategie: p_min
+2025-04-13 17:04:11,524; INFO; Start: Datenaufbereitung
+2025-04-13 17:04:11,524; INFO; Starte: Wochentags-Auswertung für Basecase
+2025-04-13 17:04:12,137; INFO; Wochentage erfolgreich geschrieben
+2025-04-13 17:04:12,137; INFO; Starte: Ladetyp-Auswertung für Basecase
+2025-04-13 17:04:12,491; INFO; Ladetypen erfolgreich geschrieben
+2025-04-13 17:04:12,491; INFO; Starte: KPI-Ergebnisse aktualisieren
+2025-04-13 17:04:13,048; INFO; KPI-Tabelle aktualisiert
+2025-04-13 17:04:13,048; INFO; Starte: Szenarien-Vergleich
+2025-04-13 17:04:13,048; INFO; Vergleiche: Cluster
+2025-04-13 17:04:13,343; INFO; Vergleiche: Pow_NCS
+2025-04-13 17:04:13,644; INFO; Vergleiche: Pow_HPC
+2025-04-13 17:04:13,982; INFO; Vergleiche: Pow_MCS
+2025-04-13 17:04:14,283; INFO; Vergleiche: Schnellzeit
+2025-04-13 17:04:14,589; INFO; Vergleiche: Nachtzeit
+2025-04-13 17:04:14,920; INFO; Vergleiche: Netzanschluss
+2025-04-13 17:04:15,237; INFO; Vergleiche: Ladequoten
+2025-04-13 17:04:15,559; INFO; Datenaufbereitung abgeschlossen
+2025-04-13 17:04:25,080; INFO; Start: Datenaufbereitung
+2025-04-13 17:04:25,080; INFO; Starte: Wochentags-Auswertung für Basecase
+2025-04-13 17:04:25,479; INFO; Wochentage erfolgreich geschrieben
+2025-04-13 17:04:25,479; INFO; Starte: Ladetyp-Auswertung für Basecase
+2025-04-13 17:04:25,803; INFO; Ladetypen erfolgreich geschrieben
+2025-04-13 17:04:25,804; INFO; Starte: KPI-Ergebnisse aktualisieren
+2025-04-13 17:04:26,311; INFO; KPI-Tabelle aktualisiert
+2025-04-13 17:04:26,311; INFO; Starte: Szenarien-Vergleich
+2025-04-13 17:04:26,311; INFO; Vergleiche: Cluster
+2025-04-13 17:04:26,603; INFO; Vergleiche: Pow_NCS
+2025-04-13 17:04:26,899; INFO; Vergleiche: Pow_HPC
+2025-04-13 17:04:27,188; INFO; Vergleiche: Pow_MCS
+2025-04-13 17:04:27,475; INFO; Vergleiche: Schnellzeit
+2025-04-13 17:04:27,817; INFO; Vergleiche: Nachtzeit
+2025-04-13 17:04:28,129; INFO; Vergleiche: Netzanschluss
+2025-04-13 17:04:28,436; INFO; Vergleiche: Ladequoten
+2025-04-13 17:04:28,731; INFO; Datenaufbereitung abgeschlossen
+2025-04-13 17:04:36,099; INFO; Starte Flex KPI Berechnungen
+2025-04-13 17:04:36,099; INFO; Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 17:04:36,121; INFO; EF erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 17:04:36,301; INFO; EFC pro NCS [kWh²]: 1587.97
+2025-04-13 17:04:36,301; INFO; EFC pro HPC [kWh²]: 30.65
+2025-04-13 17:04:36,301; INFO; EFC pro MCS [kWh²]: 99.63
+2025-04-13 17:04:36,312; INFO; EF_Lang erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 17:04:36,433; INFO; EFI für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.366
+2025-04-13 17:04:36,433; INFO; EFI_NCS für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.301
+2025-04-13 17:04:36,433; INFO; EFI_HPC für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.266
+2025-04-13 17:04:36,433; INFO; EFI_MCS für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: 0.522
+2025-04-13 17:04:36,434; INFO; EFI erfolgreich berechnet für Szenario: cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base
+2025-04-13 17:04:36,445; INFO; MPFI/APFI berechnet für cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base: MPFI=0.560, APFI=0.837
+2025-04-13 17:04:36,446; INFO; ✅ Alle Szenarien abgeschlossen.
+2025-04-13 17:05:28,269; INFO; Start: Datenaufbereitung
+2025-04-13 17:05:28,269; INFO; Starte: Wochentags-Auswertung für Basecase
+2025-04-13 17:05:28,676; INFO; Wochentage erfolgreich geschrieben
+2025-04-13 17:05:28,676; INFO; Starte: Ladetyp-Auswertung für Basecase
+2025-04-13 17:05:28,979; INFO; Ladetypen erfolgreich geschrieben
+2025-04-13 17:05:28,980; INFO; Starte: KPI-Ergebnisse aktualisieren
+2025-04-13 17:05:29,470; INFO; ✅ KPI-Tabelle aktualisiert
+2025-04-13 17:05:29,470; INFO; Starte: Szenarien-Vergleich
+2025-04-13 17:05:29,470; INFO; Vergleiche: Cluster
+2025-04-13 17:05:29,756; INFO; Vergleiche: Pow_NCS
+2025-04-13 17:05:30,062; INFO; Vergleiche: Pow_HPC
+2025-04-13 17:05:30,366; INFO; Vergleiche: Pow_MCS
+2025-04-13 17:05:30,650; INFO; Vergleiche: Schnellzeit
+2025-04-13 17:05:30,941; INFO; Vergleiche: Nachtzeit
+2025-04-13 17:05:31,251; INFO; Vergleiche: Netzanschluss
+2025-04-13 17:05:31,544; INFO; Vergleiche: Ladequoten
+2025-04-13 17:05:31,833; INFO; Datenaufbereitung abgeschlossen

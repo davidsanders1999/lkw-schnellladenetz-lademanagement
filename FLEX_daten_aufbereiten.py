@@ -1,16 +1,25 @@
+# ======================================================
+# Benötigte Bibliotheken importieren
+# ======================================================
 import pandas as pd
 import os
 import logging
+
+# Logging konfigurieren
 logging.basicConfig(filename='logs.log', level=logging.DEBUG, format='%(asctime)s; %(levelname)s; %(message)s')
 
+# ======================================================
+# Funktion: Basecase nach Wochentag ausgeben
+# ======================================================
 def ef_base_wochentag():
-    logging.info('Wochentage')
+    logging.info('Starte: Wochentags-Auswertung für Basecase')
+    print("Bearbeite: Basecase Wochentags-Auswertung")
 
-    path_input = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'flex', 'kpis','ef_lang', 'ef_lang_cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base.csv')
+    path_input = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'flex', 'kpis', 'ef_lang', 'ef_lang_cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base.csv')
     path_results = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output', 'results.xlsx')
-    
+
     df = pd.read_csv(path_input, sep=';', decimal=',')
-    
+
     data = [
         ['Base Case'],
         '',
@@ -24,21 +33,26 @@ def ef_base_wochentag():
         ['Samstag'] + df[1440:1728]["Leistung_Total"].tolist(),
         ['Sonntag'] + df[1728:]["Leistung_Total"].tolist(),
     ]
-    
-    
+
     df_results = pd.DataFrame(data)
-
     with pd.ExcelWriter(path_results, engine='openpyxl', mode='a', if_sheet_exists='overlay') as writer:
-        df_results.to_excel(writer, sheet_name='Base (Wochentag)', index=False, header=False, startrow=0, startcol=0)
+        df_results.to_excel(writer, sheet_name='Base (Wochentag)', index=False, header=False)
 
+    logging.info("Wochentage erfolgreich geschrieben")
+    print("✅ Basecase Wochentage erfolgreich in Excel geschrieben")
+
+# ======================================================
+# Funktion: Basecase nach Ladetyp ausgeben
+# ======================================================
 def ef_base_ladetyp():
+    logging.info('Starte: Ladetyp-Auswertung für Basecase')
+    print("Bearbeite: Basecase Ladetyp-Auswertung")
+
     path_results = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output', 'results.xlsx')
     path_input = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'flex', 'kpis', 'ef', 'ef_cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base.csv')
 
+    df = pd.read_csv(path_input, sep=';', decimal=',')
 
-    df = pd.read_csv(os.path.join(path_input), sep=';', decimal=',')
-    
-    
     data = [
         ['Base'],
         '',
@@ -52,14 +66,21 @@ def ef_base_ladetyp():
         '',
         ['Total'] + df["Leistung_Total"].tolist(),
     ]
-    
-    df_results = pd.DataFrame(data)
 
+    df_results = pd.DataFrame(data)
     with pd.ExcelWriter(path_results, engine='openpyxl', mode='a', if_sheet_exists='overlay') as writer:
-        df_results.to_excel(writer, sheet_name='Base (Ladetyp)', index=False, header=False, startrow=0, startcol=0)
-    
+        df_results.to_excel(writer, sheet_name='Base (Ladetyp)', index=False, header=False)
+
+    logging.info("Ladetypen erfolgreich geschrieben")
+    print("✅ Basecase Ladetypen erfolgreich in Excel geschrieben")
+
+# ======================================================
+# Funktion: KPI-Zusammenfassung aktualisieren
+# ======================================================
 def ergebnisse_updaten():
-    logging.info('Ergebnisse updaten')
+    logging.info('Starte: KPI-Ergebnisse aktualisieren')
+    print("Aktualisiere KPI-Ergebnisse...")
+
     path_results = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output', 'results.xlsx')
     path_apfi_mpfi = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'flex', 'kpis', 'apfi_mpfi')
     path_efi = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'flex', 'kpis', 'efi')
@@ -141,11 +162,20 @@ def ergebnisse_updaten():
     
     with pd.ExcelWriter(path_results, engine='openpyxl', mode='a', if_sheet_exists='overlay') as writer:
         df_results.to_excel(writer, sheet_name='Results', index=False, header=True, startrow=0, startcol=1)
-    
+
+    # 🧠 Nur das Ergebnis-Excel final loggen:
+    logging.info("✅ KPI-Tabelle aktualisiert")
+    print("Ergebnisse aktualisiert und in Excel geschrieben")
+
+# ======================================================
+# Funktion: Szenarien vergleichen
+# ======================================================
 def szenarien_vergleichen():
-    logging.info('Szenarien vergleichen')
+    logging.info('Starte: Szenarien-Vergleich')
+    print("Starte Szenarienvergleich...")
+
     list_name_vergleiche = ['Cluster', 'Pow_NCS', 'Pow_HPC', 'Pow_MCS', 'Schnellzeit', 'Nachtzeit', 'Netzanschluss', 'Ladequoten', 'Bidirektional']
-    
+
     list_bidirektional = [
         'cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_M_1_Base', # Base
         'cl_2_quote_80-80-80_netz_100_pow_100-100-100_pause_45-540_B_2_Bidirektional', # Bidirektional 
@@ -208,52 +238,60 @@ def szenarien_vergleichen():
         'cl_2_quote_80-80-80_netz_30_pow_100-100-100_pause_45-540_M_31_Netzanschluss-30',
         'cl_2_quote_80-80-80_netz_20_pow_100-100-100_pause_45-540_M_32_Netzanschluss-20',
         'cl_2_quote_80-80-80_netz_10_pow_100-100-100_pause_45-540_M_33_Netzanschluss-10'
-    ]
+    ]    
 
-    
     list_vergleiche = [list_cluster, list_pow_ncs, list_pow_hpc, list_pow_mcs, list_schnellzeit, list_nachtzeit, list_netzanschluss, list_bidirektional]
-    
-    
-        
-    for index, list in enumerate(list_vergleiche):
+
+    for index, vergleichsliste in enumerate(list_vergleiche):
+        name = list_name_vergleiche[index]
+        print(f"Vergleiche: {name}")
+        logging.info(f"Vergleiche: {name}")
+
         list_szenario = []
         list_ef = []
-        
-        for szenario in list:
+
+        for szenario in vergleichsliste:
             path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data', 'flex', 'kpis', 'ef', f'ef_{szenario}.csv')
             df = pd.read_csv(path, sep=';', decimal=',')
             scenario_name = szenario.split("_")[-1]
             total_leistung = df["Leistung_Total"].tolist()
-            
+
             list_szenario.append(scenario_name)
             list_ef.append(total_leistung)
-        
+
         data = [
-            [list_name_vergleiche[index]],
+            [name],
             '',
             ['Zeit'] + df["Zeit_Tag"].tolist(),
             '',
         ]
-        
+
         for i in range(len(list_szenario)):
             data.append([list_szenario[i]] + list_ef[i])
-        
+
         df_results = pd.DataFrame(data)
-        
         path_results = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'output', 'results.xlsx')
         with pd.ExcelWriter(path_results, engine='openpyxl', mode='a', if_sheet_exists='overlay') as writer:
-            sheet_name = f'Vergleich ({list_name_vergleiche[index]})'
-            df_results.to_excel(writer, sheet_name=sheet_name, index=False, header=False, startrow=0, startcol=0)
-    
-        
-        
+            sheet_name = f'Vergleich ({name})'
+            df_results.to_excel(writer, sheet_name=sheet_name, index=False, header=False)
+
+# ======================================================
+# Hauptfunktion
+# ======================================================
 def main():
-    logging.info('Start: Daten aufbereiten')
+    logging.info('Start: Datenaufbereitung')
+    print("Starte Datenaufbereitung...")
+
     ef_base_wochentag()
     ef_base_ladetyp()
     ergebnisse_updaten()
     szenarien_vergleichen()
 
+    print("✅ Alle Daten erfolgreich verarbeitet!")
+    logging.info("Datenaufbereitung abgeschlossen")
+
+# ======================================================
+# Ausführung
+# ======================================================
 if __name__ == '__main__':
     main()
-

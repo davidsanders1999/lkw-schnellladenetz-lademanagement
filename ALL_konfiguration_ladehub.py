@@ -226,7 +226,7 @@ def main():
             konfiguration_ladehub(df_eingehende_lkws, szenario)
 
 # ======================================================
-# Hauptausführung
+# Ausführung
 # ======================================================
 if __name__ == '__main__':
     main()
