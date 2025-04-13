@@ -85,7 +85,7 @@ python main.py
 
 ### Szenario-Konfiguration
 
-Die zu analysierenden Szenarien werden in `config.py` definiert. Die Szenarionamen folgen einem strukturierten Namensschema:
+Die zu analysierenden Szenarien werden in `config.py` definiert und bestimmen die Inputwerte der Modellierungsmodule. Die Szenarionamen folgen einem strukturierten Namensschema:
 
 ```
 cl_X_quote_Y-Y-Y_netz_Z_pow_A-B-C_pause_D-E_F_G_H
@@ -116,7 +116,6 @@ Dieses Modul generiert synthetische LKW-Daten mit spezifischen Ladeanforderungen
 ##### Konfigurationsmöglichkeiten:
 - LKW-Typverteilung: Prozentuale Verteilung der vier LKW-Typen
 - Batteriekapazitäten: 600 kWh - 960 kWh je nach LKW-Typ
-- Pausenzeiten: Standardmäßig 45 min für Schnellladungen, 540 min für Nachtladungen
 
 #### 2. Ladehub-Dimensionierung `ALL_konfiguration_ladehub.py`
 
@@ -126,9 +125,6 @@ Dieses Modul bestimmt die optimale Anzahl an Ladestationen je Ladetyp:
 - Iterative Lösung des Max-Flow-Min-Cost-Problems zur Bestimmung der Mindestanzahl an Ladepunkten
 - Einhaltung einer vorgegebenen Ladequote (z.B. 80%)
 - Ausgabe der optimalen Dimensionierung sowie der ausgewählten LKW
-
-##### Konfigurationsmöglichkeiten:
-- Ladequote: Mindestens geforderte Ladequote der ankommenden LKW
 
 ### Module für den "flex"-Modus (Flexibilitätsanalyse)
 
@@ -143,12 +139,6 @@ Dieses Modul implementiert die Modellierung der T_min- und T_max-Ladestrategien:
   - Netzanschlusskapazitäten
   - Ladeenergieanforderungen der LKW
 - Generierung zeitlich hochaufgelöster Lastverläufe für beide Strategien
-- Die Optimierung erfolgt für eine charakteristische Woche mit 2304 Zeitintervallen (7 Tage × 288 Intervalle/Tag)
-
-##### Konfigurationsmöglichkeiten:
-- Bidirektionales Laden: Ein-/Ausschalten der Rückspeisefähigkeit
-- Netzanschlusskapazität: Prozentsatz der kumulierten installierten Leistung
-- 
 
 #### 4. Flexibilitätskennzahlen `FLEX_berechne_flex_kpis.py`
 
@@ -157,25 +147,18 @@ Berechnet verschiedene Kennzahlen zur Quantifizierung der Flexibilität:
 - **Energy Flexibility Capacity (EFC)**: Kumulierte Differenz zwischen T_max und T_min
 - **Energy Flexibility Index (EFI)**: Verhältnis von nicht genutzter zu potenzieller Ladeleistung
 - **Minimum/Average Power Flexibility Index (MPFI/APFI)**: Leistungspuffer zu Spitzenlastzeiten bzw. im Durchschnitt
-- Die EFC wird sowohl für einen einzelnen Tag (EF) als auch für eine Woche (EF_lang) berechnet
-
-##### Konfigurationsmöglichkeiten:
-- Zeitauflösung der Analyse: Standard 5 Minuten
-- Aggregationsebenen: Täglich, wöchentlich, ladetyp-spezifisch
 
 #### 5. Datenaufbereitung für Flexibilitätsanalyse `FLEX_daten_aufbereiten.py`
 
-Bereitet die berechneten Flexibilitätskennzahlen für die Visualisierung und weitere Analyse auf:
+Dieses Modul dienet der Ergebnisaufbereitung:
 
-- Generierung von wochentagsspezifischen EFC-Verläufen
-- Erstellung von ladetyp-spezifischen Analysen
-- Sensitivitätsbetrachtungen für verschiedene Parameter
-- Szenarien-Vergleiche für Cluster, Leistungen, Pausenzeiten und Netzanschlüsse
-- Die Ergebnisse werden in Excel-Tabellen exportiert, die direkt für die Berichterstellung verwendet werden können
+
+- Bereitet die berechneten Flexibilitätskennzahlen für die Visualisierung und weitere Analyse auf
+- Die Ergebnisse werden in Excel-Tabellen exportiert
 
 ### Module für den "epex"-Modus (Preisoptimierung)
 
-#### 6. Ladeplanung (EPEX_laden_nicht_laden.py)
+#### 6. Ladeplanung `EPEX_laden_nicht_laden.py`
 
 Dieses Modul identifiziert die zu ladenden LKW für ein vollständiges Jahr:
 
@@ -194,17 +177,12 @@ Dieses Modul optimiert die Ladevorgänge anhand von Marktpreisen:
   - Konstant: Gleichmäßiges Laden über die gesamte Standzeit (Referenzstrategie)
   - DayAhead: Preisoptimiertes Laden basierend auf Day-Ahead-Marktpreisen
   - Intraday: Preisoptimiertes Laden basierend auf Intraday-Marktpreisen
-- Die Optimierung erfolgt mit 5-Minuten-Zeitintervallen und berücksichtigt mehr als 100.000 Zeitschritte für das gesamte Jahr
-- Optimale Lastverschiebung unter Berücksichtigung von SoC-Restriktionen und Netzanschlusskapazitäten
 
 #### 8. Datenaufbereitung für Preisoptimierung `EPEX_daten_aufbereiten.py`
 
-Bereitet die optimierten Lastgänge für die Analyse auf:
+Dieses Modul dienet der Ergebnisaufbereitung:
 
-- Berechnung von Kosteneinsparungen pro Woche im Vergleich zu Referenzstrategien
-- Ermittlung von durchschnittlichen Kosten pro kWh und Ladetyp
-- Analyse der stündlichen Kostendifferenzen zwischen Strategien
-- Visualisierung der tages- und wochentagsspezifischen Kostenverläufe
+- Bereitet die optimierten Lastgänge für die Analyse auf. 
 - Die Ergebnisse werden in Excel-Tabellen exportiert, die eine detaillierte wirtschaftliche Bewertung ermöglichen
 
 ## Ausgabedateien
