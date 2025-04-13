@@ -3,3 +3,5 @@
 *.xlsx
 *.xls
 *.log
+*.pyc
+*.pyc>
