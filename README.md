@@ -1,16 +1,15 @@
 # LKW-Schnellladenetz-Lademanagement
 
-Dieses Repository enthält die Implementierung der Modellierung zur Analyse und Bewertung des Flexibilitätspotenzials des vom Bund ausgeschriebenen Schnellladenetzes für elektrifizierte Lkw an deutschen Autobahnen. Die Implementierung basiert auf der Masterarbeit "Potenziale eines flexibilisierten Schnellladenetzwerks für den elektrifizierten Schwerlastverkehr am deutschen Autobahnnetz" von David Sanders.
+> Dieses Repository enthält die Implementierung der Modellierung zur Analyse und Bewertung des Flexibilitätspotenzials des vom Bund ausgeschriebenen Schnellladenetzes für elektrifizierte LKW an deutschen Autobahnen. Die Implementierung basiert auf der Masterarbeit "Potenziale eines flexibilisierten Schnellladenetzwerks für den elektrifizierten Schwerlastverkehr am deutschen Autobahnnetz" von David Sanders.
 
 ## Überblick
 
 Die Modellierung simuliert bedarfsgerechte Ladehubs und analysiert deren Flexibilitätspotenzial. Der Prozess erfolgt in mehreren Schritten:
 
-1. **Lkw-Daten-Generation**: Erzeugung von synthetischen Lkw-Daten mit spezifischen Ladeanforderungen basierend auf der vorbereiteten Ladenachfrage
+1. **LKW-Daten-Generation**: Erzeugung von synthetischen LKW-Daten mit spezifischen Ladeanforderungen basierend auf der vorbereiteten Ladenachfrage
 2. **Ladehub-Dimensionierung**: Berechnung der optimalen Anzahl an Ladepunkten pro Ladetyp unter Verwendung eines Graphenmodells
-3. **Optimierung der Ladevorgänge**: Optimierung von Lastprofilen für verschiedene Ladestrategien
-4. **Flexibilitätsanalyse**: Berechnung und Auswertung verschiedener Flexibilitätskennzahlen
-5. **Anwendungsszenarien**: Preisbasierte Optimierung anhand von Day-Ahead- und Intraday-Preisen
+3. **Flexibilitätsanalyse**: Berechnung und Auswertung verschiedener Flexibilitätskennzahlen
+4. **Anwendungsszenarien**: Preisbasierte Optimierung anhand von Day-Ahead- und Intraday-Preisen
 
 ## Projektstruktur
 
@@ -20,22 +19,20 @@ Das Projekt besteht aus mehreren Modulen, die je nach gewähltem Modus ("flex" o
 
 - `main.py`: Steuert die Ausführung aller Module je nach gewähltem Modus
 - `config.py`: Enthält Konfigurationsparameter und Szenariodefinitionen
-- `ALL_zuweisung_ladetyp.py`: Erzeugt ankommende Lkw-Daten mit spezifischen Ladeanforderungen
+- `ALL_zuweisung_ladetyp.py`: Erzeugt ankommende LKW-Daten mit spezifischen Ladeanforderungen
 - `ALL_konfiguration_ladehub.py`: Dimensioniert Ladehubs mittels Graphenmodell
 
 ### Module für den "flex"-Modus (Flexibilitätsanalyse)
 
 - `FLEX_optimierung_p_min_max.py`: Implementiert die T_min- und T_max-Ladestrategien zur Flexibilitätsberechnung
 - `FLEX_berechne_flex_kpis.py`: Berechnet verschiedene Flexibilitätskennzahlen (EFI, EFC, MPFI, APFI)
-- `FLEX_daten_aufbereiten.py`: Bereitet die berechneten Daten für die Visualisierung auf
+- `FLEX_daten_aufbereiten.py`: Bereitet die berechneten Daten für die Auswertung auf
 
 ### Module für den "epex"-Modus (Preisoptimierung)
 
-- `EPEX_laden_nicht_laden.py`: Identifiziert zu ladende Lkw mittels Optimierung
+- `EPEX_laden_nicht_laden.py`: Identifiziert zu ladende LKW mittels Optimierung
 - `EPEX_optimierung.py`: Optimiert die Ladevorgänge anhand von Strompreisen
 - `EPEX_daten_aufbereiten.py`: Bereitet die optimierten Lastgänge für die Auswertung auf
-
-Die Module werden je nach Modus in unterschiedlicher Reihenfolge aufgerufen, wie in der `main.py` definiert:
 
 ## Anforderungen
 
@@ -46,7 +43,7 @@ Die Module werden je nach Modus in unterschiedlicher Reihenfolge aufgerufen, wie
 - NetworkX 3.2+
 - Pandas 2.2+
 - NumPy 2.0+
-- Matplotlib (für Visualisierungen)
+- Matplotlib
 
 Die vollständigen Abhängigkeiten sind in `requirements.txt` definiert.
 
@@ -54,11 +51,24 @@ Die vollständigen Abhängigkeiten sind in `requirements.txt` definiert.
 
 Die folgenden Eingabedateien müssen im Verzeichnis `input/` vorhanden sein:
 
-- `verteilungsfunktion_mcs-ncs.csv`: Wahrscheinlichkeitsdichtefunktionen für Ankunftszeiten der Lkw
-- `ladevorgaenge_daily_cluster.csv`: Tägliche Ladevorgänge pro Cluster, Wochentag und Ladetyp (Output der Ladenachfragemodellierung)
-- `dayahead_2024_5min.csv`: Day-Ahead-Preise für das Jahr 2024 in 5-Minuten-Intervallen
-- `intraday_2024_5min.csv`: Intraday-Preise für das Jahr 2024 in 5-Minuten-Intervallen
-- `reBAP_5min.csv`: Regelenergiepreise in 5-Minuten-Intervallen
+- `ladevorgaenge_daily_cluster.csv`
+
+Tägliche Ladevorgänge pro Cluster, Wochentag und Ladetyp (Output der Ladenachfragemodellierung) [LINK](https://github.com/davidsanders1999/LKW-schnellladenetz-ladenachfrage)
+
+- `verteilungsfunktion_mcs-ncs.csv`
+
+Wahrscheinlichkeitsdichtefunktionen für Ankunftszeiten der LKW nach Burges und Kippelt [LINK](https://www.transportenvironment.org/uploads/files/2022_01_TE_grid_integration_long_haul_truck_charging_study_final.pdf) 
+
+
+- `dayahead_2024_5min.csv`
+
+Day-Ahead-Preise für das Jahr 2024 in 5-Minuten-Intervallen extrapoliert [LINK](https://www.netztransparenz.de/de-de/Erneuerbare-Energien-und-Umlagen/EEG/Transparenzanforderungen/Marktpr%C3%A4mie/Spotmarktpreis-nach-3-Nr-42a-EEG)
+
+
+- `intraday_2024_5min.csv`
+
+Intraday-Preise für das Jahr 2024 in 5-Minuten-Intervallen extrapoliert [LINK](https://www.netztransparenz.de/en/Balancing-Capacity/Imbalance-price/IP-Index)
+
 
 ## Modi und Ausführung
 
@@ -94,49 +104,53 @@ Dabei steht:
 
 ### Gemeinsame Module (für beide Modi)
 
-#### 1. LKW-Daten-Generation (ALL_zuweisung_ladetyp.py)
+#### 1. LKW-Daten-Generation `ALL_zuweisung_ladetyp.py`
 
-Dieses Modul generiert synthetische Lkw-Daten mit spezifischen Ladeanforderungen:
+Dieses Modul generiert synthetische LKW-Daten mit spezifischen Ladeanforderungen:
 
-- Zufällige Generierung von Lkw-Ankunftszeiten basierend auf Verteilungsfunktionen
+- Zufällige Generierung von LKW-Ankunftszeiten basierend auf Verteilungsfunktionen
 - Zuweisung von technischen Parametern (Batteriekapazität, maximale Ladeleistung)
 - Berechnung von Anfangs-SoC basierend auf Tageszeit
 - Zuweisung optimaler Ladetypen (NCS, HPC, MCS) basierend auf Ladeanforderungen
 
 ##### Konfigurationsmöglichkeiten:
-- Lkw-Typverteilung: Prozentuale Verteilung der vier Lkw-Typen
-- Batteriekapazitäten: 600 kWh - 960 kWh je nach Lkw-Typ
+- LKW-Typverteilung: Prozentuale Verteilung der vier LKW-Typen
+- Batteriekapazitäten: 600 kWh - 960 kWh je nach LKW-Typ
 - Pausenzeiten: Standardmäßig 45 min für Schnellladungen, 540 min für Nachtladungen
 
-#### 2. Ladehub-Dimensionierung (ALL_konfiguration_ladehub.py)
+#### 2. Ladehub-Dimensionierung `ALL_konfiguration_ladehub.py`
 
 Dieses Modul bestimmt die optimale Anzahl an Ladestationen je Ladetyp:
 
-- Erstellung eines Flussnetzwerks mit Lkw-Knoten und Zeitkanten
+- Erstellung eines Flussnetzwerks mit LKW-Knoten und Zeitkanten
 - Iterative Lösung des Max-Flow-Min-Cost-Problems zur Bestimmung der Mindestanzahl an Ladepunkten
 - Einhaltung einer vorgegebenen Ladequote (z.B. 80%)
-- Ausgabe der optimalen Dimensionierung sowie der ausgewählten Lkw
+- Ausgabe der optimalen Dimensionierung sowie der ausgewählten LKW
+
+##### Konfigurationsmöglichkeiten:
+- Ladequote: Mindestens geforderte Ladequote der ankommenden LKW
 
 ### Module für den "flex"-Modus (Flexibilitätsanalyse)
 
-#### 3. Flexibilitätsberechnung (FLEX_optimierung_p_min_max.py)
+#### 3. Flexibilitätsberechnung `FLEX_optimierung_p_min_max.py`
 
-Dieses Modul implementiert die mathematische Modellierung der T_min- und T_max-Ladestrategien:
+Dieses Modul implementiert die Modellierung der T_min- und T_max-Ladestrategien:
 
 - Formulierung und Lösung eines gemischt-ganzzahligen Optimierungsproblems mit Gurobi
 - Berücksichtigung verschiedener Nebenbedingungen:
   - SoC-abhängige Ladekurven
   - Physikalische Leistungsbegrenzungen der Ladesäulen und Fahrzeuge
   - Netzanschlusskapazitäten
-  - Ladeenergieanforderungen der Lkw
+  - Ladeenergieanforderungen der LKW
 - Generierung zeitlich hochaufgelöster Lastverläufe für beide Strategien
 - Die Optimierung erfolgt für eine charakteristische Woche mit 2304 Zeitintervallen (7 Tage × 288 Intervalle/Tag)
 
 ##### Konfigurationsmöglichkeiten:
 - Bidirektionales Laden: Ein-/Ausschalten der Rückspeisefähigkeit
 - Netzanschlusskapazität: Prozentsatz der kumulierten installierten Leistung
+- 
 
-#### 4. Flexibilitätskennzahlen (FLEX_berechne_flex_kpis.py)
+#### 4. Flexibilitätskennzahlen `FLEX_berechne_flex_kpis.py`
 
 Berechnet verschiedene Kennzahlen zur Quantifizierung der Flexibilität:
 
@@ -149,7 +163,7 @@ Berechnet verschiedene Kennzahlen zur Quantifizierung der Flexibilität:
 - Zeitauflösung der Analyse: Standard 5 Minuten
 - Aggregationsebenen: Täglich, wöchentlich, ladetyp-spezifisch
 
-#### 5. Datenaufbereitung für Flexibilitätsanalyse (FLEX_daten_aufbereiten.py)
+#### 5. Datenaufbereitung für Flexibilitätsanalyse `FLEX_daten_aufbereiten.py`
 
 Bereitet die berechneten Flexibilitätskennzahlen für die Visualisierung und weitere Analyse auf:
 
@@ -163,14 +177,14 @@ Bereitet die berechneten Flexibilitätskennzahlen für die Visualisierung und we
 
 #### 6. Ladeplanung (EPEX_laden_nicht_laden.py)
 
-Dieses Modul identifiziert die zu ladenden Lkw für ein vollständiges Jahr:
+Dieses Modul identifiziert die zu ladenden LKW für ein vollständiges Jahr:
 
 - Durchführung einer wöchentlichen Optimierung für jede der 52 Kalenderwochen
-- Maximierung der Anzahl geladener Lkw unter Berücksichtigung der verfügbaren Ladepunkte
-- Erzeugung eines binären Ladestatus für jeden Lkw (0: nicht ausgewählt, 1: zum Laden ausgewählt)
+- Maximierung der Anzahl geladener LKW unter Berücksichtigung der verfügbaren Ladepunkte
+- Erzeugung eines binären Ladestatus für jeden LKW (0: nicht ausgewählt, 1: zum Laden ausgewählt)
 - Anders als im "flex"-Modus werden hier 52 vollständige Wochen modelliert, um eine Jahresanalyse zu ermöglichen
 
-#### 7. Preisbasierte Optimierung (EPEX_optimierung.py)
+#### 7. Preisbasierte Optimierung `EPEX_optimierung.py`
 
 Dieses Modul optimiert die Ladevorgänge anhand von Marktpreisen:
 
@@ -183,7 +197,7 @@ Dieses Modul optimiert die Ladevorgänge anhand von Marktpreisen:
 - Die Optimierung erfolgt mit 5-Minuten-Zeitintervallen und berücksichtigt mehr als 100.000 Zeitschritte für das gesamte Jahr
 - Optimale Lastverschiebung unter Berücksichtigung von SoC-Restriktionen und Netzanschlusskapazitäten
 
-#### 8. Datenaufbereitung für Preisoptimierung (EPEX_daten_aufbereiten.py)
+#### 8. Datenaufbereitung für Preisoptimierung `EPEX_daten_aufbereiten.py`
 
 Bereitet die optimierten Lastgänge für die Analyse auf:
 
@@ -203,13 +217,13 @@ data/
 │   ├── konfiguration_ladehub/: Anzahl der Ladesäulen nach Typ
 │   ├── konf_optionen/: Konfigurationsoptionen je Szenario
 │   ├── lastgang/: Lastgänge der T_min und T_max Strategien
-│   ├── lastgang_lkw/: Detaillierte Ladevorgänge auf LKW-Ebene
-│   ├── lkws/: Generierte LKW-Daten mit Ladestatus
+│   ├── lastgang_LKW/: Detaillierte Ladevorgänge auf LKW-Ebene
+│   ├── LKWs/: Generierte LKW-Daten mit Ladestatus
 │   └── kpis/: Berechnete Flexibilitätskennzahlen
 └── epex/
     ├── lastgang/: Optimierte Lastgänge nach Preisstrategie
-    ├── lastgang_lkw/: Detaillierte preisoptimierte Ladevorgänge
-    └── lkws/: Generierte LKW-Daten für EPEX-Szenarien
+    ├── lastgang_LKW/: Detaillierte preisoptimierte Ladevorgänge
+    └── LKWs/: Generierte LKW-Daten für EPEX-Szenarien
 output/
 ├── results.xlsx: Aggregierte Ergebnisse der Flexibilitätsanalyse
 └── results_epex_*.xlsx: Ergebnisse der Preisoptimierung je Szenario
