@@ -182,7 +182,7 @@ Dieses Modul optimiert die Ladevorgänge anhand von Marktpreisen:
 
 Dieses Modul dienet der Ergebnisaufbereitung:
 
-- Bereitet die optimierten Lastgänge für die Analyse auf. 
+- Bereitet die optimierten Lastgänge für die Analyse auf
 - Die Ergebnisse werden in Excel-Tabellen exportiert, die eine detaillierte wirtschaftliche Bewertung ermöglichen
 
 ## Ausgabedateien
