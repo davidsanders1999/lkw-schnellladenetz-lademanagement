@@ -72,7 +72,7 @@ Intraday-Preise für das Jahr 2024 in 5-Minuten-Intervallen extrapoliert [LINK](
 
 ## Modi und Ausführung
 
-Das Modell unterstützt zwei Hauptmodi, die in der `config.py` gesetzt werden können:
+Das Modell unterstützt zwei Hauptmodi, die in der `config.py` gewählt werden können:
 
 - `flex`: Berechnung allgemeingültiger Flexibilitätskennzahlen und Sensitivitätsanalyse
 - `epex`: Anwendungsoptimierung der Ladevorgänge basierend auf Börsenpreisen
@@ -153,7 +153,7 @@ Berechnet verschiedene Kennzahlen zur Quantifizierung der Flexibilität:
 Dieses Modul dienet der Ergebnisaufbereitung:
 
 
-- Bereitet die berechneten Flexibilitätskennzahlen für die Visualisierung und weitere Analyse auf
+- Bereitet die berechneten Flexibilitätskennzahlen für die Visualisierung und weitere Analysen auf
 - Die Ergebnisse werden in Excel-Tabellen exportiert
 
 ### Module für den "epex"-Modus (Preisoptimierung)
@@ -172,9 +172,9 @@ Dieses Modul identifiziert die zu ladenden LKW für ein vollständiges Jahr:
 Dieses Modul optimiert die Ladevorgänge anhand von Marktpreisen:
 
 - Wochenweise Optimierung über das gesamte Jahr (52 Wochen)
-- Implementation verschiedener Ladestrategien:
-  - T_min: Möglichst frühes Laden ohne Rücksicht auf Preise (Referenzstrategie)
-  - Konstant: Gleichmäßiges Laden über die gesamte Standzeit (Referenzstrategie)
+- Implementierung verschiedener Ladestrategien:
+  - T_min: Möglichst frühes Laden ohne Rücksicht auf Preise (1. Referenzstrategie)
+  - Konstant: Gleichmäßiges Laden über die gesamte Standzeit (2. Referenzstrategie)
   - DayAhead: Preisoptimiertes Laden basierend auf Day-Ahead-Marktpreisen
   - Intraday: Preisoptimiertes Laden basierend auf Intraday-Marktpreisen
 
@@ -210,6 +210,7 @@ output/
 ## Lizenz
 
 Dieses Projekt steht unter einer OpenSource-Lizenz. Die Modellierung basiert auf der Masterarbeit "Potenziale eines flexibilisierten Schnellladenetzwerks für den elektrifizierten Schwerlastverkehr am deutschen Autobahnnetz" von David Sanders am Institut für Energiesystemökonomik (FCN-ESE) des E.ON Energy Research Center der RWTH Aachen.
+
 
 ## Kontakt
 
